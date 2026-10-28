@@ -1,4 +1,6 @@
 .venv/
+.tmp/
+.mplconfig/
 __pycache__/
 *.pyc
 .env
