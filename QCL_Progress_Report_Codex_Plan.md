@@ -63,12 +63,12 @@ Benchmarks:
 Use checkboxes as a progress log. They are intentionally unchecked until the corresponding deliverable actually exists and has been verified.
 Day 1 — Define experiment and build the simplest circuit
 Goal: Confirm that the data, observable conventions, and circuit output are mathematically consistent.
-- [ ] Create project folder, dependency manifest, configuration, results folder, and experiment log.
-- [ ] Generate deterministic train/test datasets and plot target functions.
-- [ ] Implement a two-qubit feature map and one trainable layer in PennyLane.
-- [ ] Confirm both expectation values are real, finite, and in [-1,1].
-- [ ] Verify the circuit parameters actually influence measured predictions.
-- [ ] Draw/save a circuit diagram and record its exact encoding.
+- [x] Create project folder, dependency manifest, configuration, results folder, and experiment log.
+- [x] Generate deterministic train/test datasets and plot target functions.
+- [x] Implement a two-qubit feature map and one trainable layer in PennyLane.
+- [x] Confirm both expectation values are real, finite, and in [-1,1].
+- [x] Verify the circuit parameters actually influence measured predictions.
+- [x] Draw/save a circuit diagram and record its exact encoding.
 Deliverables: target-function figure, circuit diagram, shape/range checks, short architecture note.
 
 Exit gate: Given a batch of valid inputs, the model gives two reproducible, valid outputs and trainable parameters visibly affect them.
@@ -132,7 +132,7 @@ Exit gate: A third party can reproduce the local experiment and understand exact
 Update this table at the end of each work session. Progress values are not automatically inferred.
 Phase	Planned day	Status now	Proof of completion	Blockers/notes
 Research specification + plan	0	COMPLETE (planning only)	This report	No experiments performed
-Dataset + PennyLane model	1	NOT STARTED	Diagram, data plots, smoke tests	—
+Dataset + PennyLane model	1	COMPLETE	Diagram, data plots, smoke tests	—
 Differentiable training loop	2	NOT STARTED	Loss plot and checkpoint	—
 Held-out function fitting	3	NOT STARTED	Predictions + test metrics	—
 Architecture/seed benchmarking	4	NOT STARTED	Comparison table	—
@@ -206,3 +206,5 @@ Minimum viable (local) completion: working 2-output quantum model, a reproducibl
 Stretch completion: real IBM QPU measurements with documented permission, quota check, job IDs, backend metadata, and comparison to matched simulator predictions.
 
 Overall status on October 27, 2026: PLAN COMPLETE; EXPERIMENTS NOT STARTED.
+
+October 28, 2026 update: Day 1 COMPLETE, verified by results/day1/benchmark.json and data_checks.json. See PROGRESS.md for session evidence. Days 2–7 remain NOT STARTED. No training or QPU jobs. Original planning statements above are retained as historical context.

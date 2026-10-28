@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "purpose": "Untrained circuit validity only",
+  "config": {
+    "data_seed": 2026,
+    "parameter_seed": 7,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "layers": 1
+  },
+  "checks": [
+    "shape",
+    "finite",
+    "range",
+    "repeatability",
+    "seed_recreation",
+    "both_readouts_parameter_sensitive",
+    "invalid_inputs_rejected"
+  ],
+  "output_shape": [
+    51,
+    2
+  ],
+  "output_min": -0.0785247186326693,
+  "output_max": 0.9969115004078261,
+  "parameter_perturbation_max_changes": [
+    [
+      0.19646913534635535,
+      0.06676666261089254
+    ],
+    [
+      6.661338147750939e-16,
+      0.08074577636520852
+    ]
+  ],
+  "parameters": 6,
+  "logical_gates": 7,
+  "logical_two_qubit_gates": 1,
+  "batch_seconds": 0.27462530019693077,
+  "timing_note": "Single CPU batch including first-call overhead; not a speed comparison",
+  "python": "3.12.14",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "qpu_jobs": 0
+}
