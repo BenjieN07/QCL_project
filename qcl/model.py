@@ -28,6 +28,8 @@ class QCLModel(torch.nn.Module):
     def forward(self, inputs):
         if not isinstance(inputs, torch.Tensor):
             raise TypeError('inputs must be a PyTorch tensor')
+        if inputs.dtype != torch.float64 or inputs.device.type != 'cpu':
+            raise TypeError('inputs must be CPU torch.float64 tensors')
         if inputs.ndim != 1 or inputs.numel() == 0:
             raise ValueError('inputs must be a nonempty vector')
         if not torch.isfinite(inputs).all() or (inputs.abs() > 1).any():

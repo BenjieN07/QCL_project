@@ -3,7 +3,7 @@
 | Phase | Status | Evidence |
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
-| Day 2: training loop | NOT STARTED | — |
+| Day 2: training loop | IN PROGRESS | Four training tests passed; smoke run pending |
 | Day 3: fit and baselines | NOT STARTED | — |
 | Day 4: depth and seed study | NOT STARTED | — |
 | Day 5: shot study | NOT STARTED | — |
@@ -35,3 +35,7 @@ Review gate: stop here for user inspection. Next authorized phase, once requeste
 ## 2026-10-28 — documentation cleanup
 
 Renamed the roadmap to `QCL_Implementation_Plan.md`, updated the README link, and removed assistant branding from the project documentation. Source, measured results, and scientific requirements are unchanged. Verified the documentation references and whitespace; numerical checks were not rerun for this documentation-only change.
+
+## 2026-10-28 — Day 2, checkpoint 1
+
+Implemented joint regression loss (sample mean of summed output errors), checked gradients, strict CPU float64 inputs, and a bounded 30-update Adam runner. Four tests passed: loss convention, all six analytic parameter gradients against central finite differences (1e-6 perturbation, seven decimal places), five-update loss improvement on a representative batch, and actionable input/NaN/detached-gradient errors. The full 48-point smoke run is pending. Configuration: seed 7, one layer, learning rate 0.05. No test-set evaluation or hardware jobs.

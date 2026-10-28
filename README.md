@@ -26,7 +26,18 @@ Open `results/day1/REVIEW.md` for the review checklist, figures, and encoding de
 
 For a single review command, run `.\review-day1.ps1`. It rebuilds the figures and checks, then prints the review note. For exact environment recreation use `pip install -r requirements-lock.txt` after creating the virtual environment.
 
-The fixed splits are 48 training, 16 validation, and 24 test inputs. Validation is reserved for architecture selection; test labels are not used by the Day 1 circuit benchmark. The plotting grid has 101 points. Day 2 will add training and loss history after this review gate.
+The fixed splits are 48 training, 16 validation, and 24 test inputs. Validation is reserved for architecture selection; test labels are not used by the Day 1 circuit benchmark. The plotting grid has 101 points.
+
+## Run and review Day 2
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m qcl.train --output results/day2/my-run
+```
+
+The smoke test runs 30 full-batch Adam updates with learning rate 0.05 and parameter seed 7. It saves `history.csv`, `loss.png`, `summary.json`, a copy of the configuration, and `best.pt` selected by validation loss. Existing completed run directories are protected from accidental overwrites: choose a fresh output path to repeat a run. Training must improve by at least 1% to pass this smoke gate; this is not a target accuracy claim. Loss is the batch mean of the sum of squared errors across sine and cosine.
+
+The runner checks finite, nonzero gradient norm at every update and verifies checkpoint reload. Individual angle gradients may be zero because final Z rotations do not affect Z readouts; a nonzero total gradient does not imply all six angles are identifiable. Test labels are reserved for Day 3. Model checkpoints use PyTorch state dictionaries and can be loaded with `torch.load(path, weights_only=True)`.
 
 ## Scientific context
 
