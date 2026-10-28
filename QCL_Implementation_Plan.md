@@ -1,5 +1,5 @@
 Quantum Circuit Learning (QCL) for Sine and Cosine
-Implementation Roadmap, Progress Report, and Codex Handoff
+Implementation Roadmap and Progress Report
 Document version: 1.0
 Prepared: October 27, 2026
 Target timeline: 7 working days or less for a local baseline; real-QPU validation is optional and depends on account access and queue availability
@@ -57,7 +57,7 @@ Benchmarks:
 - Then perform finite-shot local simulation (suggested counts: 256, 1,024, and 4,096 shots). Measure prediction variability on a fixed set of inputs across repeated draws.
 - Only after local validation, consider an IBM Quantum run using frozen trained parameters, approximately 7–9 test inputs, and a conservative shot count chosen after preflight checks.
 - Before any real-QPU submission: verify your IBM account's current available Open Plan allowance, active backend, scheduling limits, transpiled circuit depth, qubit layout, and provider/API compatibility. The frequently advertised “10 minutes” is not a promise that any specific experiment will fit.
-- Make real hardware an explicit opt-in. Codex must never submit paid/limited QPU jobs automatically, infer credentials, or store tokens in tracked files.
+- Make real hardware an explicit opt-in. Never submit paid/limited QPU jobs automatically, infer credentials, or store tokens in tracked files.
 - Hardware comparison: ideal exact vs local finite-shot vs real hardware at the same trained parameters and input locations. Do not call frozen-parameter validation “training on hardware.”
 3. Seven-day milestone plan
 Use checkboxes as a progress log. They are intentionally unchecked until the corresponding deliverable actually exists and has been verified.
@@ -182,8 +182,8 @@ IBM real QPU (optional)	—	—	—	—	—	—	Not run
 6. Device transfer (if used): How large is the difference between ideal predictions and real-QPU predictions, and what are plausible noise/transpilation explanations?
 7. Classical context: Is a classical baseline better or simpler for these elementary functions? State this honestly.
 8. Limits: Small problem, limited seeds, narrow test domain, hardware time constraints, no claim of quantum advantage, and no proof of barren plateaus.
-7. Codex handoff: instructions to paste when starting
-Project: Quantum Circuit Learning for two-output sine/cosine regression. Use QCL_Progress_Report_Codex_Plan.md as the authoritative specification and progress log. Start with Day 1 only. Use PennyLane + PyTorch for differentiable local training and Qiskit/IBM solely for optional later device validation. Before making changes, summarize the day's specific files, tests, and acceptance conditions. Implement incrementally, run available local tests, and report exact outcomes; never report unexecuted tests as passed. Update checkboxes and the status dashboard only after verifying evidence. Preserve all experiment seeds, configuration, package versions, plots, and results. Do not commit secrets. Never send jobs to IBM hardware without my explicit permission, and never assume my IBM Open Plan quota. Stop after completing the agreed day's deliverables and ask what to do next.
+7. Incremental implementation workflow
+Project: Quantum Circuit Learning for two-output sine/cosine regression. Use QCL_Implementation_Plan.md as the authoritative specification and progress log. Start with Day 1 only. Use PennyLane + PyTorch for differentiable local training and Qiskit/IBM solely for optional later device validation. Before making changes, summarize the day's specific files, tests, and acceptance conditions. Implement incrementally, run available local tests, and report exact outcomes; never report unexecuted tests as passed. Update checkboxes and the status dashboard only after verifying evidence. Preserve all experiment seeds, configuration, package versions, plots, and results. Do not commit secrets. Never send jobs to IBM hardware without my explicit permission, and never assume my IBM Open Plan quota. Stop after completing the agreed day's deliverables and ask what to do next.
 
 Suggested follow-up prompts (use these on subsequent days):
 - Day 2: “Continue the QCL plan from the next uncompleted gate. Implement and verify only the differentiable training loop. Update the progress report with exact test evidence.”

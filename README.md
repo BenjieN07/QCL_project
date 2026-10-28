@@ -4,7 +4,7 @@ An incremental educational experiment. No quantum advantage claim. Local simulat
 
 ## Review checkpoints
 
-We stop after each day's exit gate. Day 1 establishes data and circuit validity; it does not train a model. See [the original roadmap](QCL_Progress_Report_Codex_Plan.md) and [current progress](PROGRESS.md).
+We stop after each day's exit gate. Day 1 establishes data and circuit validity; it does not train a model. See [the original roadmap](QCL_Implementation_Plan.md) and [current progress](PROGRESS.md).
 
 ## Setup (PowerShell, Python 3.11+)
 
