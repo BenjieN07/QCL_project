@@ -4,6 +4,14 @@
 
 User requested an accuracy-focused experiment following the paper's ingredients. Declared two fixed BFGS runs in `results/paper_pilot/PROTOCOL.md`: original circuit with optimizer change only, then a six-qubit/six-block fixed-Ising circuit with learned output scales. Keep original train/validation data; reserve a new 128-point holdout until both checkpoints are frozen. All nine tests passed, including Ising unitarity, batched versus scalar predictions, finite-difference gradients, and full model shape/parameter count. No new accuracy measurements yet. This pilot changes the next work item; the original matched-depth/multiple-seed study remains deferred and incomplete.
 
+## 2026-10-29 — paper-inspired pilot, checkpoint 2: frozen before fresh holdout
+
+Original circuit/BFGS: converged in 24 accepted updates and 38 objective evaluations. Final training loss 0.44263792328127377, essentially the same floor as Adam. Validation selected iteration 16 with joint loss 0.6243851717921121; the accuracy target was missed. This run supports that optimizer replacement alone did not resolve the baseline's underfit.
+
+Six-qubit model/BFGS: completed the fixed 250-update budget, 263 objective evaluations, 110 fitted parameters. Solver status 1 (iteration limit), not convergence success. Selected iteration 247 by joint validation loss 0.00000766303486671098. Validation sine MSE 0.000006789835274628413, MAE 0.0010238579570834136; cosine MSE 0.0000008731995920825663, MAE 0.0004177053119073142. Provisional validation target met on both outputs. Reloaded checkpoint reproduced losses. Training process times were 8.38 and 20.85 seconds respectively, but implementation/batching/circuit differences prevent a controlled speed comparison.
+
+Registered the validation-selected model in `results/current_model.json` before reading the new holdout. Both configurations and checkpoints are now frozen. No legacy test or fresh-holdout labels were used in training or selection. No causal entangler-only claim: the larger architecture, rotations, initialization, output scaling, and encoding schedule also changed. Fresh-holdout evaluation pending; no hardware jobs.
+
 | Phase | Status | Evidence |
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |

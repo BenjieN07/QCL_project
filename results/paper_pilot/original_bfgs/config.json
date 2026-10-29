@@ -1,0 +1,15 @@
+{
+  "model": "original",
+  "qubits": 2,
+  "layers": 1,
+  "parameter_seed": 7,
+  "data_seed": 2026,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "max_iterations": 250,
+  "gradient_tolerance": 1e-07,
+  "fresh_holdout_seed": 20261029,
+  "fresh_holdout_size": 128
+}
