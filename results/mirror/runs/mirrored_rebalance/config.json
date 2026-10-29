@@ -1,0 +1,37 @@
+{
+  "data_seed": 2026,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "steps": 4500,
+  "learning_rate": 0.003,
+  "phase": "Mirror study: mirrored_rebalance",
+  "layers": 5,
+  "parameter_seed": 41,
+  "name": "mirrored_rebalance",
+  "start_mode": "resume",
+  "additional_updates": 1500,
+  "augment": true,
+  "input_scale": 0.9,
+  "schedule": [
+    [
+      0,
+      0.003
+    ]
+  ],
+  "source_run": "results/boundary/runs/refine_constant",
+  "source_step": 3000,
+  "baseline_validation_loss": 0.0038949363167042803,
+  "selection_boundary_weight": 0.5,
+  "augmented_training_boundary_weight": 0.25,
+  "source_checkpoint_sha256": "ed689a94014ca30637554ee2571013a3a88ed4a8e272f0027a94106406752894",
+  "resume_run": "results/boundary/runs/capacity_smooth",
+  "mirror_training": true,
+  "train_boundary_weight": 0.25,
+  "guard_original_validation_mse": [
+    0.0008090543745133189,
+    0.0018803194193872262
+  ],
+  "boundary_max_error_guard": 0.05
+}

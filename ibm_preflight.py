@@ -4,6 +4,7 @@ import getpass
 import json
 import logging
 from pathlib import Path
+import sys
 import warnings
 
 
@@ -28,6 +29,8 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--backend',help='An explicitly chosen backend; omission lists accessible backends only')
     args=parser.parse_args()
+    if not sys.stdin.isatty():
+        raise SystemExit('Run this script in your own interactive terminal for hidden credential entry.')
     from qiskit_ibm_runtime import QiskitRuntimeService
     # Explicit hidden entry avoids copying credentials into command history or files.
     token=getpass.getpass('New IBM API secret (hidden; not an API key identifier): ')

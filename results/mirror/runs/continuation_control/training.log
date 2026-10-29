@@ -1,0 +1,7 @@
+continuation_control update 3000: score=0.00145559, eligible=True, endpoint=0.02676
+continuation_control update 3250: score=0.00138185, eligible=True, endpoint=0.02699
+continuation_control update 3500: score=0.00131518, eligible=True, endpoint=0.02736
+continuation_control update 3750: score=0.00125645, eligible=True, endpoint=0.02784
+continuation_control update 4000: score=0.00120627, eligible=True, endpoint=0.02838
+continuation_control update 4250: score=0.00116461, eligible=True, endpoint=0.02892
+continuation_control update 4500: score=0.00113076, eligible=True, endpoint=0.02939

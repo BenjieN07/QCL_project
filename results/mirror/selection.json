@@ -1,0 +1,39 @@
+{
+  "candidates": [
+    {
+      "run": "results/mirror/runs/continuation_control",
+      "name": "continuation_control",
+      "eligible": true,
+      "score": 0.0011307634558895504,
+      "selected_step": 4500
+    },
+    {
+      "run": "results/mirror/runs/mirrored_training",
+      "name": "mirrored_training",
+      "eligible": true,
+      "score": 0.001093694261669067,
+      "selected_step": 4500
+    },
+    {
+      "run": "results/mirror/runs/mirrored_rebalance",
+      "name": "mirrored_rebalance",
+      "eligible": true,
+      "score": 0.0010905606546365407,
+      "selected_step": 4288
+    }
+  ],
+  "selected": {
+    "run": "results/mirror/runs/mirrored_rebalance",
+    "name": "mirrored_rebalance",
+    "eligible": true,
+    "score": 0.0010905606546365407,
+    "selected_step": 4288,
+    "model": "original",
+    "layers": 5,
+    "parameter_seed": 41,
+    "input_scale": 0.9,
+    "selection": "minimum symmetric/collar validation score, guarded by per-output original validation MSE and boundary errors",
+    "test_or_fresh_holdout_used_for_selection": false,
+    "new_holdout_read_at_registration": false
+  }
+}

@@ -1,0 +1,7 @@
+mirrored_rebalance update 3000: score=0.00145559, eligible=True, endpoint=0.02676
+mirrored_rebalance update 3250: score=0.00134848, eligible=True, endpoint=0.04355
+mirrored_rebalance update 3500: score=0.00126478, eligible=True, endpoint=0.04502
+mirrored_rebalance update 3750: score=0.00119462, eligible=True, endpoint=0.04661
+mirrored_rebalance update 4000: score=0.00113882, eligible=True, endpoint=0.04825
+mirrored_rebalance update 4250: score=0.00109608, eligible=True, endpoint=0.04978
+mirrored_rebalance update 4500: score=0.00106361, eligible=False, endpoint=0.05107

@@ -1,14 +1,14 @@
 {
-  "run": "results/boundary/runs/refine_constant",
-  "name": "refine_constant",
+  "run": "results/mirror/runs/mirrored_rebalance",
+  "name": "mirrored_rebalance",
   "eligible": true,
-  "score": 0.0015702956312554615,
-  "selected_step": 3000,
-  "input_scale": 0.9,
+  "score": 0.0010905606546365407,
+  "selected_step": 4288,
+  "model": "original",
   "layers": 5,
   "parameter_seed": 41,
-  "model": "original",
-  "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4",
+  "input_scale": 0.9,
+  "selection": "minimum symmetric/collar validation score, guarded by per-output original validation MSE and boundary errors",
   "test_or_fresh_holdout_used_for_selection": false,
   "new_holdout_read_at_registration": false
 }

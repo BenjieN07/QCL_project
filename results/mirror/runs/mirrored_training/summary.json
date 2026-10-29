@@ -1,0 +1,79 @@
+{
+  "config": {
+    "data_seed": 2026,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "steps": 4500,
+    "learning_rate": 0.003,
+    "phase": "Mirror study: mirrored_training",
+    "layers": 5,
+    "parameter_seed": 41,
+    "name": "mirrored_training",
+    "start_mode": "resume",
+    "additional_updates": 1500,
+    "augment": true,
+    "input_scale": 0.9,
+    "schedule": [
+      [
+        0,
+        0.003
+      ]
+    ],
+    "source_run": "results/boundary/runs/refine_constant",
+    "source_step": 3000,
+    "baseline_validation_loss": 0.0038949363167042803,
+    "selection_boundary_weight": 0.5,
+    "augmented_training_boundary_weight": 0.5,
+    "source_checkpoint_sha256": "ed689a94014ca30637554ee2571013a3a88ed4a8e272f0027a94106406752894",
+    "resume_run": "results/boundary/runs/capacity_smooth",
+    "mirror_training": true,
+    "train_boundary_weight": 0.5,
+    "guard_original_validation_mse": [
+      0.0008090543745133189,
+      0.0018803194193872262
+    ],
+    "boundary_max_error_guard": 0.05
+  },
+  "eligible": true,
+  "selected_step": 4500,
+  "selected_score": 0.001093694261669067,
+  "selected_original_validation_mse": [
+    0.000584232434845034,
+    0.0014864131506770292
+  ],
+  "selected_endpoint_max_error": 0.033144794290069224,
+  "selected_collar_max_error": 0.029984057382981155,
+  "optimizer_final_counter": 4500,
+  "elapsed_seconds": 162.65167060000385,
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "source_sha256": {
+    "qcl/__init__.py": "70284865d252af759b90ee2d88ab4286a5c3355e9c29901d0d7168a76ab7eac2",
+    "qcl/audit.py": "998185607a73e85a64f0bc69be62ce54a2b8b780b7fc93fe908af3cfdc542e2b",
+    "qcl/benchmark.py": "4b80fd21681dca7c330aefce6d554f6c3833edad651277849494401991ee3ee7",
+    "qcl/boundary_diagnosis.py": "5eec3d481c1ded4039664f0fe18ac3f7dece158391d429674b063c89008036b3",
+    "qcl/boundary_report.py": "2d3ec62324fb14719d5ae054fb1a92e5a5b82f58ac844921335d9d54b99201ef",
+    "qcl/boundary_study.py": "d2d3ccababc7d34f1171b40ded97d5b1bbd807c5588627be5133b6ea3c287f9d",
+    "qcl/data.py": "7fa8df00d32dbcdca62a06e610e9c4cfc8e76a82bfc72931b7a3b6aeca17abdf",
+    "qcl/depth_report.py": "759fb212ebee2a0f7de3f00dfd3258e039333fc6306e53c3b1c110a20154090d",
+    "qcl/error_peaks.py": "c73bea854a61eb0616fb415608b29c7972504a39bc6d77eeaf076106298560c5",
+    "qcl/evaluate.py": "fb9cf738cd5d9b7d066c0f3b41d1d7e0d18375bc95a393c14443e5c19094c9b9",
+    "qcl/hardware.py": "03806dcdfac3d9772cd558cf6d582b544516d2c200d2a9b44cbf4705e85971f1",
+    "qcl/mirror_report.py": "8799fde1dc0930325cee286a418bac7720560ee6afde658716904814e42bb2d2",
+    "qcl/mirror_study.py": "4a263a5bcd6b199a999d9c2356fb5aa5f5753056f0d8ff859523257e2a356208",
+    "qcl/model.py": "1f6eea0acea70e56fde995678675340aaf2748a17d0c375409b520974ea5678e",
+    "qcl/prepare.py": "418f5abe2d72cc808fcef3383179bebea2f07a47f10c033fdabf3ebe809a15a4",
+    "qcl/study.py": "8f21a433d4986c330b07812eef23f399fd425f9e12da8555b15c9472ebb0cf10",
+    "qcl/train.py": "794cf26be78dd43cf752feaa276d541bd462b0771a089622fee5b5ca031ec0d1",
+    "qcl/training.py": "0a14ca0deb50bff0720625fe0cdee4960e8be2738bc972680d55922095e42d68",
+    "qcl/verify_evaluation.py": "2adbcd86fbec88528b0ef9489d2008dc94546b7cee2467b96afae2097f077706"
+  },
+  "new_holdout_read": false,
+  "qpu_jobs": 0
+}

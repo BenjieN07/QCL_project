@@ -26,11 +26,17 @@ def calculate():
     freeze_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
     spec=json.loads(Path('configs/mirror_study.json').read_text())
     data=datasets(); histories={}; checkpoints={}; audit=[]
+    with np.load(ROOT/'training_data.npz') as saved:
+        for key,value in data.items():
+            np.testing.assert_array_equal(saved[key],value)
     source=torch.load(Path(spec['source_run'])/'best.pt',weights_only=True)
     checkpoints['before']=source
     for record in selection['candidates']:
         run=Path(record['run']); config=json.loads((run/'config.json').read_text())
         start,best,final=[torch.load(run/(s+'.pt'),weights_only=True) for s in ('start','best','final')]
+        summary=json.loads((run/'summary.json').read_text())
+        assert all(cp['config']==config for cp in (start,best,final)) and summary['config']==config
+        assert summary['selected_step']==best['step'] and summary['selected_score']==record['score']
         assert optimizer_counter(start)==start['step']==3000
         assert optimizer_counter(final)==final['step']==4500
         assert optimizer_counter(best)==best['step']==record['selected_step']
@@ -56,7 +62,8 @@ def calculate():
             np.testing.assert_allclose(mses,[float(row['original_sin_mse']),float(row['original_cos_mse'])],rtol=0,atol=1e-12)
             assert abs(collar-float(row['collar_max_error']))<1e-12 and abs(endpoint-float(row['endpoint_max_error']))<1e-12
         name=record['name']; histories[name]=rows; checkpoints[name]=best
-        audit.append({'name':name,'history_rows':len(rows),'optimizer_start':3000,'optimizer_final':4500,'selected_step':best['step']})
+        audit.append({'name':name,'history_rows':len(rows),'optimizer_start':3000,'optimizer_final':4500,'selected_step':best['step'],
+                      'checkpoint_sha256':hashlib.sha256((run/'best.pt').read_bytes()).hexdigest()})
     expected=min((r for r in selection['candidates'] if r['eligible']),key=lambda r:r['score'])
     assert expected['name']==selection['selected']['name']
     rng=np.random.default_rng(spec['new_holdout_seed'])

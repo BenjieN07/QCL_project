@@ -1,0 +1,7 @@
+mirrored_training update 3000: score=0.00145559, eligible=True, endpoint=0.02676
+mirrored_training update 3250: score=0.00132736, eligible=True, endpoint=0.03206
+mirrored_training update 3500: score=0.00126483, eligible=True, endpoint=0.03225
+mirrored_training update 3750: score=0.00121065, eligible=True, endpoint=0.03252
+mirrored_training update 4000: score=0.00116450, eligible=True, endpoint=0.03280
+mirrored_training update 4250: score=0.00112584, eligible=True, endpoint=0.03303
+mirrored_training update 4500: score=0.00109369, eligible=True, endpoint=0.03314
