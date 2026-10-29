@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Real hardware pilot completed — 2026-10-29
+
+IBM job dbhs6vg1h92s7382cmng completed on ibm_fez. Downloaded 3,072 two-bit measurements from physical qubits 143/144. Outputs at t=-1,0,1 are sine [-0.009765625,-0.037109375,0.0390625] and cosine [-0.931640625,0.953125,-0.96484375]. Largest absolute deviations from frozen exact QCL are 0.05202905 (sine) and 0.02136561 (cosine). These combine finite sampling and real device effects; a single pilot cannot isolate their contributions. Zero training updates were performed on hardware.
+
+Provider metrics report 3 quantum seconds consumed by this job. Instance consumption rose from 6 to 9 seconds, leaving 591 of 600 seconds immediately afterward. Saved raw counts, job receipt, compiled circuits, checkpoint fingerprints, usage and an offline reconstruction/report tool. This meets the three-input pilot scope only. The remaining six proposed inputs have not been submitted; pause for inspection before extending hardware work.
+
 ## Real hardware pilot submitted — 2026-10-29
 
 Submitted exactly one job, dbhs6vg1h92s7382cmng, to ibm_fez using the authorized three-input workload: t=-1,0,1, 1,024 shots each, fixed update-4,288 weights. Recorded submission receipt and an exclusive duplicate-prevention marker. The first retrieval reported RUNNING. The job has a 60-second execution cap; predicted baseline consumption is about 6.8 seconds and 594 seconds were available before submission. This is real-qubit inference with device noise, not further training. No remaining six-input follow-up was submitted.

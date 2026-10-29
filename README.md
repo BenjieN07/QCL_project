@@ -1,6 +1,6 @@
 # Quantum Circuit Learning: sine and cosine
 
-An incremental educational experiment. No quantum advantage claim. Local simulator only; IBM hardware requires separate explicit consent.
+An incremental educational experiment. No quantum advantage claim. Training uses a local simulator; an authorized three-input IBM hardware pilot has completed with frozen weights.
 
 ## View the current model
 
@@ -23,6 +23,8 @@ This opens `results/progress/progress.png` and saves its underlying curves and m
 ## Review checkpoints
 
 ### Mirrored training and hardware preparation
+
+The real-qubit pilot completed on **ibm_fez**, physical qubits 143/144, with 1,024 shots at each of t=-1,0,1. IBM reported three seconds of usage. Read [the pilot report](results/hardware/real_pilot/REPORT.md) and inspect its comparison figure. Reconstruct its count-based audit offline with `.\.venv\Scripts\python.exe -m qcl.hardware_report`. This validates three inputs only and does not train the model on hardware.
 
 The controlled continuation study is specified in `results/mirror/PROTOCOL.md`. After its checkpoint selection is frozen, `results/mirror/evaluation/REPORT.md` compares all branches on a new stratified holdout. `results/mirror/evaluation/comparison.png` shows before/after curves and signed errors; `training_comparison.png` shows the three training histories.
 

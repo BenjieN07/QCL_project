@@ -101,20 +101,20 @@ Deliverables: depth comparison chart/table; documented checkpoint selection.
 
 Exit gate: Report gives a defensible depth/accuracy/cost trade-off and distinguishes observations from general conclusions.
 Day 5 — Finite-shot and deployment readiness
-- [ ] Evaluate the frozen checkpoint with 256, 1,024, and 4,096 shots locally.
-- [ ] Repeat shot-based estimates to characterize run-to-run variability.
-- [ ] Plot finite-shot deviations from exact-simulation predictions.
-- [ ] Check whether the chosen circuit can be transpiled to the intended IBM backend.
-- [ ] Produce a preflight estimate of number of circuits, shots, compiled depth, and planned QPU use; do not submit jobs.
+- [x] Evaluate the frozen checkpoint with 256, 1,024, and 4,096 shots locally.
+- [x] Repeat shot-based estimates to characterize run-to-run variability.
+- [x] Plot finite-shot deviations from exact-simulation predictions.
+- [x] Check whether the chosen circuit can be transpiled to the intended IBM backend.
+- [x] Produce a preflight estimate of number of circuits, shots, compiled depth, and planned QPU use; do not submit jobs.
 Deliverables: sampling-noise plot and hardware preflight checklist.
 
 Exit gate: Local finite-shot benchmark is complete and hardware run is explicitly optional and gated.
 Day 6 — Optional IBM Quantum validation
-- [ ] Check account balance/quota, supported backend, and current PennyLane–IBM integration instructions.
-- [ ] Confirm explicit consent to use limited real-QPU time.
-- [ ] Run only a small pilot first, inspect measurement mapping, then decide whether to send remaining jobs.
-- [ ] Store backend name, date, job IDs, shot counts, transpilations, and raw result provenance.
-- [ ] Compare hardware predictions to exact and shot-based simulation at identical inputs.
+- [x] Check account balance/quota, supported backend, and current PennyLane–IBM integration instructions.
+- [x] Confirm explicit consent to use limited real-QPU time.
+- [x] Run only a small pilot first, inspect measurement mapping, then decide whether to send remaining jobs.
+- [x] Store backend name, date, job IDs, shot counts, transpilations, and raw result provenance.
+- [x] Compare hardware predictions to exact and shot-based simulation at identical inputs.
 Deliverables if hardware is available: actual-device result table and deviation plot.
 
 If blocked: mark as NOT RUN with reason (queue, quota, credentials, API, or device availability) and retain finite-shot results as the completed benchmark. Do not label simulated runs as hardware.
@@ -136,8 +136,8 @@ Dataset + PennyLane model	1	COMPLETE	Diagram, data plots, smoke tests	—
 Differentiable training loop	2	COMPLETE	Loss plot and checkpoint	—
 Held-out function fitting	3	COMPLETE	Predictions + test metrics	—
 Architecture/seed benchmarking	4	COMPLETE	Comparison table	—
-Finite-shot study + QPU preflight	5	NOT STARTED	Shot plot, preflight record	—
-Real IBM hardware (optional)	6	NOT STARTED	Job IDs and raw results	Requires access, time, consent
+Finite-shot study + QPU preflight	5	COMPLETE	results/hardware/offline_report.json and real_pilot/plan.json	Exact shot sampling; actual backend target checked
+Real IBM hardware (optional)	6	COMPLETE (three-input pilot)	Job dbhs6vg1h92s7382cmng; real_pilot/results.json	No follow-up inputs submitted; no hardware training
 Final report + reproducibility	7	NOT STARTED	Complete report and reproducible workflow	—
 
 

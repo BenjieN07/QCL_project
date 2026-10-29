@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "job_id": "dbhs6vg1h92s7382cmng",
+  "counts_total": 3072,
+  "inputs": 3,
+  "training_updates_on_hardware": 0,
+  "metrics": {
+    "hardware_vs_target": {
+      "sin": {
+        "mse": 0.0009994506835937459,
+        "mae": 0.02864583333333325,
+        "max_absolute_error": 0.039062499999999875
+      },
+      "cos": {
+        "mse": 0.0027020772298177085,
+        "mae": 0.050130208333333336,
+        "max_absolute_error": 0.068359375
+      }
+    },
+    "hardware_vs_exact_qcl": {
+      "sin": {
+        "mse": 0.001046014847235964,
+        "mae": 0.025413149080026787,
+        "max_absolute_error": 0.05202904589253615
+      },
+      "cos": {
+        "mse": 0.00028394820221863394,
+        "mae": 0.015784861835399216,
+        "max_absolute_error": 0.021365606272285786
+      }
+    },
+    "exact_qcl_vs_target": {
+      "sin": {
+        "mse": 0.00021033868456804737,
+        "mae": 0.014410412779583512,
+        "max_absolute_error": 0.016699020549335086
+      },
+      "cos": {
+        "mse": 0.001886724891459332,
+        "mae": 0.03942932809030605,
+        "max_absolute_error": 0.05450097238855789
+      }
+    }
+  },
+  "usage": {
+    "quantum_seconds": 3,
+    "seconds": 3,
+    "status": "complete"
+  },
+  "usage_after": {
+    "usage_consumed_seconds": 9,
+    "usage_consumed_ru": 0.138677,
+    "usage_limit_seconds": 600,
+    "usage_limit_ru": 10.0002,
+    "usage_allocation_seconds": 600,
+    "usage_allocation_ru": 10.0002,
+    "usage_remaining_seconds": 591
+  },
+  "matched_ideal_sampling": {
+    "shots": 1024,
+    "repeats": 50,
+    "inputs": [
+      -1.0,
+      0.0,
+      1.0
+    ],
+    "mean": [
+      [
+        -0.0136328125,
+        -0.950859375
+      ],
+      [
+        -0.0080859375,
+        0.9457421875
+      ],
+      [
+        -0.0255078125,
+        -0.986171875
+      ]
+    ],
+    "empirical_sd": [
+      [
+        0.03201415924243771,
+        0.009636098925560532
+      ],
+      [
+        0.030095177009433146,
+        0.010972818454625485
+      ],
+      [
+        0.03178945357124871,
+        0.004172973012464265
+      ]
+    ],
+    "theoretical_sd": [
+      [
+        0.03124712443872939,
+        0.00975746406406704
+      ],
+      [
+        0.03124564255108805,
+        0.010175778762514928
+      ],
+      [
+        0.03124737283781231,
+        0.005171955777409561
+      ]
+    ]
+  }
+}
