@@ -4,7 +4,7 @@
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
-| Day 3: fit and baselines | NOT STARTED | — |
+| Day 3: fit and baselines | IN PROGRESS | results/day3/PROTOCOL.md; 250-step run pending |
 | Day 4: depth and seed study | NOT STARTED | — |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
@@ -51,3 +51,7 @@ Four training tests passed again; dependency consistency and syntax checks passe
 Day 2 deliverables are complete: differentiable joint loss, finite nonzero gradient verification, small optimization run, validation-selected checkpoint, optimizer state, saved configuration, full loss history, loss plot, reproducibility audit, and runnable README commands. Results establish working local training only; Day 3 fitting quality and per-output held-out metrics remain unmeasured. No hardware jobs submitted. Stop for inspection; next phase is the 200–300-update baseline fit and classical/analytic comparisons, after user continuation.
 
 Final user-facing check: `review-day2.ps1` completed successfully, running all four tests and the saved-run audit with repeat comparison. Documentation and tracked filenames contain no assistant branding. All source and experiment artifacts are committed; local environments and temporary caches remain ignored.
+
+## 2026-10-29 — Day 3, checkpoint 1
+
+Declared the evaluation protocol before reading test scores. Fixed one-layer seed-7 training to 250 updates; select by minimum validation loss. Fixed the classical baseline to degree-five polynomial least squares and specified an analytic quantum rotation reference. Generalized the training command to accept a separate configuration file while retaining Day 2 defaults. Day 3 measurements pending.

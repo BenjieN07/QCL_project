@@ -1,4 +1,4 @@
-"""Run a bounded Day 2 training smoke test and save reproducible evidence."""
+"""Run a configured local training experiment and save reproducible evidence."""
 import argparse
 import copy
 import csv
@@ -19,12 +19,13 @@ from .model import QCLModel
 from .training import regression_loss, checked_backward
 
 
-def run(output):
-    config = json.loads(Path('config.json').read_text())
-    steps = config['smoke_steps']
+def run(output, config_path=Path('config.json')):
+    config = json.loads(config_path.read_text())
+    steps = config.get('steps', config.get('smoke_steps'))
+    phase = config.get('phase', 'Day 2 smoke test')
     rate = config['learning_rate']
     if not isinstance(steps, int) or steps < 1 or not 0 < rate < 1:
-        raise ValueError('Use a positive smoke_steps integer and learning_rate in (0, 1)')
+        raise ValueError('Use a positive steps integer and learning_rate in (0, 1)')
     output.mkdir(parents=True, exist_ok=True)
     if (output / 'summary.json').exists():
         raise FileExistsError(f'{output} already contains a run; choose a fresh --output directory')
@@ -79,7 +80,7 @@ def run(output):
     ax.plot([r['step'] for r in history], [r['validation_loss'] for r in history], label='Validation')
     ax.axvline(best['step'], color='gray', linestyle=':', label='Selected checkpoint')
     ax.set(xlabel='Optimizer updates completed', ylabel='Mean sum of squared errors',
-           title=f'Day 2: {steps}-step training smoke test')
+           title=f'{phase}: {steps} optimizer updates')
     ax.legend()
     fig.tight_layout()
     fig.savefig(output / 'loss.png', dpi=150)
@@ -87,7 +88,7 @@ def run(output):
     sources = {str(p).replace('\\', '/'): hashlib.sha256(p.read_bytes()).hexdigest()
                for p in sorted(Path('qcl').glob('*.py'))}
     summary = {
-        'status': 'PASS', 'purpose': 'Training smoke test; not a final accuracy study',
+        'status': 'PASS', 'purpose': phase,
         'config': config, 'optimizer': 'Adam', 'loss_reduction': 'mean over samples, sum over outputs',
         'initial_train_loss': history[0]['train_loss'], 'final_train_loss': history[-1]['train_loss'],
         'relative_train_improvement': improvement, 'best_step': best['step'],
@@ -106,4 +107,6 @@ def run(output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=Path('results/day2/smoke'))
-    run(parser.parse_args().output)
+    parser.add_argument('--config', type=Path, default=Path('config.json'))
+    args = parser.parse_args()
+    run(args.output, args.config)
