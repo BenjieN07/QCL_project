@@ -124,9 +124,44 @@ def audit():
     print('Hardware artifact audit passed: circuit mapping, exact outputs, deterministic sampling and metrics.')
 
 
+def prepare_pilot():
+    """Package the three proposed inputs, without connecting to any service."""
+    audit()
+    root=Path('results/hardware')
+    report=json.loads((root/'offline_report.json').read_text())
+    with (root/'circuits.qpy').open('rb') as stream:
+        circuits=qpy.load(stream)
+    indices=[0,4,8]
+    selected=[circuits[i] for i in indices]
+    path=root/'pilot.qpy'
+    with path.open('wb') as stream:
+        qpy.dump(selected,stream)
+    with path.open('rb') as stream:
+        restored=qpy.load(stream)
+    with np.load(root/'shot_samples.npz') as saved:
+        points=[]
+        for circuit,i in zip(restored,indices):
+            exact=z_outputs(Statevector.from_instruction(circuit.remove_final_measurements(inplace=False)).probabilities())
+            np.testing.assert_allclose(exact,saved['exact'][i],rtol=0,atol=1e-12)
+            points.append({'t':float(saved['t'][i]),'exact_qcl':exact.tolist(),'numpy_target':saved['target'][i].tolist()})
+    manifest={'status':'PREPARED_NOT_SUBMITTED','model_update':report['step'],
+              'checkpoint_sha256':report['sha256'],'circuit_file':'results/hardware/pilot.qpy',
+              'circuit_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+              'circuits':3,'shots_per_circuit':1024,'total_shots':3072,'points':points,
+              'outputs':{'classical_bit_0':'sine','classical_bit_1':'cosine'},
+              'backend':None,'quota_verified':False,'usage_estimate':None,'qpu_jobs_submitted':0}
+    (root/'pilot_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+    print('Prepared and reloaded three pilot circuits: 3072 proposed shots; no jobs submitted.')
+
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--audit-only',action='store_true')
+    group=parser.add_mutually_exclusive_group()
+    group.add_argument('--audit-only',action='store_true')
+    group.add_argument('--prepare-pilot',action='store_true')
     args=parser.parse_args()
     torch.set_num_threads(1)
-    audit() if args.audit_only else benchmark()
+    if args.prepare_pilot:
+        prepare_pilot()
+    else:
+        audit() if args.audit_only else benchmark()

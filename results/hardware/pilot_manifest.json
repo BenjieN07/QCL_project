@@ -1,0 +1,53 @@
+{
+  "status": "PREPARED_NOT_SUBMITTED",
+  "model_update": 4288,
+  "checkpoint_sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79",
+  "circuit_file": "results/hardware/pilot.qpy",
+  "circuit_sha256": "a18e48c927659ab51d54df3968a6c7799093e4a4adb5dfc618337da983c2574b",
+  "circuits": 3,
+  "shots_per_circuit": 1024,
+  "total_shots": 3072,
+  "points": [
+    {
+      "t": -1.0,
+      "exact_qcl": [
+        -0.013565671896878894,
+        -0.9500036318453539
+      ],
+      "numpy_target": [
+        -1.2246467991473532e-16,
+        -1.0
+      ]
+    },
+    {
+      "t": 0.0,
+      "exact_qcl": [
+        -0.01669902054933556,
+        0.9454990276114422
+      ],
+      "numpy_target": [
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "t": 1.0,
+      "exact_qcl": [
+        -0.01296654589253642,
+        -0.986209356272287
+      ],
+      "numpy_target": [
+        1.2246467991473532e-16,
+        -1.0
+      ]
+    }
+  ],
+  "outputs": {
+    "classical_bit_0": "sine",
+    "classical_bit_1": "cosine"
+  },
+  "backend": null,
+  "quota_verified": false,
+  "usage_estimate": null,
+  "qpu_jobs_submitted": 0
+}

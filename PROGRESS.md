@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Hardware pilot packaging — 2026-10-29
+
+Prepared a separate three-circuit pilot at t=-1,0,1 using frozen update-4,288 weights, 1,024 proposed shots per circuit (3,072 total). Reloaded the QPY package and verified its exact outputs against the saved model; the existing circuit/shot artifact audit passed. Saved checkpoint and circuit fingerprints plus expected simulator and NumPy outputs in results/hardware/pilot_manifest.json. Added --pilot to the private read-only preflight so a chosen backend compiles only these three circuits, rejecting a stale model/package. No new model training occurred.
+
+Real hardware status: NOT RUN. No .ibm-private/preflight.json exists. Private authentication, plan/backend identification, remaining allowance and a target-specific usage estimate remain pending. No chat credential was used, no credentials were saved, and no QPU job was submitted. The next user action is to run ibm_preflight.py locally with hidden credential entry; no additional simulator experiment is being represented as hardware progress.
+
 ## Mirrored training and hardware preparation — checkpoint 3
 
 Completed three branches with 1,500 additional updates each: 4,500 new experiment updates in total, not 4,500 sequential updates added to one model. All branches inherited update-3,000 weights AND Adam moments. Guarded validation selected mirrored_rebalance at update 4,288 (1,288 continued updates on the active lineage). Final update 4,500 had lower selection loss but endpoint error 0.05107 and was rejected. Selected endpoint error is 0.04999637, narrowly below the declared 0.05 guard. Checkpoints and validation-only selection were committed as b3e9636 before the new holdout was read.

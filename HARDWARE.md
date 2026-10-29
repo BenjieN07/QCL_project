@@ -12,4 +12,6 @@ The first run lists accessible backend names. After choosing one, run `.\.venv\S
 
 The proposed pilot is three inputs, -1, 0 and 1, at 1024 shots each: 3072 shots total. After reviewing those results, six more inputs could complete the nine-input comparison, for 9216 shots total. Both outputs come from one measurement basis. Backend, plan, remaining allowance, compiled layout and execution estimate must be reviewed before authorizing a specific submission. No submission tool is included here.
 
+The three pilot circuits are separately packaged in `results/hardware/pilot.qpy`, with their expected outputs and checkpoint fingerprint in `pilot_manifest.json`. Rebuild and verify them with `.\.venv\Scripts\python.exe -m qcl.hardware --prepare-pilot`. For the smaller target-compilation preflight, use `.\.venv\Scripts\python.exe ibm_preflight.py --backend YOUR_BACKEND_NAME --pilot`. This verifies the pilot still matches the active checkpoint before compiling it; it does not submit or estimate an unverified quota.
+
 Review the results in `results/mirror/evaluation/REPORT.md`, run `view_model.py` for the current exact prediction graph, and inspect `results/hardware/shot_benchmark.png` for the separate ideal-shot comparison. Nothing in these commands runs hardware training.

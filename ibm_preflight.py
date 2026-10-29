@@ -1,6 +1,7 @@
 """Read-only IBM access check. Never saves credentials or submits a quantum job."""
 import argparse
 import getpass
+import hashlib
 import json
 import logging
 from pathlib import Path
@@ -28,7 +29,10 @@ def numeric_usage(value, prefix=''):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--backend',help='An explicitly chosen backend; omission lists accessible backends only')
+    parser.add_argument('--pilot',action='store_true',help='Compile only the prepared three-input pilot; requires --backend')
     args=parser.parse_args()
+    if args.pilot and not args.backend:
+        parser.error('--pilot requires an explicitly selected --backend')
     if not sys.stdin.isatty():
         raise SystemExit('Run this script in your own interactive terminal for hidden credential entry.')
     from qiskit_ibm_runtime import QiskitRuntimeService
@@ -53,8 +57,18 @@ def main():
                 if len(backends)!=1:
                     raise ValueError('Backend not uniquely accessible')
                 from qiskit import qpy,transpile
-                with Path('results/hardware/circuits.qpy').open('rb') as stream:
+                circuit_path=Path('results/hardware/pilot.qpy' if args.pilot else 'results/hardware/circuits.qpy')
+                if args.pilot:
+                    manifest=json.loads(Path('results/hardware/pilot_manifest.json').read_text())
+                    assert hashlib.sha256(circuit_path.read_bytes()).hexdigest()==manifest['circuit_sha256']
+                    registry=json.loads(Path('results/current_model.json').read_text())
+                    assert hashlib.sha256((Path(registry['run'])/'best.pt').read_bytes()).hexdigest()==manifest['checkpoint_sha256']
+                    report['pilot']={'circuits':3,'shots_per_circuit':1024,'total_shots':3072,
+                                     'checkpoint_sha256':manifest['checkpoint_sha256'],'usage_estimate':None}
+                with circuit_path.open('rb') as stream:
                     circuits=qpy.load(stream)
+                if args.pilot:
+                    assert len(circuits)==3
                 compiled=transpile(circuits,backend=backends[0],optimization_level=3,seed_transpiler=2026)
                 report['target_compilation']=[{'depth':c.depth(),'operations':dict(c.count_ops()),
                                               'physical_layout':c.layout.final_index_layout()} for c in compiled]
