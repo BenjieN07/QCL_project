@@ -14,4 +14,4 @@ Loss is the sample mean of the SUM of squared errors across outputs. These losse
 
 Inspect loss.png and history.csv. The selected checkpoint is best.pt; summary.json records seeds, settings, versions, source revision and hashes. audit.json verifies the history, validation selection, and reloaded checkpoint.
 
-This short run establishes gradient flow and loss reduction, not an accurate sine/cosine fit. No test labels or QPU jobs were used. Stop here for inspection before Baseline.
+This short run establishes gradient flow and loss reduction, not an accurate sine/cosine fit. No test labels or QPU jobs were used.

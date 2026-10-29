@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "checkpoint_files": 45,
+  "checkpoint_bytes_unchanged": true,
+  "progress_milestones": 6,
+  "experiment_rows": 20,
+  "progress_metrics_recomputed": true,
+  "fresh_and_resumed_labels_verified": true,
+  "training_updates": 0,
+  "qpu_jobs": 0
+}

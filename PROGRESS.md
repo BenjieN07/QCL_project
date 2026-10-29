@@ -20,3 +20,5 @@ The active lineage trained fresh to 1,500 updates, continued to 3,000, then sele
 **Next priorities:** improve boundary protection without losing interior fit; review whether to extend hardware coverage. Further training or QPU work needs a new experiment scope.
 
 **Repository cleanup:** experiment-based names, one review command, short documentation and complete milestone visualization. The renamed saved-result audits and 19 tests pass; checkpoint bytes are preserved. No training or hardware submissions were performed during cleanup.
+
+Verification: [checkpoint/progress audit](results/summary/cleanup_audit.json) covers 45 immutable checkpoints, six milestones and 20 trial rows. Native plot rendering, the independent smoke repeat and local documentation links were checked.
