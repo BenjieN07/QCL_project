@@ -8,17 +8,17 @@ An incremental educational experiment. No quantum advantage claim. Local simulat
 .\.venv\Scripts\python.exe view_model.py
 ```
 
-This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports test MSE, MAE, and maximum error. It loads the Day 3 validation-selected checkpoint and does not retrain. Outputs are refreshed in `results/model_view/`.
+This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports the original 24-input test metrics. It loads the checkpoint registered in `results/current_model.json` (currently the six-qubit paper-inspired pilot) and does not retrain. Outputs are refreshed in `results/model_view/`. Learned output scaling can produce values outside [-1, 1]; predictions are not clipped.
 
 If the environment is activated, `python view_model.py` is enough. Add `--no-open` to save without opening a browser, or `--run results/path/to/run` to inspect another checkpoint directory containing `best.pt`. The figures use a smooth 401-point grid; the metrics use the fixed disjoint test set, not that plotting grid.
 
-To compare initialization with the saved trained model and see the loss history and baseline comparisons:
+To inspect the historical Day 3 comparison of initialization with the original small trained model and its loss history:
 
 ```powershell
 .\.venv\Scripts\python.exe view_progress.py
 ```
 
-This opens `results/progress/progress.png` and saves its underlying curves and metrics. It reconstructs the seed-7 initialization and verifies its loss against recorded step zero. The plot distinguishes the 250 updates performed from the validation-selected step-83 checkpoint being displayed. Recorded experiment updates total 310 across the two 30-step runs and the 250-step baseline; small unit-test optimizations are excluded. No retraining occurs.
+This opens `results/progress/progress.png` and saves its underlying curves and metrics. It reconstructs the seed-7 initialization and verifies its loss against recorded step zero. The historical plot distinguishes the 250 updates performed from the validation-selected step-83 checkpoint. At that Day 3 checkpoint, recorded experiment updates totaled 310 across the two 30-step runs and the 250-step baseline; small unit-test optimizations are excluded. No retraining occurs.
 
 ## Review checkpoints
 
@@ -62,6 +62,25 @@ Run `.\review-day2.ps1` to run the tests, independently audit the saved smoke ch
 ## Scientific context
 
 Inspired by [Mitarai et al., Quantum Circuit Learning (2018)](https://arxiv.org/abs/1803.00745), rather than an exact reproduction. Implementation follows the [PennyLane PyTorch interface](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).
+
+## Paper-inspired accuracy pilot
+
+The [predeclared pilot protocol](results/paper_pilot/PROTOCOL.md) compares BFGS on the original circuit against a six-qubit, six-block fixed-Ising model with two learned output scales. The new model met the provisional validation accuracy target. Review [fresh-holdout results and limitations](results/paper_pilot/evaluation/REVIEW.md) and `comparison.png`. A new 128-point holdout was read only after both checkpoints and the validation-only current-model registration were committed. The solver reached the 250-update budget; it did not meet its convergence tolerance. These are single-seed noiseless results, not hardware measurements or a quantum-advantage claim.
+
+```powershell
+.\review-paper-pilot.ps1
+.\.venv\Scripts\python.exe view_model.py
+```
+
+To reproduce a pilot run, use fresh directories (completed runs are protected):
+
+```powershell
+.\.venv\Scripts\python.exe -m qcl.train_bfgs --config configs/paper_inspired.json --output results/paper_pilot/my-repeat
+```
+
+BFGS accepted updates and objective evaluations are recorded separately; they are not equivalent to Adam steps or equal compute budgets. The larger model uses vectorized inputs and a dense exact Ising unitary; its runtime and gate count are not estimates for a compiled QPU circuit. The matched-depth study, multiple-seed confirmation, and controlled entangler ablations remain unfinished.
+
+The pilot adds 24 original-circuit and 250 six-qubit BFGS updates: 584 accepted updates across all recorded experiments, excluding unit tests. This is bookkeeping, not an equal-compute comparison. Fresh-holdout mean absolute errors are 0.00166 (sine) and 0.00129 (cosine), but endpoint-inclusive grid maximum errors are 0.1294 and 0.3089. Boundary coverage is the next accuracy issue to investigate; uniform accuracy has not been achieved.
 
 ## Run and review Day 3
 

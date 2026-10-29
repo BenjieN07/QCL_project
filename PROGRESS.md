@@ -12,12 +12,21 @@ Six-qubit model/BFGS: completed the fixed 250-update budget, 263 objective evalu
 
 Registered the validation-selected model in `results/current_model.json` before reading the new holdout. Both configurations and checkpoints are now frozen. No legacy test or fresh-holdout labels were used in training or selection. No causal entangler-only claim: the larger architecture, rotations, initialization, output scaling, and encoding schedule also changed. Fresh-holdout evaluation pending; no hardware jobs.
 
+## 2026-10-29 — paper-inspired pilot review gate
+
+Fresh 128-input holdout, disjoint from the original splits, evaluated after checkpoint/registry commit ed865bb. Paper-inspired model: sine MSE 0.0000175335480, MAE 0.00165905545, maximum error 0.0295115202; cosine MSE 0.0000223196053, MAE 0.00129491677, maximum error 0.0444751395. Original Adam fresh MAE was 0.354121843 and 0.473919221. The polynomial achieved fresh MSE 0.0000490756146 and 0.000639159020. The larger quantum model improved average errors here, with 110 parameters versus the polynomial's 12 coefficients; no advantage claim.
+
+Important unresolved limitation: on the 401-point grid including exact boundaries, maximum absolute error is 0.1294157783 for sine and 0.3088931500 for cosine. Strong random-holdout averages do not imply uniform accuracy. Future work should explicitly add endpoint and near-boundary training coverage and repeat seeds in a separately declared experiment, reserving another untouched final holdout if tuning continues. Do not mark the full accuracy/generalization problem solved.
+
+All nine tests passed again. The saved-run audit recomputed 4,936 prediction values, checked 120 scalar metrics and 40 CSV rows, verified checkpoint hashes, validation selection, classical coefficients, and fresh-holdout disjointness. Dependency consistency passed. Both comparison and current-model plots were visually inspected; the viewer's legacy-test metrics match the pilot report exactly. `view_model.py` now opens the registered six-qubit checkpoint by default; `view_progress.py` is labeled as the historical Day 3 snapshot. No new training during visualization/audit. Added `review-paper-pilot.ps1` for repeatable checks. Stop after this pilot for inspection; multiple-seed/depth/entangler studies and finite-shot work remain incomplete. No QPU jobs.
+
 | Phase | Status | Evidence |
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
-| Day 4: depth and seed study | NOT STARTED | — |
+| Day 4: depth and seed study | NOT STARTED | Deferred during user-requested paper-inspired pilot |
+| Paper-inspired accuracy pilot | COMPLETE (pilot only) | results/paper_pilot/evaluation/REVIEW.md; boundary limitation unresolved |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

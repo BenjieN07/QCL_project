@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "prediction_values_recomputed": 4936,
+  "scalar_metrics_verified": 120,
+  "csv_metric_rows_verified": 40,
+  "validation_selection_verified": true,
+  "fresh_holdout_disjoint": true,
+  "checkpoint_hashes_verified": true,
+  "qpu_jobs": 0
+}

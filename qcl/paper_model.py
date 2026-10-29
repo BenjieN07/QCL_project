@@ -68,7 +68,7 @@ class PaperInspiredQCL(torch.nn.Module):
 
 
 def build_model(config):
-    if config['model'] == 'original':
+    if config.get('model', 'original') == 'original':
         from .model import QCLModel
         return QCLModel(config['layers'], config['parameter_seed'])
     if config['model'] != 'paper_inspired':

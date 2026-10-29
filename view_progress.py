@@ -59,8 +59,8 @@ def build_progress(output, open_browser=True):
         ax = axes[0, index]
         ax.plot(grid, exact[:, index], color='black', linewidth=2, label='Exact NumPy target')
         ax.plot(grid, grid_predictions['Initial'][:, index], color='#888888', linestyle='--', label='Beginning: untrained')
-        ax.plot(grid, grid_predictions['250-step run'][:, index], color='#1668bb', linewidth=2, label='Now: selected step 83')
-        ax.set(title=f'{name}(πt): beginning versus now', xlabel='t', ylabel='Function value', ylim=(-1.1, 1.1))
+        ax.plot(grid, grid_predictions['250-step run'][:, index], color='#1668bb', linewidth=2, label='Day 3: selected step 83')
+        ax.set(title=f'{name}(πt): beginning versus Day 3 baseline', xlabel='t', ylabel='Function value', ylim=(-1.1, 1.1))
         ax.grid(alpha=0.2)
         ax.legend(fontsize=9, loc='lower center')
     loss_ax = axes[1, 0]
@@ -85,7 +85,7 @@ def build_progress(output, open_browser=True):
                  title='Saved-checkpoint test error', ylim=(1e-5, 3))
     error_ax.legend(fontsize=9)
     error_ax.grid(axis='y', alpha=0.2)
-    fig.suptitle('QCL progress: 250-update baseline; best checkpoint at step 83', fontsize=15)
+    fig.suptitle('Historical Day 3 progress: 250-update baseline; selected step 83', fontsize=15)
     fig.text(0.5, 0.015, f'{total_updates} recorded experiment updates = 30 + 30 repeat + 250 | '
              '48 training inputs | 1 layer, 2 qubits, 6 nominal angles | No hardware runs', ha='center', fontsize=10)
     fig.tight_layout(rect=(0, 0.04, 1, 0.96))

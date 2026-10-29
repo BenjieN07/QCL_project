@@ -1,28 +1,32 @@
 {
-  "checkpoint_step": 83,
+  "checkpoint_step": 247,
   "config": {
-    "phase": "Day 3 one-layer baseline",
-    "data_seed": 2026,
+    "model": "paper_inspired",
+    "qubits": 6,
+    "layers": 6,
     "parameter_seed": 7,
+    "hamiltonian_seed": 2026,
+    "evolution_time": 10.0,
+    "data_seed": 2026,
     "train_size": 48,
     "validation_size": 16,
     "test_size": 24,
     "grid_size": 101,
-    "layers": 1,
-    "steps": 250,
-    "learning_rate": 0.05,
-    "polynomial_degree": 5
+    "max_iterations": 250,
+    "gradient_tolerance": 1e-07,
+    "fresh_holdout_seed": 20261029,
+    "fresh_holdout_size": 128
   },
   "test_metrics": {
     "sin": {
-      "mse": 0.22574954843030934,
-      "mae": 0.4039879100910813,
-      "max_absolute_error": 0.8442161653152518
+      "mse": 4.854108546259312e-05,
+      "mae": 0.002468635392366141,
+      "max_absolute_error": 0.03075545074300161
     },
     "cos": {
-      "mse": 0.310931501370254,
-      "mae": 0.499385033366666,
-      "max_absolute_error": 0.7749025889244876
+      "mse": 9.473740032466694e-05,
+      "mae": 0.002763613279528947,
+      "max_absolute_error": 0.04662172057150804
     }
   },
   "training_performed": false
