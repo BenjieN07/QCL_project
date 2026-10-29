@@ -2,6 +2,16 @@
 
 An incremental educational experiment. No quantum advantage claim. Local simulator only; IBM hardware requires separate explicit consent.
 
+## View the current model
+
+```powershell
+.\.venv\Scripts\python.exe view_model.py
+```
+
+This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports test MSE, MAE, and maximum error. It loads the Day 3 validation-selected checkpoint and does not retrain. Outputs are refreshed in `results/model_view/`.
+
+If the environment is activated, `python view_model.py` is enough. Add `--no-open` to save without opening a browser, or `--run results/path/to/run` to inspect another checkpoint directory containing `best.pt`. The figures use a smooth 401-point grid; the metrics use the fixed disjoint test set, not that plotting grid.
+
 ## Review checkpoints
 
 We stop after each day's exit gate. Day 1 establishes data and circuit validity; it does not train a model. See [the original roadmap](QCL_Implementation_Plan.md) and [current progress](PROGRESS.md).
