@@ -1,0 +1,78 @@
+{
+  "candidates": [
+    {
+      "run": "results/day4/runs/depth1_seed7",
+      "layers": 1,
+      "parameter_seed": 7,
+      "selected_step": 83,
+      "selected_validation_loss": 0.6320843068249644
+    },
+    {
+      "run": "results/day4/runs/depth1_seed19",
+      "layers": 1,
+      "parameter_seed": 19,
+      "selected_step": 24,
+      "selected_validation_loss": 0.6265751622013516
+    },
+    {
+      "run": "results/day4/runs/depth1_seed41",
+      "layers": 1,
+      "parameter_seed": 41,
+      "selected_step": 70,
+      "selected_validation_loss": 0.6296601499880278
+    },
+    {
+      "run": "results/day4/runs/depth2_seed7",
+      "layers": 2,
+      "parameter_seed": 7,
+      "selected_step": 155,
+      "selected_validation_loss": 0.11214613961499759
+    },
+    {
+      "run": "results/day4/runs/depth2_seed19",
+      "layers": 2,
+      "parameter_seed": 19,
+      "selected_step": 145,
+      "selected_validation_loss": 0.11156672784802428
+    },
+    {
+      "run": "results/day4/runs/depth2_seed41",
+      "layers": 2,
+      "parameter_seed": 41,
+      "selected_step": 250,
+      "selected_validation_loss": 0.17821568105685476
+    },
+    {
+      "run": "results/day4/runs/depth3_seed7",
+      "layers": 3,
+      "parameter_seed": 7,
+      "selected_step": 250,
+      "selected_validation_loss": 0.06857966748487171
+    },
+    {
+      "run": "results/day4/runs/depth3_seed19",
+      "layers": 3,
+      "parameter_seed": 19,
+      "selected_step": 240,
+      "selected_validation_loss": 0.058805036445175415
+    },
+    {
+      "run": "results/day4/runs/depth3_seed41",
+      "layers": 3,
+      "parameter_seed": 41,
+      "selected_step": 250,
+      "selected_validation_loss": 0.04940982963545365
+    }
+  ],
+  "selected": {
+    "run": "results/day4/runs/depth3_seed41",
+    "layers": 3,
+    "parameter_seed": 41,
+    "selected_step": 250,
+    "selected_validation_loss": 0.04940982963545365,
+    "model": "original",
+    "selection": "minimum joint validation loss across all nine fixed runs; ties prefer depth then seed",
+    "test_or_fresh_holdout_used_for_selection": false,
+    "new_holdout_read_at_registration": false
+  }
+}

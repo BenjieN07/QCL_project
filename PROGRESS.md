@@ -4,6 +4,8 @@
 
 Day 4 checkpoint 1: eight tests passed, including predictions and full parameter gradients from batched versus scalar circuit execution at depths 1, 2, and 3 (absolute tolerance 1e-12). This is an execution optimization only; circuit gates, feature map, initialization, loss, and optimizer are unchanged. Prepared nine fixed configurations (depths 1/2/3, seeds 7/19/41), 250 Adam updates each, before reading new results. Protocol saved in `results/day4/PROTOCOL.md`. No new holdout has been generated or read.
 
+Day 4 checkpoint 2: all nine matched runs completed, totaling 2,250 optimizer updates. Best joint validation losses by run: depth 1 seeds 7/19/41 = 0.63208431 / 0.62657516 / 0.62966015; depth 2 = 0.11214614 / 0.11156673 / 0.17821568; depth 3 = 0.06857967 / 0.05880504 / 0.04940983. Selected depth 3, seed 41, step 250 using validation only. Its training loss decreased from 1.6612407915 to 0.0409861223. All checkpoint reload checks passed. `results/day4/selection.json` and the active registry are frozen before any new holdout evaluation; new holdout remains unread at this checkpoint. More layers improved validation results in this study, but the provisional target has not been achieved. No alternate model families or hardware jobs were used.
+
 The one-time comparison model, its training tools, tests, configurations, and results have been removed from the current project files at the user's request. Only our original two-qubit circuit family remains. Days 1–3 are complete as implementation/evaluation milestones, not accuracy certification. Day 4's matched-depth and initialization-seed study is next. Earlier comparison commits remain in Git history; no history rewrite was requested.
 
 | Phase | Status | Evidence |

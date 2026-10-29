@@ -1,9 +1,11 @@
 {
-  "run": "results/day3/baseline",
+  "run": "results/day4/runs/depth3_seed41",
+  "layers": 3,
+  "parameter_seed": 41,
+  "selected_step": 250,
+  "selected_validation_loss": 0.04940982963545365,
   "model": "original",
-  "selected_step": 83,
-  "selection": "user restored original circuit family; checkpoint selected by minimum validation loss within the Day 3 Adam run",
-  "selected_validation_loss": 0.6320843068249645,
+  "selection": "minimum joint validation loss across all nine fixed runs; ties prefer depth then seed",
   "test_or_fresh_holdout_used_for_selection": false,
-  "project_phase": "Day 3 complete; Day 4 depth-and-seed study next"
+  "new_holdout_read_at_registration": false
 }
