@@ -3,7 +3,6 @@ import argparse
 import csv
 import json
 from pathlib import Path
-import webbrowser
 
 import matplotlib
 matplotlib.use('Agg')
@@ -14,11 +13,12 @@ import torch
 from qcl.data import make_data
 from qcl.evaluate import metrics
 from qcl.model import QCLModel
+from qcl.display import show_figure
 
 ROOT = Path(__file__).resolve().parent
 
 
-def build_progress(output, open_browser=True):
+def build_progress(output, show_window=True):
     baseline = ROOT / 'results/day3/baseline'
     config = json.loads((baseline / 'config.json').read_text())
     summary = json.loads((baseline / 'summary.json').read_text())
@@ -91,7 +91,6 @@ def build_progress(output, open_browser=True):
     fig.tight_layout(rect=(0, 0.04, 1, 0.96))
     image_path = output / 'progress.png'
     fig.savefig(image_path, dpi=150)
-    plt.close(fig)
     report = {'recorded_experiment_updates': total_updates, 'run_updates': run_updates,
               'training_sample_presentations': total_updates * config['train_size'],
               'unit_test_optimizations_included': False,
@@ -107,13 +106,14 @@ def build_progress(output, open_browser=True):
              initial=grid_predictions['Initial'], selected=grid_predictions['250-step run'])
     print(f'Progress figure: {image_path}\nRecorded experiment updates: {total_updates}')
     print('Saved current-model test metrics exactly match the verified Day 3 report.')
-    if open_browser and not webbrowser.open(image_path.resolve().as_uri()):
-        print('Open the progress figure above to inspect it.')
+    if show_window:
+        show_figure(fig, 'QCL historical training progress')
+    plt.close(fig)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--no-open', action='store_true')
+    parser.add_argument('--no-open', action='store_true', help='Save results without opening a window')
     parser.add_argument('--output', type=Path, default=ROOT / 'results/progress')
     args = parser.parse_args()
     build_progress(args.output.resolve(), not args.no_open)

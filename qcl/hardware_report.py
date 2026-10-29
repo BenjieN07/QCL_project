@@ -1,4 +1,5 @@
 """Audit saved real-device pilot counts and plot them against the frozen model."""
+import argparse
 import json
 import hashlib
 from pathlib import Path
@@ -10,7 +11,7 @@ from .data import targets
 from .evaluate import metrics
 
 
-def main():
+def main(show_window=False):
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -63,7 +64,7 @@ def main():
         for ax in axes[:,j]:
             ax.set_xlim(-1.08,1.08); ax.legend(fontsize=8); ax.grid(alpha=.2)
     fig.suptitle(f'Real-qubit pilot: {report["backend"]}, 1024 shots/input; frozen update {plan["model_update"]}')
-    fig.tight_layout(); fig.savefig(root/'comparison.png',dpi=150); plt.close(fig)
+    fig.tight_layout(); fig.savefig(root/'comparison.png',dpi=150)
     audit={'passed':True,'job_id':report['job_id'],'counts_total':3072,'inputs':3,'training_updates_on_hardware':0,
            'metrics':scores,'usage':report['usage'],'usage_after':report['usage_after'],
            'matched_ideal_sampling':{'shots':1024,'repeats':50,'inputs':ts.tolist(),
@@ -82,8 +83,15 @@ def main():
             'Saved counts, receipt, compiled circuits, checkpoint fingerprints and reconstructed metrics are retained here. The audit checks stored results without contacting IBM or submitting another job.','']
     (root/'REPORT.md').write_text('\n'.join(lines))
     print('\n'.join(lines))
+    if show_window:
+        from .display import show_figure
+        show_figure(fig,'QCL real hardware comparison')
+    plt.close(fig)
 
 
 if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--show',action='store_true',help='Open the comparison in a native Python window')
+    args=parser.parse_args()
     torch.set_num_threads(1)
-    main()
+    main(args.show)
