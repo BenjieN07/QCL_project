@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Boundary investigation — 2026-10-29, checkpoint 1
+
+Measured sparse training coverage: 2/48 inputs in |t|>=0.9, minimum -0.9743190353 and maximum 0.9339244003, no exact endpoints. Endpoint angle gradients are finite (norm 0.6355755874), so no observed broken parameter-gradient path. Near-endpoint prediction secants increase sharply as distance shrinks; inverse-trigonometric input-angle derivatives are singular at the exact bounds. This is an input-sensitivity/coverage hypothesis, not proof of a single cause. Diagnosis saved without changing weights.
+
+Declared four fixed 750-update branches from the Day 4 step-250 model and Adam state: constant-rate continuation, rate decay, boundary-balanced training with decay, and the same boundary training with input scale 0.9. The last modifies the encoder and is explicitly labeled a warm start under a changed feature map. Same two qubits, three layers, 18 angles, CNOT layout, targets, and no output scaling. Select by balanced original/collar validation score subject to not worsening original-validation loss. New stratified holdout remains unread until checkpoints and selection are committed. All 11 tests passed, including dataset separation, exact optimizer moments/counter restoration, and finite smooth-encoder input gradients at endpoints. See results/boundary/PROTOCOL.md. No training results yet; no QPU jobs.
+
 ## Day 4 exit gate — 2026-10-29
 
 After validation-only selection commit 4a23755, evaluated a new disjoint 256-input holdout (seed 20261030). Selected model MSE: sine 0.028034364, cosine 0.029809244; MAE: sine 0.14600477, cosine 0.13229243; maximum error: sine 0.40201933, cosine 0.52852616. Endpoint-inclusive grid maximum errors: 0.40214201 and 0.52855948. Mean joint validation loss across three seeds decreased from 0.6294399 (1 layer) to 0.1339762 (2) and 0.05893151 (3). All seed results and sample standard deviations are reported. This is substantial progress but not a high-accuracy fit.

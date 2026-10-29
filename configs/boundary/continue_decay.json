@@ -1,0 +1,36 @@
+{
+  "data_seed": 2026,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "steps": 1000,
+  "learning_rate": 0.05,
+  "phase": "Boundary study: continue_decay",
+  "layers": 3,
+  "parameter_seed": 41,
+  "name": "continue_decay",
+  "augment": false,
+  "input_scale": 1.0,
+  "schedule": [
+    [
+      0,
+      0.05
+    ],
+    [
+      250,
+      0.01
+    ],
+    [
+      500,
+      0.003
+    ]
+  ],
+  "source_run": "results/day4/runs/depth3_seed41",
+  "source_step": 250,
+  "additional_updates": 750,
+  "baseline_validation_loss": 0.04940982963545365,
+  "selection_boundary_weight": 0.5,
+  "augmented_training_boundary_weight": 0.5,
+  "source_checkpoint_sha256": "f5dac02db793a9ae76fa85e9b7c9bd2e6b78e45efc1d3dded044ea10675e02ba"
+}

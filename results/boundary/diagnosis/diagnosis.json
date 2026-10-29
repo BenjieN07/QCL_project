@@ -1,0 +1,146 @@
+{
+  "source_run": "results/day4/runs/depth3_seed41",
+  "training_min": -0.9743190352663869,
+  "training_max": 0.9339244003247811,
+  "training_inputs_in_boundary_collar": [
+    -0.9743190352663869,
+    0.9339244003247811
+  ],
+  "exact_endpoints_in_training": false,
+  "endpoint_predictions": [
+    [
+      -0.10420439188623004,
+      -0.6672908652436795
+    ],
+    [
+      -0.19675947023300377,
+      -0.6087125438783266
+    ]
+  ],
+  "endpoint_targets": [
+    [
+      -1.2246467991473532e-16,
+      -1.0
+    ],
+    [
+      1.2246467991473532e-16,
+      -1.0
+    ]
+  ],
+  "endpoint_absolute_errors": [
+    [
+      0.10420439188622992,
+      0.33270913475632047
+    ],
+    [
+      0.19675947023300389,
+      0.39128745612167337
+    ]
+  ],
+  "endpoint_parameter_gradients_finite": true,
+  "endpoint_parameter_gradient_norm": 0.6355755873987933,
+  "sensitivity": [
+    {
+      "side": -1.0,
+      "distance": 0.01,
+      "prediction_secant_magnitudes": [
+        8.818284712392282,
+        7.055262116836913
+      ],
+      "arcsin_slope_inside": 7.088812050083354,
+      "arccos_squared_slope_magnitude_inside": 9.97459084701418
+    },
+    {
+      "side": 1.0,
+      "distance": 0.01,
+      "prediction_secant_magnitudes": [
+        16.478619411366925,
+        13.220347212743317
+      ],
+      "arcsin_slope_inside": 7.088812050083354,
+      "arccos_squared_slope_magnitude_inside": 9.97459084701418
+    },
+    {
+      "side": -1.0,
+      "distance": 0.001,
+      "prediction_secant_magnitudes": [
+        41.62812458374071,
+        29.097876871686523
+      ],
+      "arcsin_slope_inside": 22.36627204212937,
+      "arccos_squared_slope_magnitude_inside": 31.61485805163566
+    },
+    {
+      "side": 1.0,
+      "distance": 0.001,
+      "prediction_secant_magnitudes": [
+        82.36659466210521,
+        56.9519765903016
+      ],
+      "arcsin_slope_inside": 22.36627204212937,
+      "arccos_squared_slope_magnitude_inside": 31.61485805163566
+    },
+    {
+      "side": -1.0,
+      "distance": 0.0001,
+      "prediction_secant_magnitudes": [
+        143.98544863756135,
+        94.10210851463651
+      ],
+      "arcsin_slope_inside": 70.71244595191452,
+      "arccos_squared_slope_magnitude_inside": 99.9974995937212
+    },
+    {
+      "side": 1.0,
+      "distance": 0.0001,
+      "prediction_secant_magnitudes": [
+        284.8207246804951,
+        190.52962609399702
+      ],
+      "arcsin_slope_inside": 70.71244595191452,
+      "arccos_squared_slope_magnitude_inside": 99.9974995937212
+    },
+    {
+      "side": -1.0,
+      "distance": 1e-05,
+      "prediction_secant_magnitudes": [
+        466.80375889857623,
+        297.7373237028513
+      ],
+      "arcsin_slope_inside": 223.60735676962474,
+      "arccos_squared_slope_magnitude_inside": 316.2269754355045
+    },
+    {
+      "side": 1.0,
+      "distance": 1e-05,
+      "prediction_secant_magnitudes": [
+        922.7048536472048,
+        611.1362261074781
+      ],
+      "arcsin_slope_inside": 223.60735676962474,
+      "arccos_squared_slope_magnitude_inside": 316.2269754355045
+    },
+    {
+      "side": -1.0,
+      "distance": 1e-06,
+      "prediction_secant_magnitudes": [
+        1487.3336661353487,
+        941.0442585526813
+      ],
+      "arcsin_slope_inside": 707.1069579492319,
+      "arccos_squared_slope_magnitude_inside": 999.9997499830024
+    },
+    {
+      "side": 1.0,
+      "distance": 1e-06,
+      "prediction_secant_magnitudes": [
+        2939.095705956296,
+        1940.6165722620772
+      ],
+      "arcsin_slope_inside": 707.1069579492319,
+      "arccos_squared_slope_magnitude_inside": 999.9997499830024
+    }
+  ],
+  "weights_unchanged": true,
+  "new_training_performed": false
+}

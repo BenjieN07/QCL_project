@@ -4,10 +4,13 @@ import torch
 
 
 class QCLModel(torch.nn.Module):
-    def __init__(self, layers=1, seed=7):
+    def __init__(self, layers=1, seed=7, input_scale=1.0):
         super().__init__()
         if not isinstance(layers, int) or layers < 1:
             raise ValueError('layers must be a positive integer')
+        if not 0 < input_scale <= 1:
+            raise ValueError('input_scale must be in (0, 1]')
+        self.input_scale = float(input_scale)
         generator = torch.Generator().manual_seed(seed)
         self.weights = torch.nn.Parameter(
             0.1 * torch.randn(layers, 2, 3, generator=generator, dtype=torch.float64))
@@ -15,10 +18,11 @@ class QCLModel(torch.nn.Module):
 
         @qml.qnode(device, interface='torch', diff_method='backprop')
         def circuit(t, weights):
+            encoded = self.input_scale * t
             for layer in weights:
                 for wire in range(2):
-                    qml.RY(torch.asin(t), wires=wire)
-                    qml.RZ(torch.acos(t * t), wires=wire)
+                    qml.RY(torch.asin(encoded), wires=wire)
+                    qml.RZ(torch.acos(encoded * encoded), wires=wire)
                     qml.Rot(*layer[wire], wires=wire)
                 qml.CNOT(wires=[0, 1])
             return qml.expval(qml.PauliZ(0)), qml.expval(qml.PauliZ(1))

@@ -34,7 +34,7 @@ def create_view(run, output, open_browser=True):
     config = checkpoint['config']
     if config.get('model', 'original') != 'original':
         raise ValueError('This viewer supports only the original QCL model family.')
-    model = QCLModel(config['layers'], config['parameter_seed'])
+    model = QCLModel(config['layers'], config['parameter_seed'], config.get('input_scale', 1.0))
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
     data = make_data(config)

@@ -1,0 +1,17 @@
+{
+  "source_run": "results/day4/runs/depth3_seed41",
+  "additional_updates": 750,
+  "training_anchor_positive": [0.9, 0.95, 0.98, 0.995, 0.999, 1.0],
+  "validation_collar_positive": [0.91, 0.93, 0.97, 0.99, 0.998],
+  "selection_boundary_weight": 0.5,
+  "augmented_training_boundary_weight": 0.5,
+  "new_holdout_seed": 20261031,
+  "holdout_interior_size": 256,
+  "holdout_each_boundary_size": 128,
+  "trials": [
+    {"name": "continue_constant", "augment": false, "input_scale": 1.0, "schedule": [[0, 0.05]]},
+    {"name": "continue_decay", "augment": false, "input_scale": 1.0, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]},
+    {"name": "boundary_balanced", "augment": true, "input_scale": 1.0, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]},
+    {"name": "boundary_smooth", "augment": true, "input_scale": 0.9, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]}
+  ]
+}
