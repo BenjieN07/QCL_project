@@ -3,7 +3,7 @@
 | Phase | Status | Evidence |
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
-| Day 2: training loop | IN PROGRESS | Four training tests passed; smoke run pending |
+| Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | NOT STARTED | — |
 | Day 4: depth and seed study | NOT STARTED | — |
 | Day 5: shot study | NOT STARTED | — |
@@ -45,3 +45,9 @@ Implemented joint regression loss (sample mean of summed output errors), checked
 Completed two independent 30-update runs. Initial training loss 1.9499409826430554, final 0.5813342418080726 (70.1871% reduction). Selected step 26 by validation loss 0.6783771668649673. Minimum gradient norm 0.13706087841433165. Checkpoint reload reproduced its training and validation losses. The audit confirmed identical full loss/gradient histories and checkpoint weights across both runs. Preserved both runs under `results/day2/smoke` and `results/day2/repeat`, including checkpoints, histories, settings, versions, source hashes, and loss plots. Plot visually inspected. The repeat's elapsed wall time includes a long execution interruption; no speed comparison is supported.
 
 Four training tests passed again; dependency consistency and syntax checks passed. Day 1 regression initially failed because its invalid-input test tensors defaulted to float32 after the model began requiring float64. Corrected the benchmark fixtures to float64; the full Day 1 review then passed all seven circuit checks plus data checks. Training results were unaffected. Added an independent saved-run auditor and `review-day2.ps1` for easy inspection. Final roadmap/report update pending. QPU jobs: zero; test labels unused in training and audit.
+
+## 2026-10-28 — Day 2 exit gate
+
+Day 2 deliverables are complete: differentiable joint loss, finite nonzero gradient verification, small optimization run, validation-selected checkpoint, optimizer state, saved configuration, full loss history, loss plot, reproducibility audit, and runnable README commands. Results establish working local training only; Day 3 fitting quality and per-output held-out metrics remain unmeasured. No hardware jobs submitted. Stop for inspection; next phase is the 200–300-update baseline fit and classical/analytic comparisons, after user continuation.
+
+Final user-facing check: `review-day2.ps1` completed successfully, running all four tests and the saved-run audit with repeat comparison. Documentation and tracked filenames contain no assistant branding. All source and experiment artifacts are committed; local environments and temporary caches remain ignored.

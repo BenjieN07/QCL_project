@@ -73,11 +73,11 @@ Deliverables: target-function figure, circuit diagram, shape/range checks, short
 
 Exit gate: Given a batch of valid inputs, the model gives two reproducible, valid outputs and trainable parameters visibly affect them.
 Day 2 — Make the local training loop reproducible
-- [ ] Create a two-output regression loss and PyTorch optimizer.
-- [ ] Verify parameters receive nonzero, finite gradients for a representative batch.
-- [ ] Run an intentionally small optimization smoke test.
-- [ ] Save the best checkpoint, config, seed, and loss history.
-- [ ] Add clear error messages for NaNs, incorrect tensor types, and broken gradient flow.
+- [x] Create a two-output regression loss and PyTorch optimizer.
+- [x] Verify parameters receive nonzero, finite gradients for a representative batch.
+- [x] Run an intentionally small optimization smoke test.
+- [x] Save the best checkpoint, config, seed, and loss history.
+- [x] Add clear error messages for NaNs, incorrect tensor types, and broken gradient flow.
 Deliverables: first training-loss plot, saved checkpoint, runnable training command in README.
 
 Exit gate: At least one seed shows meaningful loss improvement over its initial value; no unsupported accuracy claims.
@@ -133,7 +133,7 @@ Update this table at the end of each work session. Progress values are not autom
 Phase	Planned day	Status now	Proof of completion	Blockers/notes
 Research specification + plan	0	COMPLETE (planning only)	This report	No experiments performed
 Dataset + PennyLane model	1	COMPLETE	Diagram, data plots, smoke tests	—
-Differentiable training loop	2	NOT STARTED	Loss plot and checkpoint	—
+Differentiable training loop	2	COMPLETE	Loss plot and checkpoint	—
 Held-out function fitting	3	NOT STARTED	Predictions + test metrics	—
 Architecture/seed benchmarking	4	NOT STARTED	Comparison table	—
 Finite-shot study + QPU preflight	5	NOT STARTED	Shot plot, preflight record	—
@@ -207,4 +207,6 @@ Stretch completion: real IBM QPU measurements with documented permission, quota 
 
 Overall status on October 27, 2026: PLAN COMPLETE; EXPERIMENTS NOT STARTED.
 
-October 28, 2026 update: Day 1 COMPLETE, verified by results/day1/benchmark.json and data_checks.json. See PROGRESS.md for session evidence. Days 2–7 remain NOT STARTED. No training or QPU jobs. Original planning statements above are retained as historical context.
+October 28, 2026 update: Day 1 COMPLETE, verified by results/day1/benchmark.json and data_checks.json. See PROGRESS.md for session evidence. At that checkpoint, Days 2–7 remained NOT STARTED and no training or QPU jobs had run. Original planning statements above are retained as historical context.
+
+October 28, 2026 Day 2 update: training loop COMPLETE. Two reproducible 30-step Adam smoke runs saved under results/day2/. Training loss fell from 1.94994098 to 0.58133424; validation selected step 26 (loss 0.67837717). Checkpoint reload and independent repeat audit passed. See PROGRESS.md and results/day2/smoke/REVIEW.md. Days 3–7 remain NOT STARTED. No held-out test evaluation or QPU jobs.
