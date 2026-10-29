@@ -1,5 +1,9 @@
 # Progress and review gates
 
+## 2026-10-29 — paper-inspired accuracy pilot, checkpoint 1
+
+User requested an accuracy-focused experiment following the paper's ingredients. Declared two fixed BFGS runs in `results/paper_pilot/PROTOCOL.md`: original circuit with optimizer change only, then a six-qubit/six-block fixed-Ising circuit with learned output scales. Keep original train/validation data; reserve a new 128-point holdout until both checkpoints are frozen. All nine tests passed, including Ising unitarity, batched versus scalar predictions, finite-difference gradients, and full model shape/parameter count. No new accuracy measurements yet. This pilot changes the next work item; the original matched-depth/multiple-seed study remains deferred and incomplete.
+
 | Phase | Status | Evidence |
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
