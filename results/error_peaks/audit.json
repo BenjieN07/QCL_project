@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "diagnostic_grid_points": 10001,
+  "principal_peaks": 6,
+  "max_finite_difference_error_derivative_at_peaks": 8.326672684688673e-10,
+  "residual_arrays_verified": true,
+  "active_checkpoint_unchanged": true,
+  "training_or_selection_performed": false
+}

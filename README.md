@@ -22,6 +22,14 @@ This opens `results/progress/progress.png` and saves its underlying curves and m
 
 ## Review checkpoints
 
+### Investigate current error peaks without training
+
+```powershell
+.\.venv\Scripts\python.exe -m qcl.error_peaks
+```
+
+The [peak investigation](results/error_peaks/REPORT.md) locates signed-error maxima/minima, checks nearby training coverage, compares the update-1,500 parent with update 3,000, measures input slopes and local gradient conflicts, and checks sine/cosine symmetry. `error_peaks.png` labels the largest residuals and training inputs. `analysis.json` and `curves.npz` contain the measured evidence. This diagnostic uses no optimizer updates or checkpoint selection and verifies that weights, checkpoint bytes, and the active registry remain unchanged. Proposed next experiments in the report have not been run.
+
 ### Boundary investigation and improved fit
 
 The [boundary-study results](results/boundary/evaluation/REVIEW.md) compare eight approaches under a predeclared validation guard, retaining failures as well as improvements. Only two original training inputs were in |t|>=0.9. Parameter gradients were finite, while the inverse-trigonometric encoder was highly input-sensitive near endpoints. More updates alone helped only modestly. Boundary examples initially traded boundary error against the interior fit; a five-layer version of our own circuit with smoother encoding improved both.

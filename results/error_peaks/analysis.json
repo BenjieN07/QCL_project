@@ -1,0 +1,755 @@
+{
+  "run": "results/boundary/runs/refine_constant",
+  "selected_step": 3000,
+  "parent_run": "results/boundary/runs/capacity_smooth",
+  "checkpoint_sha256": "ed689a94014ca30637554ee2571013a3a88ed4a8e272f0027a94106406752894",
+  "graph_is_signed_error_not_error_rate": true,
+  "grid_points": 10001,
+  "principal_peaks": [
+    {
+      "output": "sin",
+      "kind": "local maximum",
+      "t": -0.3383137673062423,
+      "prediction": -0.8240594907906402,
+      "exact": -0.8737423270847703,
+      "signed_error": 0.04968283629413006,
+      "parent_error_at_same_t": 0.061720731264805706,
+      "model_slope": 1.5280363886666875,
+      "target_slope": 1.5280363886666872,
+      "error_slope_left_and_right": [
+        0.05389102384651778,
+        -0.05367598488236358
+      ],
+      "nearest_original_training_t": -0.3223750933724763,
+      "nearest_original_training_distance": 0.015938673933766023,
+      "error_at_nearest_training_t": 0.04940840286285886,
+      "original_training_points_within_0_05": 5,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.3613163921962752,
+        -0.3223750933724763
+      ],
+      "nearest_augmented_training_distance": 0.015938673933766023,
+      "nearest_original_validation_t": -0.34691067237746,
+      "point_gradient_norm": 0.09958901563597607,
+      "point_vs_original_gradient_cosine": 0.40977834527954166,
+      "point_vs_anchor_gradient_cosine": -0.39807324691908985,
+      "point_vs_other_output_gradient_cosine": -0.33108821548993916,
+      "label": "S1"
+    },
+    {
+      "output": "sin",
+      "kind": "local minimum",
+      "t": 0.6502158519023307,
+      "prediction": 0.8501165516532807,
+      "exact": 0.8906984598790257,
+      "signed_error": -0.040581908225745034,
+      "parent_error_at_same_t": -0.04698266977355736,
+      "model_slope": -1.4281510668478121,
+      "target_slope": -1.4281510668478103,
+      "error_slope_left_and_right": [
+        -0.04539650682069096,
+        0.05503464577841144
+      ],
+      "nearest_original_training_t": 0.65179051675114,
+      "nearest_original_training_distance": 0.001574664848809304,
+      "error_at_nearest_training_t": -0.04057938987662135,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.5949246310428653,
+        0.65179051675114
+      ],
+      "nearest_augmented_training_distance": 0.001574664848809304,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.06898969481290443,
+      "point_vs_original_gradient_cosine": 0.6921962597632344,
+      "point_vs_anchor_gradient_cosine": -0.695812349993269,
+      "point_vs_other_output_gradient_cosine": 0.5867030505378481,
+      "label": "S2"
+    },
+    {
+      "output": "sin",
+      "kind": "local minimum",
+      "t": 0.14040755673667635,
+      "prediction": 0.39127759838304194,
+      "exact": 0.42693746221759293,
+      "signed_error": -0.035659863834551,
+      "parent_error_at_same_t": -0.04271447333567746,
+      "model_slope": 2.840883026495924,
+      "target_slope": 2.840883026495928,
+      "error_slope_left_and_right": [
+        -0.03302812203528438,
+        0.02883374736520361
+      ],
+      "nearest_original_training_t": 0.1267547490050911,
+      "nearest_original_training_distance": 0.013652807731585254,
+      "error_at_nearest_training_t": -0.035541043264102734,
+      "original_training_points_within_0_05": 3,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.1267547490050911,
+        0.16005690604111233
+      ],
+      "nearest_augmented_training_distance": 0.013652807731585254,
+      "nearest_original_validation_t": 0.1543550089923984,
+      "point_gradient_norm": 0.10682336961308707,
+      "point_vs_original_gradient_cosine": -0.4141195948355255,
+      "point_vs_anchor_gradient_cosine": 0.41082603925468136,
+      "point_vs_other_output_gradient_cosine": -0.2889648962728576,
+      "label": "S3"
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": -0.8118683252817466,
+      "prediction": -0.754987795494056,
+      "exact": -0.8303654663310676,
+      "signed_error": 0.07537767083701152,
+      "parent_error_at_same_t": 0.08372081720040181,
+      "model_slope": 1.7505556196468126,
+      "target_slope": 1.750555619646808,
+      "error_slope_left_and_right": [
+        0.2510783897322546,
+        -0.22006230831258078
+      ],
+      "nearest_original_training_t": -0.9743190352663869,
+      "nearest_original_training_distance": 0.16245070998464028,
+      "error_at_nearest_training_t": 0.0073411117944298665,
+      "original_training_points_within_0_05": 0,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.9,
+        -0.6452936163539027
+      ],
+      "nearest_augmented_training_distance": 0.08813167471825345,
+      "nearest_original_validation_t": -0.8131081330107639,
+      "point_gradient_norm": 0.2076624684002087,
+      "point_vs_original_gradient_cosine": -0.5510778036566608,
+      "point_vs_anchor_gradient_cosine": 0.5753461800979304,
+      "point_vs_other_output_gradient_cosine": 0.07341680724550201,
+      "label": "C1"
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": 0.0275590300990799,
+      "prediction": 0.9311606464739335,
+      "exact": 0.9962543576822708,
+      "signed_error": -0.06509371120833729,
+      "parent_error_at_same_t": -0.07744883156437787,
+      "model_slope": -0.2716570390641964,
+      "target_slope": -0.27165703906419686,
+      "error_slope_left_and_right": [
+        -0.06296926882942544,
+        0.0614633686091251
+      ],
+      "nearest_original_training_t": 0.0303073926447035,
+      "nearest_original_training_distance": 0.0027483625456236026,
+      "error_at_nearest_training_t": -0.06508426484818897,
+      "original_training_points_within_0_05": 3,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.013779354030238444,
+        0.0303073926447035
+      ],
+      "nearest_augmented_training_distance": 0.0027483625456236026,
+      "nearest_original_validation_t": 0.03876844228867116,
+      "point_gradient_norm": 0.10544693282746022,
+      "point_vs_original_gradient_cosine": 0.2879818729373993,
+      "point_vs_anchor_gradient_cosine": -0.30687127938643183,
+      "point_vs_other_output_gradient_cosine": -0.7692330673933004,
+      "label": "C2"
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": -0.36233704216780876,
+      "prediction": 0.43952676507173005,
+      "exact": 0.41912460394395185,
+      "signed_error": 0.020402161127778207,
+      "parent_error_at_same_t": 0.027235756717642945,
+      "model_slope": 2.8523422067143014,
+      "target_slope": 2.8523422067143076,
+      "error_slope_left_and_right": [
+        0.06552799755074101,
+        -0.07000592912995796
+      ],
+      "nearest_original_training_t": -0.3613163921962752,
+      "nearest_original_training_distance": 0.0010206499715335604,
+      "error_at_nearest_training_t": 0.020400729399679407,
+      "original_training_points_within_0_05": 5,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.37235934547525984,
+        -0.3613163921962752
+      ],
+      "nearest_augmented_training_distance": 0.0010206499715335604,
+      "nearest_original_validation_t": -0.34691067237746,
+      "point_gradient_norm": 0.07984160790410107,
+      "point_vs_original_gradient_cosine": 0.015285527257589079,
+      "point_vs_anchor_gradient_cosine": 0.011844386526481837,
+      "point_vs_other_output_gradient_cosine": 0.13555193797781243,
+      "label": "C3"
+    }
+  ],
+  "all_stationary_error_points": [
+    {
+      "output": "sin",
+      "kind": "local maximum",
+      "t": -0.9172424146088285,
+      "prediction": -0.23313033426846663,
+      "exact": -0.2570714893594985,
+      "signed_error": 0.02394115509103184,
+      "parent_error_at_same_t": 0.02685987496090203,
+      "model_slope": -3.0360112295096355,
+      "target_slope": -3.0360112295096355,
+      "error_slope_left_and_right": [
+        0.21988812578918182,
+        -0.1404386988706432
+      ],
+      "nearest_original_training_t": -0.9743190352663869,
+      "nearest_original_training_distance": 0.05707662065755836,
+      "error_at_nearest_training_t": 0.008032213654644418,
+      "original_training_points_within_0_05": 0,
+      "anchor_points_within_0_05": 2,
+      "augmented_training_bracket": [
+        -0.95,
+        -0.9
+      ],
+      "nearest_augmented_training_distance": 0.01724241460882847,
+      "nearest_original_validation_t": -0.996395292786362,
+      "point_gradient_norm": 0.08978528537233499,
+      "point_vs_original_gradient_cosine": -0.5212295270740686,
+      "point_vs_anchor_gradient_cosine": 0.5203760763919805,
+      "point_vs_other_output_gradient_cosine": 0.13572182901015972
+    },
+    {
+      "output": "sin",
+      "kind": "local minimum",
+      "t": -0.6981156988016171,
+      "prediction": -0.8236016646560125,
+      "exact": -0.8124823152880156,
+      "signed_error": -0.011119349367996856,
+      "parent_error_at_same_t": -0.021494877731048412,
+      "model_slope": -1.83150402590378,
+      "target_slope": -1.83150402590378,
+      "error_slope_left_and_right": [
+        -0.06347118549410569,
+        0.0621705136276407
+      ],
+      "nearest_original_training_t": -0.6452936163539027,
+      "nearest_original_training_distance": 0.05282208244771436,
+      "error_at_nearest_training_t": -0.007701133436346264,
+      "original_training_points_within_0_05": 0,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.9,
+        -0.6452936163539027
+      ],
+      "nearest_augmented_training_distance": 0.05282208244771436,
+      "nearest_original_validation_t": -0.8131081330107639,
+      "point_gradient_norm": 0.025377854639715574,
+      "point_vs_original_gradient_cosine": 0.6498409153015628,
+      "point_vs_anchor_gradient_cosine": -0.6447796593853031,
+      "point_vs_other_output_gradient_cosine": -0.1671276863608044
+    },
+    {
+      "output": "sin",
+      "kind": "local maximum",
+      "t": -0.3383137673062423,
+      "prediction": -0.8240594907906402,
+      "exact": -0.8737423270847703,
+      "signed_error": 0.04968283629413006,
+      "parent_error_at_same_t": 0.061720731264805706,
+      "model_slope": 1.5280363886666875,
+      "target_slope": 1.5280363886666872,
+      "error_slope_left_and_right": [
+        0.05389102384651778,
+        -0.05367598488236358
+      ],
+      "nearest_original_training_t": -0.3223750933724763,
+      "nearest_original_training_distance": 0.015938673933766023,
+      "error_at_nearest_training_t": 0.04940840286285886,
+      "original_training_points_within_0_05": 5,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.3613163921962752,
+        -0.3223750933724763
+      ],
+      "nearest_augmented_training_distance": 0.015938673933766023,
+      "nearest_original_validation_t": -0.34691067237746,
+      "point_gradient_norm": 0.09958901563597607,
+      "point_vs_original_gradient_cosine": 0.40977834527954166,
+      "point_vs_anchor_gradient_cosine": -0.39807324691908985,
+      "point_vs_other_output_gradient_cosine": -0.33108821548993916,
+      "label": "S1"
+    },
+    {
+      "output": "sin",
+      "kind": "local minimum",
+      "t": 0.14040755673667635,
+      "prediction": 0.39127759838304194,
+      "exact": 0.42693746221759293,
+      "signed_error": -0.035659863834551,
+      "parent_error_at_same_t": -0.04271447333567746,
+      "model_slope": 2.840883026495924,
+      "target_slope": 2.840883026495928,
+      "error_slope_left_and_right": [
+        -0.03302812203528438,
+        0.02883374736520361
+      ],
+      "nearest_original_training_t": 0.1267547490050911,
+      "nearest_original_training_distance": 0.013652807731585254,
+      "error_at_nearest_training_t": -0.035541043264102734,
+      "original_training_points_within_0_05": 3,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.1267547490050911,
+        0.16005690604111233
+      ],
+      "nearest_augmented_training_distance": 0.013652807731585254,
+      "nearest_original_validation_t": 0.1543550089923984,
+      "point_gradient_norm": 0.10682336961308707,
+      "point_vs_original_gradient_cosine": -0.4141195948355255,
+      "point_vs_anchor_gradient_cosine": 0.41082603925468136,
+      "point_vs_other_output_gradient_cosine": -0.2889648962728576,
+      "label": "S3"
+    },
+    {
+      "output": "sin",
+      "kind": "local maximum",
+      "t": 0.39336954800136004,
+      "prediction": 0.9224143270577918,
+      "exact": 0.944413779854384,
+      "signed_error": -0.02199945279659221,
+      "parent_error_at_same_t": -0.032619214458114665,
+      "model_slope": 1.0328274915168858,
+      "target_slope": 1.0328274915168878,
+      "error_slope_left_and_right": [
+        0.025851233551948738,
+        -0.027356058794860916
+      ],
+      "nearest_original_training_t": 0.3919897402675667,
+      "nearest_original_training_distance": 0.0013798077337933146,
+      "error_at_nearest_training_t": -0.02200047695087204,
+      "original_training_points_within_0_05": 2,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.3919897402675667,
+        0.40168177900171087
+      ],
+      "nearest_augmented_training_distance": 0.0013798077337933146,
+      "nearest_original_validation_t": 0.35127844569924616,
+      "point_gradient_norm": 0.02930919228863541,
+      "point_vs_original_gradient_cosine": -0.26716353636139345,
+      "point_vs_anchor_gradient_cosine": 0.2743953754417485,
+      "point_vs_other_output_gradient_cosine": -0.4629722934905541
+    },
+    {
+      "output": "sin",
+      "kind": "local minimum",
+      "t": 0.6502158519023307,
+      "prediction": 0.8501165516532807,
+      "exact": 0.8906984598790257,
+      "signed_error": -0.040581908225745034,
+      "parent_error_at_same_t": -0.04698266977355736,
+      "model_slope": -1.4281510668478121,
+      "target_slope": -1.4281510668478103,
+      "error_slope_left_and_right": [
+        -0.04539650682069096,
+        0.05503464577841144
+      ],
+      "nearest_original_training_t": 0.65179051675114,
+      "nearest_original_training_distance": 0.001574664848809304,
+      "error_at_nearest_training_t": -0.04057938987662135,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.5949246310428653,
+        0.65179051675114
+      ],
+      "nearest_augmented_training_distance": 0.001574664848809304,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.06898969481290443,
+      "point_vs_original_gradient_cosine": 0.6921962597632344,
+      "point_vs_anchor_gradient_cosine": -0.695812349993269,
+      "point_vs_other_output_gradient_cosine": 0.5867030505378481,
+      "label": "S2"
+    },
+    {
+      "output": "sin",
+      "kind": "local maximum",
+      "t": 0.9247594600435618,
+      "prediction": 0.2528151002508321,
+      "exact": 0.2341800962327498,
+      "signed_error": 0.018635004018082296,
+      "parent_error_at_same_t": 0.02014546411294041,
+      "model_slope": -3.0542351190461274,
+      "target_slope": -3.054235119046128,
+      "error_slope_left_and_right": [
+        0.1638932470704817,
+        -0.22070397289926058
+      ],
+      "nearest_original_training_t": 0.9339244003247811,
+      "nearest_original_training_distance": 0.00916494028121928,
+      "error_at_nearest_training_t": 0.018300102625477016,
+      "original_training_points_within_0_05": 2,
+      "anchor_points_within_0_05": 2,
+      "augmented_training_bracket": [
+        0.9,
+        0.9339244003247811
+      ],
+      "nearest_augmented_training_distance": 0.00916494028121928,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.07860245612859415,
+      "point_vs_original_gradient_cosine": -0.5093081677839527,
+      "point_vs_anchor_gradient_cosine": 0.52316752618909,
+      "point_vs_other_output_gradient_cosine": -0.4787682198711551
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": -0.9648629328866062,
+      "prediction": -0.9878439441922535,
+      "exact": -0.9939136107184942,
+      "signed_error": 0.006069666526240636,
+      "parent_error_at_same_t": 0.008029855500514271,
+      "model_slope": 0.3460851021442986,
+      "target_slope": 0.34608510214429744,
+      "error_slope_left_and_right": [
+        -0.8491819147541022,
+        0.49768031593739515
+      ],
+      "nearest_original_training_t": -0.9743190352663869,
+      "nearest_original_training_distance": 0.009456102379780673,
+      "error_at_nearest_training_t": 0.0073411117944298665,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 5,
+      "augmented_training_bracket": [
+        -0.9743190352663869,
+        -0.95
+      ],
+      "nearest_augmented_training_distance": 0.009456102379780673,
+      "nearest_original_validation_t": -0.996395292786362,
+      "point_gradient_norm": 0.0028093903771701134,
+      "point_vs_original_gradient_cosine": -0.4650151544149428,
+      "point_vs_anchor_gradient_cosine": 0.4563885909541275,
+      "point_vs_other_output_gradient_cosine": 0.23877228829076622
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": -0.8118683252817466,
+      "prediction": -0.754987795494056,
+      "exact": -0.8303654663310676,
+      "signed_error": 0.07537767083701152,
+      "parent_error_at_same_t": 0.08372081720040181,
+      "model_slope": 1.7505556196468126,
+      "target_slope": 1.750555619646808,
+      "error_slope_left_and_right": [
+        0.2510783897322546,
+        -0.22006230831258078
+      ],
+      "nearest_original_training_t": -0.9743190352663869,
+      "nearest_original_training_distance": 0.16245070998464028,
+      "error_at_nearest_training_t": 0.0073411117944298665,
+      "original_training_points_within_0_05": 0,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.9,
+        -0.6452936163539027
+      ],
+      "nearest_augmented_training_distance": 0.08813167471825345,
+      "nearest_original_validation_t": -0.8131081330107639,
+      "point_gradient_norm": 0.2076624684002087,
+      "point_vs_original_gradient_cosine": -0.5510778036566608,
+      "point_vs_anchor_gradient_cosine": 0.5753461800979304,
+      "point_vs_other_output_gradient_cosine": 0.07341680724550201,
+      "label": "C1"
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": -0.5638717425390849,
+      "prediction": -0.2028531159247347,
+      "exact": -0.19931514867425199,
+      "signed_error": -0.003537967250482721,
+      "parent_error_at_same_t": -0.0028265055357817315,
+      "model_slope": 3.0785579872164517,
+      "target_slope": 3.078557987216449,
+      "error_slope_left_and_right": [
+        -0.10298649556648343,
+        0.08393971692855562
+      ],
+      "nearest_original_training_t": -0.5473338863131931,
+      "nearest_original_training_distance": 0.016537856225891767,
+      "error_at_nearest_training_t": -0.003044957821595723,
+      "original_training_points_within_0_05": 4,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.5811677575275609,
+        -0.5473338863131931
+      ],
+      "nearest_augmented_training_distance": 0.016537856225891767,
+      "nearest_original_validation_t": -0.34691067237746,
+      "point_gradient_norm": 0.014916915963032578,
+      "point_vs_original_gradient_cosine": 0.11037350131496636,
+      "point_vs_anchor_gradient_cosine": -0.1385971339276358,
+      "point_vs_other_output_gradient_cosine": -0.06471000429056761
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": -0.36233704216780876,
+      "prediction": 0.43952676507173005,
+      "exact": 0.41912460394395185,
+      "signed_error": 0.020402161127778207,
+      "parent_error_at_same_t": 0.027235756717642945,
+      "model_slope": 2.8523422067143014,
+      "target_slope": 2.8523422067143076,
+      "error_slope_left_and_right": [
+        0.06552799755074101,
+        -0.07000592912995796
+      ],
+      "nearest_original_training_t": -0.3613163921962752,
+      "nearest_original_training_distance": 0.0010206499715335604,
+      "error_at_nearest_training_t": 0.020400729399679407,
+      "original_training_points_within_0_05": 5,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.37235934547525984,
+        -0.3613163921962752
+      ],
+      "nearest_augmented_training_distance": 0.0010206499715335604,
+      "nearest_original_validation_t": -0.34691067237746,
+      "point_gradient_norm": 0.07984160790410107,
+      "point_vs_original_gradient_cosine": 0.015285527257589079,
+      "point_vs_anchor_gradient_cosine": 0.011844386526481837,
+      "point_vs_other_output_gradient_cosine": 0.13555193797781243,
+      "label": "C3"
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": 0.0275590300990799,
+      "prediction": 0.9311606464739335,
+      "exact": 0.9962543576822708,
+      "signed_error": -0.06509371120833729,
+      "parent_error_at_same_t": -0.07744883156437787,
+      "model_slope": -0.2716570390641964,
+      "target_slope": -0.27165703906419686,
+      "error_slope_left_and_right": [
+        -0.06296926882942544,
+        0.0614633686091251
+      ],
+      "nearest_original_training_t": 0.0303073926447035,
+      "nearest_original_training_distance": 0.0027483625456236026,
+      "error_at_nearest_training_t": -0.06508426484818897,
+      "original_training_points_within_0_05": 3,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        -0.013779354030238444,
+        0.0303073926447035
+      ],
+      "nearest_augmented_training_distance": 0.0027483625456236026,
+      "nearest_original_validation_t": 0.03876844228867116,
+      "point_gradient_norm": 0.10544693282746022,
+      "point_vs_original_gradient_cosine": 0.2879818729373993,
+      "point_vs_anchor_gradient_cosine": -0.30687127938643183,
+      "point_vs_other_output_gradient_cosine": -0.7692330673933004,
+      "label": "C2"
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": 0.470185247675469,
+      "prediction": 0.11345360476403221,
+      "exact": 0.09352890749359771,
+      "signed_error": 0.0199246972704345,
+      "parent_error_at_same_t": 0.02654742502113827,
+      "model_slope": -3.127821684756518,
+      "target_slope": -3.1278216847565172,
+      "error_slope_left_and_right": [
+        0.04177395387032368,
+        -0.03683979696775008
+      ],
+      "nearest_original_training_t": 0.5054641941581732,
+      "nearest_original_training_distance": 0.03527894648270424,
+      "error_at_nearest_training_t": 0.01900396498260343,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.40168177900171087,
+        0.5054641941581732
+      ],
+      "nearest_augmented_training_distance": 0.03527894648270424,
+      "nearest_original_validation_t": 0.4624813167168893,
+      "point_gradient_norm": 0.0803052132834943,
+      "point_vs_original_gradient_cosine": -0.04917774362992263,
+      "point_vs_anchor_gradient_cosine": 0.0470689161136321,
+      "point_vs_other_output_gradient_cosine": 0.4374305334179929
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": 0.7052553140678721,
+      "prediction": -0.5963126129064538,
+      "exact": -0.6010614534229142,
+      "signed_error": 0.004748840516460406,
+      "parent_error_at_same_t": 0.014174133520371779,
+      "model_slope": -2.5107696720983395,
+      "target_slope": -2.5107696720983466,
+      "error_slope_left_and_right": [
+        -0.031056731842092233,
+        0.028527414245520077
+      ],
+      "nearest_original_training_t": 0.749248114384359,
+      "nearest_original_training_distance": 0.04399280031648689,
+      "error_at_nearest_training_t": 0.005825116711191014,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.65179051675114,
+        0.749248114384359
+      ],
+      "nearest_augmented_training_distance": 0.04399280031648689,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.01467915985183973,
+      "point_vs_original_gradient_cosine": 0.0829028357616738,
+      "point_vs_anchor_gradient_cosine": -0.0955959180174359,
+      "point_vs_other_output_gradient_cosine": 0.10004743432061092
+    },
+    {
+      "output": "cos",
+      "kind": "local maximum",
+      "t": 0.8365208105817716,
+      "prediction": -0.8614676907558971,
+      "exact": -0.8709887775487564,
+      "signed_error": 0.009521086792859235,
+      "parent_error_at_same_t": 0.008268643300563205,
+      "model_slope": -1.543473612774158,
+      "target_slope": -1.5434736127741562,
+      "error_slope_left_and_right": [
+        0.03796269807939523,
+        -0.05579615823280748
+      ],
+      "nearest_original_training_t": 0.8397003210745564,
+      "nearest_original_training_distance": 0.003179510492784754,
+      "error_at_nearest_training_t": 0.009511227954282497,
+      "original_training_points_within_0_05": 3,
+      "anchor_points_within_0_05": 0,
+      "augmented_training_bracket": [
+        0.8102876733543478,
+        0.8397003210745564
+      ],
+      "nearest_augmented_training_distance": 0.003179510492784754,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.017256144215282654,
+      "point_vs_original_gradient_cosine": 0.21083948372952616,
+      "point_vs_anchor_gradient_cosine": -0.23033172688975193,
+      "point_vs_other_output_gradient_cosine": -0.11581778399435677
+    },
+    {
+      "output": "cos",
+      "kind": "local minimum",
+      "t": 0.9614294781693301,
+      "prediction": -0.9957979797638582,
+      "exact": -0.9926675464021864,
+      "signed_error": -0.003130433361671847,
+      "parent_error_at_same_t": -0.0008905587787731983,
+      "model_slope": -0.37974490720096205,
+      "target_slope": -0.37974490720095855,
+      "error_slope_left_and_right": [
+        -0.14640884977881496,
+        0.3878180541908002
+      ],
+      "nearest_original_training_t": 0.9339244003247811,
+      "nearest_original_training_distance": 0.02750507784454903,
+      "error_at_nearest_training_t": -0.0005570982722944429,
+      "original_training_points_within_0_05": 1,
+      "anchor_points_within_0_05": 5,
+      "augmented_training_bracket": [
+        0.95,
+        0.98
+      ],
+      "nearest_augmented_training_distance": 0.011429478169330154,
+      "nearest_original_validation_t": 0.5880621215510085,
+      "point_gradient_norm": 0.0009374643590677399,
+      "point_vs_original_gradient_cosine": -0.059098337525022394,
+      "point_vs_anchor_gradient_cosine": 0.08009656509292151,
+      "point_vs_other_output_gradient_cosine": 0.07594940726912087
+    }
+  ],
+  "gradient_diagnostics": {
+    "original_loss_gradient_norm": 0.009099350613482077,
+    "anchor_loss_gradient_norm": 0.008983710644517287,
+    "weighted_training_gradient_norm": 0.000613931195604486,
+    "original_vs_anchor_gradient_cosine": -0.9908602581490412,
+    "sine_vs_cosine_gradient_cosine": -0.994590506709605,
+    "sine_loss_gradient_norm": 0.0058686259662481186,
+    "cosine_loss_gradient_norm": 0.005764043530895976
+  },
+  "model_curve_extrema_on_grid": {
+    "sin": {
+      "predicted_maximum": 0.9725937695880722,
+      "maximum_t": 0.49040000000000017,
+      "predicted_minimum": -0.9784679622180075,
+      "minimum_t": -0.5267999999999999
+    },
+    "cos": {
+      "predicted_maximum": 0.9361892667436896,
+      "maximum_t": -0.009399999999999964,
+      "predicted_minimum": -0.999085735684017,
+      "minimum_t": 0.9778
+    }
+  },
+  "largest_finite_difference_error_derivative_at_principal_peaks": 8.326672684688673e-10,
+  "symmetry_diagnostics": {
+    "sin": {
+      "maximum_parity_defect": 0.05037333511203301,
+      "at_t": -0.6756
+    },
+    "cos": {
+      "maximum_parity_defect": 0.06644407369504635,
+      "at_t": -0.8074
+    }
+  },
+  "largest_cosine_peak_mirror_comparison": {
+    "peak_t": -0.8118683252817466,
+    "peak_error": 0.07537767083701152,
+    "mirror_t": 0.8118683252817466,
+    "mirror_error": 0.009016664518324169,
+    "original_training_points_within_0_05_at_peak": 0,
+    "original_training_points_within_0_05_at_mirror": 3
+  },
+  "all_six_highlighted_errors_shrank_from_parent": true,
+  "at_t_zero": {
+    "prediction": [
+      -0.021708090134965274,
+      0.9358619970294871
+    ],
+    "exact": [
+      0.0,
+      1.0
+    ],
+    "cosine_readout_probability_of_one": 0.03206900148525643
+  },
+  "validation_start_and_end": {
+    "validation_original_loss": [
+      0.0038949363167042803,
+      0.002689373793900545
+    ],
+    "validation_collar_loss": [
+      0.000600466234544815,
+      0.00045121746861037805
+    ],
+    "selection_score": [
+      0.002247701275624548,
+      0.0015702956312554615
+    ]
+  },
+  "model_parameters_unchanged": true,
+  "new_training_performed": false,
+  "new_checkpoint_selection_performed": false
+}

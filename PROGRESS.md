@@ -1,5 +1,15 @@
 # Progress and review gates
 
+## Read-only error-peak investigation — 2026-10-29
+
+User requested a report before deciding the next training step. No training or checkpoint selection was performed. Measured signed residuals on a 10,001-input diagnostic grid; refined stationary locations and verified the equal-slope condition with autodifferentiation and central finite differences. Largest highlighted errors: sine +0.04968284 at t=-0.33831377 and -0.04058191 at t=0.65021585; cosine +0.07537767 at t=-0.81186833 and -0.06509371 at t=0.02755903. Full peak list and before/after values are retained.
+
+The largest cosine peak lies in an augmented-training gap between -0.9 and -0.64529362; there are zero original training inputs within ±0.05, versus three near its positive mirror. Mirrored cosine error is about +0.00901, compared with +0.07538 on the negative side. The circuit is not explicitly constrained to cosine evenness or sine oddness; sampled parity defects are about 0.06644 and 0.05037. This supports coverage/symmetry hypotheses, not a unique causal proof.
+
+Other peaks occur near training examples with comparable residuals: the main sine peak has five nearby original inputs; the central cosine dip is 0.00275 from a training input with about -0.06508 error. Current predicted cosine maximum is 0.93619 rather than 1. These are local training underfits as well as generalization issues. Gradient cosines at the frozen model are -0.99086 (original-data versus anchors) and -0.99459 (sine versus cosine components), showing local competing update preferences; this does not prove an unavoidable capacity limit or global optimum. All six highlighted peak magnitudes decreased from the parent at update 1,500 to update 3,000.
+
+Saved report, annotated plot, raw curves, and diagnostic values in `results/error_peaks/`. Model weights, serialized checkpoint, and active registry were verified unchanged. Candidate next tests, not executed: mirrored/stratified training coverage first, followed by a separate guarded loss-weighting ablation if needed. Await the user's next-step decision; do not automatically continue training based on these exposed diagnostic curves.
+
 ## Boundary-study review gate — 2026-10-29
 
 All eight trials are complete and retained, including rejected trade-offs. Four three-layer branches resumed update 250 to 1,000. Two five-layer architectures started fresh and trained to 1,500. Two actual same-model refinements resumed the smooth five-layer parent to 3,000. Total new optimization work across branches was 9,000 updates; the active model itself has 3,000 updates, not 9,000. No removed model was reintroduced.
