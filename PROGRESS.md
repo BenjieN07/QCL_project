@@ -55,3 +55,7 @@ Final user-facing check: `review-day2.ps1` completed successfully, running all f
 ## 2026-10-29 — Day 3, checkpoint 1
 
 Declared the evaluation protocol before reading test scores. Fixed one-layer seed-7 training to 250 updates; select by minimum validation loss. Fixed the classical baseline to degree-five polynomial least squares and specified an analytic quantum rotation reference. Generalized the training command to accept a separate configuration file while retaining Day 2 defaults. Day 3 measurements pending.
+
+## 2026-10-29 — Day 3, checkpoint 2
+
+Completed all 250 updates without gradient failures. Training loss: 1.9499409826430554 initially, 0.4426379233622822 finally (77.30% reduction). Validation selected step 83 with loss 0.6320843068249645; the final step was not selected. Minimum gradient norm 2.963715646542432e-06. Saved checkpoint reload passed. Training loop wall time was 85.16 seconds, excluding process imports, plotting, and evaluation; earlier short-run timings were not a reliable predictor of this run. Seven tests passed before training, including known-error metric checks, polynomial coefficient recovery, and the direct-rotation quantum reference at domain boundaries. The existing Day 2 checkpoint/repeat audit still passed. Held-out evaluation and plot inspection pending.
