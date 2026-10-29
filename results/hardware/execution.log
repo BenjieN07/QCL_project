@@ -1,0 +1,157 @@
+{
+  "checkpoint": "results\\mirror\\runs\\mirrored_rebalance\\best.pt",
+  "sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79",
+  "step": 4288,
+  "qpu_jobs": 0,
+  "real_backend_verified": false,
+  "simulation": "Ideal joint measurement sampling; excludes device noise",
+  "max_export_difference": 1.6653345369377348e-15,
+  "shot_benchmarks": [
+    {
+      "shots": 256,
+      "repeats": 50,
+      "rmse_from_exact": [
+        0.044856962278640465,
+        0.04356385128318374
+      ],
+      "expected_rmse_from_exact": [
+        0.04736618661622162,
+        0.04314178631425706
+      ],
+      "rmse_from_target": [
+        0.04905305716660014,
+        0.052792154882202125
+      ]
+    },
+    {
+      "shots": 1024,
+      "repeats": 50,
+      "rmse_from_exact": [
+        0.023442151013433114,
+        0.022081871346886876
+      ],
+      "expected_rmse_from_exact": [
+        0.02368309330811081,
+        0.02157089315712853
+      ],
+      "rmse_from_target": [
+        0.0306257104817939,
+        0.03601521378669758
+      ]
+    },
+    {
+      "shots": 4096,
+      "repeats": 50,
+      "rmse_from_exact": [
+        0.011650724353322359,
+        0.010510423729271749
+      ],
+      "expected_rmse_from_exact": [
+        0.011841546654055405,
+        0.010785446578564265
+      ],
+      "rmse_from_target": [
+        0.021698484015826178,
+        0.030101555684743164
+      ]
+    }
+  ],
+  "generic_compilation": [
+    {
+      "t": -1.0,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": -0.75,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": -0.5,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": -0.25,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": 0.0,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": 0.25,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": 0.5,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": 0.75,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    },
+    {
+      "t": 1.0,
+      "depth": 16,
+      "operations": {
+        "rz": 15,
+        "sx": 10,
+        "cx": 3
+      }
+    }
+  ],
+  "proposed_pilot": {
+    "inputs": [
+      -1,
+      0,
+      1
+    ],
+    "shots_per_input": 1024,
+    "total_shots": 3072,
+    "submitted": false
+  },
+  "proposed_full_workload": {
+    "circuits": 9,
+    "total_shots": 9216,
+    "submitted": false
+  }
+}

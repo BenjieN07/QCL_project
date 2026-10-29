@@ -23,7 +23,7 @@ def calculate():
     for path in tracked:
         subprocess.run(['git','ls-files','--error-unmatch',path],check=True,capture_output=True)
         subprocess.run(['git','diff','--exit-code','HEAD','--',path],check=True,capture_output=True)
-    freeze_commit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    freeze_commit=subprocess.check_output(['git','log','-1','--format=%H','--','results/mirror/selection.json'],text=True).strip()
     spec=json.loads(Path('configs/mirror_study.json').read_text())
     data=datasets(); histories={}; checkpoints={}; audit=[]
     with np.load(ROOT/'training_data.npz') as saved:

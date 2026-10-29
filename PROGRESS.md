@@ -1,5 +1,15 @@
 # Progress and review gates
 
+## Mirrored training and hardware preparation — checkpoint 3
+
+Completed three branches with 1,500 additional updates each: 4,500 new experiment updates in total, not 4,500 sequential updates added to one model. All branches inherited update-3,000 weights AND Adam moments. Guarded validation selected mirrored_rebalance at update 4,288 (1,288 continued updates on the active lineage). Final update 4,500 had lower selection loss but endpoint error 0.05107 and was rejected. Selected endpoint error is 0.04999637, narrowly below the declared 0.05 guard. Checkpoints and validation-only selection were committed as b3e9636 before the new holdout was read.
+
+Fresh seed-20261101 holdout contains 256 interior and 128 inputs in each boundary collar, disjoint from training, validation and previous holdouts. Interior MAE sine/cosine improved 0.024432/0.025132 to 0.017752/0.019721. Grid maximum errors improved 0.049683/0.075378 to 0.041078/0.054862. This is not uniform improvement: right-collar MAE worsened 0.012349/0.002516 to 0.012565/0.006401; left-collar cosine maximum increased 0.039054 to 0.045784 despite lower mean error. Original validation cosine MSE 0.00131396 still misses the 0.001 goal. Preserve these limitations rather than selecting again using the exposed holdout.
+
+Frozen selected circuit exports agree with the original simulator within 1.67e-15. Ideal shot-sampling RMSE from exact QCL is 0.02344/0.02208 at 1,024 shots and 0.01165/0.01051 at 4,096 shots (50 repeats at each of nine fixed inputs). This excludes real-device noise. Proposed three-input hardware pilot remains unsubmitted; live plan, backend, remaining allowance and runtime estimate are pending private account preflight. No credentials were saved or reused from chat.
+
+Final review-mirror.ps1 passed all 17 tests, audited 4,503 training-history rows with inherited optimizer moments and guarded checkpoint selection, evaluated 512 new stratified holdout inputs, and reconstructed measured-circuit mapping and deterministic shot samples. Refreshed the default viewer to update 4,288 and visually inspected both the before/after and shot-comparison figures. This checkpoint is ready for user inspection before further optimization or hardware submission.
+
 ## Mirrored training and hardware preparation — checkpoint 2
 
 Optional Qiskit 2.5.2 and IBM Runtime 0.47.0 installed; pip dependency check passed. Seventeen tests passed, including circuit equivalence at depths 1/3/5 with broad rotation angles and explicit measurement bit mapping. Added offline joint-shot sampling, measured QPY export, artifact auditing, and hidden-entry IBM access/target-compilation preflight. The preflight does not save accounts or credentials and contains no submission operation. No IBM authentication or QPU execution has occurred. Added a separate optional environment lock; core requirements remain unchanged.

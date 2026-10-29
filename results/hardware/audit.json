@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "circuits": 9,
+  "sampling_repeats_per_budget": 50,
+  "budgets": [
+    256,
+    1024,
+    4096
+  ],
+  "qpu_jobs": 0
+}

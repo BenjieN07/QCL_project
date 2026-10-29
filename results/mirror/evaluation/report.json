@@ -1,0 +1,334 @@
+{
+  "selection": {
+    "candidates": [
+      {
+        "run": "results/mirror/runs/continuation_control",
+        "name": "continuation_control",
+        "eligible": true,
+        "score": 0.0011307634558895504,
+        "selected_step": 4500
+      },
+      {
+        "run": "results/mirror/runs/mirrored_training",
+        "name": "mirrored_training",
+        "eligible": true,
+        "score": 0.001093694261669067,
+        "selected_step": 4500
+      },
+      {
+        "run": "results/mirror/runs/mirrored_rebalance",
+        "name": "mirrored_rebalance",
+        "eligible": true,
+        "score": 0.0010905606546365407,
+        "selected_step": 4288
+      }
+    ],
+    "selected": {
+      "run": "results/mirror/runs/mirrored_rebalance",
+      "name": "mirrored_rebalance",
+      "eligible": true,
+      "score": 0.0010905606546365407,
+      "selected_step": 4288,
+      "model": "original",
+      "layers": 5,
+      "parameter_seed": 41,
+      "input_scale": 0.9,
+      "selection": "minimum symmetric/collar validation score, guarded by per-output original validation MSE and boundary errors",
+      "test_or_fresh_holdout_used_for_selection": false,
+      "new_holdout_read_at_registration": false
+    }
+  },
+  "freeze_commit": "b3e96365f4aecbc110e2e6d6ef95391908ede26e",
+  "fresh_holdout_seed": 20261101,
+  "fresh_holdout_counts": [
+    256,
+    128,
+    128
+  ],
+  "fresh_holdout_used_for_selection": false,
+  "qpu_jobs": 0,
+  "audit": [
+    {
+      "name": "continuation_control",
+      "history_rows": 1501,
+      "optimizer_start": 3000,
+      "optimizer_final": 4500,
+      "selected_step": 4500,
+      "checkpoint_sha256": "ce09806385187321a9cd01273791d3d3be2eb22f07141905ca44bdc6db4af821"
+    },
+    {
+      "name": "mirrored_training",
+      "history_rows": 1501,
+      "optimizer_start": 3000,
+      "optimizer_final": 4500,
+      "selected_step": 4500,
+      "checkpoint_sha256": "7e39073e9863b2e9cd163aa9c98249711ee90f59f1dc4d9ed21cb81ab0d87659"
+    },
+    {
+      "name": "mirrored_rebalance",
+      "history_rows": 1501,
+      "optimizer_start": 3000,
+      "optimizer_final": 4500,
+      "selected_step": 4288,
+      "checkpoint_sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79"
+    }
+  ],
+  "metrics": {
+    "before": {
+      "interior": {
+        "sin": {
+          "mse": 0.0007994353751539044,
+          "mae": 0.024431771160545145,
+          "max_absolute_error": 0.04968280811401993
+        },
+        "cos": {
+          "mse": 0.0011351922344954983,
+          "mae": 0.025132346044989408,
+          "max_absolute_error": 0.07531850944965368
+        }
+      },
+      "left_boundary": {
+        "sin": {
+          "mse": 0.00031267059046643115,
+          "mae": 0.015515512326042778,
+          "max_absolute_error": 0.023940156276926916
+        },
+        "cos": {
+          "mse": 0.0003502716651195699,
+          "mae": 0.016368361922006032,
+          "max_absolute_error": 0.03905428514944742
+        }
+      },
+      "right_boundary": {
+        "sin": {
+          "mse": 0.0001921111779214577,
+          "mae": 0.01234940236629178,
+          "max_absolute_error": 0.018634706772455156
+        },
+        "cos": {
+          "mse": 9.03248203739095e-06,
+          "mae": 0.0025156542321097975,
+          "max_absolute_error": 0.008312632827022215
+        }
+      },
+      "grid": {
+        "sin": {
+          "mse": 0.0007382790230606661,
+          "mae": 0.023663526313904004,
+          "max_absolute_error": 0.04968272971023613
+        },
+        "cos": {
+          "mse": 0.0010458009317059593,
+          "mae": 0.023781244446956708,
+          "max_absolute_error": 0.07537758726243826
+        }
+      },
+      "parity_max_error": [
+        0.05037303137081095,
+        0.06644275075658301
+      ],
+      "largest_signed_error": [
+        {
+          "t": -0.33799999999999997,
+          "error": 0.04968272971023613
+        },
+        {
+          "t": -0.812,
+          "error": 0.07537758726243826
+        }
+      ]
+    },
+    "continuation_control": {
+      "interior": {
+        "sin": {
+          "mse": 0.0005328581515494926,
+          "mae": 0.019664032827458097,
+          "max_absolute_error": 0.04136536483417874
+        },
+        "cos": {
+          "mse": 0.0010707149069002354,
+          "mae": 0.023690577916947828,
+          "max_absolute_error": 0.07970015281240017
+        }
+      },
+      "left_boundary": {
+        "sin": {
+          "mse": 0.00016543147835897942,
+          "mae": 0.011010494174249492,
+          "max_absolute_error": 0.019498271310301685
+        },
+        "cos": {
+          "mse": 0.00026719248359572756,
+          "mae": 0.013548767620508648,
+          "max_absolute_error": 0.03621961765317938
+        }
+      },
+      "right_boundary": {
+        "sin": {
+          "mse": 7.108366789822339e-05,
+          "mae": 0.007560217956667574,
+          "max_absolute_error": 0.011252117265884515
+        },
+        "cos": {
+          "mse": 1.202130265163888e-05,
+          "mae": 0.00268845561346138,
+          "max_absolute_error": 0.008964787758648618
+        }
+      },
+      "grid": {
+        "sin": {
+          "mse": 0.0004850400626086992,
+          "mae": 0.018898006569661997,
+          "max_absolute_error": 0.041364768968480736
+        },
+        "cos": {
+          "mse": 0.0009678404796983046,
+          "mae": 0.02200175039067425,
+          "max_absolute_error": 0.07970217158594506
+        }
+      },
+      "parity_max_error": [
+        0.03493123037793189,
+        0.07791426173701366
+      ],
+      "largest_signed_error": [
+        {
+          "t": -0.32999999999999996,
+          "error": 0.041364768968480736
+        },
+        {
+          "t": -0.806,
+          "error": 0.07970217158594506
+        }
+      ]
+    },
+    "mirrored_training": {
+      "interior": {
+        "sin": {
+          "mse": 0.0005744389564569924,
+          "mae": 0.019760356213228407,
+          "max_absolute_error": 0.04693559405157388
+        },
+        "cos": {
+          "mse": 0.0007744486154861847,
+          "mae": 0.020864003566514855,
+          "max_absolute_error": 0.05982899715904899
+        }
+      },
+      "left_boundary": {
+        "sin": {
+          "mse": 0.0001026025884327222,
+          "mae": 0.008784893635700536,
+          "max_absolute_error": 0.014477995851487735
+        },
+        "cos": {
+          "mse": 0.00014953341275488515,
+          "mae": 0.009753813329222354,
+          "max_absolute_error": 0.029825381282338692
+        }
+      },
+      "right_boundary": {
+        "sin": {
+          "mse": 8.600622768899132e-05,
+          "mae": 0.008322360695803024,
+          "max_absolute_error": 0.012318263962082077
+        },
+        "cos": {
+          "mse": 1.4049509706091401e-05,
+          "mae": 0.00303492163254616,
+          "max_absolute_error": 0.00851300163571067
+        }
+      },
+      "grid": {
+        "sin": {
+          "mse": 0.0005111845434222971,
+          "mae": 0.018903546970514558,
+          "max_absolute_error": 0.04693516940377007
+        },
+        "cos": {
+          "mse": 0.0007266296558037152,
+          "mae": 0.01964464223902725,
+          "max_absolute_error": 0.059847012477230455
+        }
+      },
+      "parity_max_error": [
+        0.03351527520591102,
+        0.054132207026662216
+      ],
+      "largest_signed_error": [
+        {
+          "t": -0.33399999999999996,
+          "error": 0.04693516940377007
+        },
+        {
+          "t": 0.02200000000000002,
+          "error": -0.059847012477230455
+        }
+      ]
+    },
+    "mirrored_rebalance": {
+      "interior": {
+        "sin": {
+          "mse": 0.00044809123390340225,
+          "mae": 0.017752085677789575,
+          "max_absolute_error": 0.041077934296064655
+        },
+        "cos": {
+          "mse": 0.000654336282975817,
+          "mae": 0.019721186096967575,
+          "max_absolute_error": 0.05480436993835558
+        }
+      },
+      "left_boundary": {
+        "sin": {
+          "mse": 0.00016082221737118667,
+          "mae": 0.010942728088964617,
+          "max_absolute_error": 0.02000457289129237
+        },
+        "cos": {
+          "mse": 0.0002984451953567148,
+          "mae": 0.013865393151391433,
+          "max_absolute_error": 0.045784474323684377
+        }
+      },
+      "right_boundary": {
+        "sin": {
+          "mse": 0.00020122724196489813,
+          "mae": 0.012565344294989487,
+          "max_absolute_error": 0.02046501915527954
+        },
+        "cos": {
+          "mse": 4.957230529007396e-05,
+          "mae": 0.006400931170065919,
+          "max_absolute_error": 0.013418805218195051
+        }
+      },
+      "grid": {
+        "sin": {
+          "mse": 0.0004071986772992887,
+          "mae": 0.017266168051435216,
+          "max_absolute_error": 0.04107848846598394
+        },
+        "cos": {
+          "mse": 0.0006222970702073617,
+          "mae": 0.018818535481328853,
+          "max_absolute_error": 0.054862371606199445
+        }
+      },
+      "parity_max_error": [
+        0.040556549260672925,
+        0.045943967649881734
+      ],
+      "largest_signed_error": [
+        {
+          "t": -0.33399999999999996,
+          "error": 0.04107848846598394
+        },
+        {
+          "t": 0.018000000000000016,
+          "error": -0.054862371606199445
+        }
+      ]
+    }
+  }
+}

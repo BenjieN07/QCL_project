@@ -1,17 +1,17 @@
 {
-  "checkpoint_step": 3000,
+  "checkpoint_step": 4288,
   "config": {
     "data_seed": 2026,
     "train_size": 48,
     "validation_size": 16,
     "test_size": 24,
     "grid_size": 101,
-    "steps": 3000,
-    "learning_rate": 0.05,
-    "phase": "Boundary study: refine_constant",
+    "steps": 4500,
+    "learning_rate": 0.003,
+    "phase": "Mirror study: mirrored_rebalance",
     "layers": 5,
     "parameter_seed": 41,
-    "name": "refine_constant",
+    "name": "mirrored_rebalance",
     "start_mode": "resume",
     "additional_updates": 1500,
     "augment": true,
@@ -22,24 +22,31 @@
         0.003
       ]
     ],
-    "source_run": "results/boundary/runs/capacity_smooth",
-    "source_step": 1500,
+    "source_run": "results/boundary/runs/refine_constant",
+    "source_step": 3000,
     "baseline_validation_loss": 0.0038949363167042803,
     "selection_boundary_weight": 0.5,
-    "augmented_training_boundary_weight": 0.5,
-    "source_checkpoint_sha256": "38352d3704ca55278081eecb6b4a6e10d99c2d5f682826b74709828b9e5e5ef4",
-    "resume_run": "results/boundary/runs/capacity_smooth"
+    "augmented_training_boundary_weight": 0.25,
+    "source_checkpoint_sha256": "ed689a94014ca30637554ee2571013a3a88ed4a8e272f0027a94106406752894",
+    "resume_run": "results/boundary/runs/capacity_smooth",
+    "mirror_training": true,
+    "train_boundary_weight": 0.25,
+    "guard_original_validation_mse": [
+      0.0008090543745133189,
+      0.0018803194193872262
+    ],
+    "boundary_max_error_guard": 0.05
   },
   "test_metrics": {
     "sin": {
-      "mse": 0.0007508879226545976,
-      "mae": 0.024308462487147516,
-      "max_absolute_error": 0.048493476808405656
+      "mse": 0.0004284200807144844,
+      "mae": 0.01748373395622294,
+      "max_absolute_error": 0.03974346836014886
     },
     "cos": {
-      "mse": 0.001022856786464569,
-      "mae": 0.02436539967291905,
-      "max_absolute_error": 0.07535084354460297
+      "mse": 0.0005955593835798635,
+      "mae": 0.01914370496611445,
+      "max_absolute_error": 0.0534523253110426
     }
   },
   "training_performed": false
