@@ -1,0 +1,9 @@
+continue_constant total step 250: validation=0.0494098, collar=0.2093062, endpoint max=0.39129
+continue_constant total step 350: validation=0.0485332, collar=0.1449612, endpoint max=0.34481
+continue_constant total step 450: validation=0.0489231, collar=0.1382900, endpoint max=0.33896
+continue_constant total step 550: validation=0.0480306, collar=0.1317007, endpoint max=0.32774
+continue_constant total step 650: validation=0.0474149, collar=0.1255564, endpoint max=0.31906
+continue_constant total step 750: validation=0.0470379, collar=0.1203907, endpoint max=0.31220
+continue_constant total step 850: validation=0.0468415, collar=0.1164681, endpoint max=0.30722
+continue_constant total step 950: validation=0.0467553, collar=0.1137583, endpoint max=0.30397
+continue_constant total step 1000: validation=0.0467348, collar=0.1127937, endpoint max=0.30287

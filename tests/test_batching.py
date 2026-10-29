@@ -8,7 +8,7 @@ class BatchingTests(unittest.TestCase):
     def test_predictions_and_gradients_match_scalar_circuits_at_all_study_depths(self):
         inputs = torch.tensor([-1., -.7, -.1, .35, .8, 1.], dtype=torch.float64)
         targets = torch.stack((torch.sin(torch.pi * inputs), torch.cos(torch.pi * inputs)), dim=1)
-        for depth in (1, 2, 3):
+        for depth in (1, 2, 3, 5):
             with self.subTest(depth=depth):
                 model = QCLModel(layers=depth, seed=7)
                 batch = model(inputs)

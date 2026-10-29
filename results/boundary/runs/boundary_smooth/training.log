@@ -1,0 +1,9 @@
+boundary_smooth total step 250: validation=0.0702521, collar=0.1615569, endpoint max=0.33821
+boundary_smooth total step 350: validation=0.0700379, collar=0.0083023, endpoint max=0.10859
+boundary_smooth total step 450: validation=0.0697610, collar=0.0073400, endpoint max=0.11323
+boundary_smooth total step 550: validation=0.0697582, collar=0.0071280, endpoint max=0.11347
+boundary_smooth total step 650: validation=0.0697861, collar=0.0070520, endpoint max=0.11334
+boundary_smooth total step 750: validation=0.0698236, collar=0.0069685, endpoint max=0.11313
+boundary_smooth total step 850: validation=0.0698374, collar=0.0069410, endpoint max=0.11306
+boundary_smooth total step 950: validation=0.0698529, collar=0.0069110, endpoint max=0.11296
+boundary_smooth total step 1000: validation=0.0698614, collar=0.0068951, endpoint max=0.11291

@@ -12,6 +12,8 @@
     {"name": "continue_constant", "augment": false, "input_scale": 1.0, "schedule": [[0, 0.05]]},
     {"name": "continue_decay", "augment": false, "input_scale": 1.0, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]},
     {"name": "boundary_balanced", "augment": true, "input_scale": 1.0, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]},
-    {"name": "boundary_smooth", "augment": true, "input_scale": 0.9, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]}
+    {"name": "boundary_smooth", "augment": true, "input_scale": 0.9, "schedule": [[0, 0.05], [250, 0.01], [500, 0.003]]},
+    {"name": "capacity_original", "start_mode": "fresh", "layers": 5, "parameter_seed": 41, "additional_updates": 1500, "augment": true, "input_scale": 1.0, "schedule": [[0, 0.03], [500, 0.01], [1000, 0.003]]},
+    {"name": "capacity_smooth", "start_mode": "fresh", "layers": 5, "parameter_seed": 41, "additional_updates": 1500, "augment": true, "input_scale": 0.9, "schedule": [[0, 0.03], [500, 0.01], [1000, 0.003]]}
   ]
 }

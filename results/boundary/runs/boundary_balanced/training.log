@@ -1,0 +1,9 @@
+boundary_balanced total step 250: validation=0.0494098, collar=0.2093062, endpoint max=0.39129
+boundary_balanced total step 350: validation=0.0599771, collar=0.0159486, endpoint max=0.12126
+boundary_balanced total step 450: validation=0.0585980, collar=0.0156000, endpoint max=0.14402
+boundary_balanced total step 550: validation=0.0584754, collar=0.0155784, endpoint max=0.14649
+boundary_balanced total step 650: validation=0.0584599, collar=0.0155763, endpoint max=0.14681
+boundary_balanced total step 750: validation=0.0584487, collar=0.0155748, endpoint max=0.14703
+boundary_balanced total step 850: validation=0.0584461, collar=0.0155745, endpoint max=0.14708
+boundary_balanced total step 950: validation=0.0584437, collar=0.0155742, endpoint max=0.14713
+boundary_balanced total step 1000: validation=0.0584426, collar=0.0155740, endpoint max=0.14715

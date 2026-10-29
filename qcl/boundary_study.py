@@ -41,8 +41,10 @@ def make_datasets(spec, config):
 
 def restore_start(config, source):
     model = QCLModel(config['layers'], config['parameter_seed'], config['input_scale'])
+    optimizer = torch.optim.Adam(model.parameters(), lr=config.get('schedule', [[0, .05]])[0][1])
+    if config.get('start_mode', 'resume') == 'fresh':
+        return model, optimizer
     model.load_state_dict(source['model_state_dict'])
-    optimizer = torch.optim.Adam(model.parameters(), lr=.05)
     optimizer.load_state_dict(copy.deepcopy(source['optimizer_state_dict']))
     assert int(optimizer.state[model.weights]['step'].item()) == source['step']
     assert torch.equal(model.weights.detach(), source['model_state_dict']['weights'])
@@ -66,8 +68,10 @@ def prepare():
     jobs = []
     for trial in spec['trials']:
         config = dict(source['config'])
-        config.update(trial, source_run=spec['source_run'], source_step=source['step'],
-                      steps=source['step'] + spec['additional_updates'], additional_updates=spec['additional_updates'],
+        start_step = 0 if trial.get('start_mode') == 'fresh' else source['step']
+        extra = trial.get('additional_updates', spec['additional_updates'])
+        config.update(trial, source_run=spec['source_run'], source_step=start_step,
+                      steps=start_step + extra, additional_updates=extra,
                       phase=f'Boundary study: {trial["name"]}', baseline_validation_loss=source['validation_loss'],
                       selection_boundary_weight=spec['selection_boundary_weight'],
                       augmented_training_boundary_weight=spec['augmented_training_boundary_weight'],
@@ -107,14 +111,14 @@ def train(config_path, output, spec):
                 'train_loss': losses['train'], 'validation_loss': losses['validation'],
                 'collar_validation_loss': losses['collar'], 'endpoint_max_error': endpoint_error}
 
-    torch.save({'step': source['step'], 'config': config, 'model_state_dict': copy.deepcopy(model.state_dict()),
+    torch.save({'step': config['source_step'], 'config': config, 'model_state_dict': copy.deepcopy(model.state_dict()),
                 'optimizer_state_dict': copy.deepcopy(optimizer.state_dict())}, output / 'start.pt')
     for update in range(config['additional_updates'] + 1):
         if update < config['additional_updates']:
             rate = next(rate for begin, rate in reversed(config['schedule']) if update >= begin)
             for group in optimizer.param_groups:
                 group['lr'] = rate
-        total = source['step'] + update
+        total = config['source_step'] + update
         with torch.no_grad():
             predictions = dict(zip(splits, torch.split(model(all_x), lengths)))
             losses = {s: regression_loss(predictions[s], ys[s]).item() for s in splits}
@@ -179,13 +183,14 @@ def train(config_path, output, spec):
     fig.tight_layout()
     fig.savefig(output / 'history.png', dpi=150)
     plt.close(fig)
-    summary = {'config': config, 'source_step': source['step'], 'additional_updates': config['additional_updates'],
+    summary = {'config': config, 'source_step': config['source_step'], 'additional_updates': config['additional_updates'],
                'final_total_step': config['steps'], 'optimizer_final_counter': final_counter,
                'selected_step': best['step'], 'selected_score': best['selection_score'],
                'selected_validation_original_loss': best['validation_loss'],
                'selected_validation_collar_loss': best['collar_validation_loss'],
                'selected_endpoint_max_error': best['endpoint_max_error'], 'eligible': has_eligible,
-               'checkpoint_reload_passed': True, 'optimizer_state_restored': True,
+               'checkpoint_reload_passed': True, 'optimizer_state_restored': config.get('start_mode', 'resume') != 'fresh',
+               'source_weights_restored': config.get('start_mode', 'resume') != 'fresh',
                'input_encoding_changed': config['input_scale'] != 1.,
                'elapsed_seconds': time.perf_counter()-started,
                'versions': {p: importlib.metadata.version(p) for p in ('pennylane', 'torch', 'numpy', 'matplotlib')},
@@ -202,10 +207,11 @@ def select(jobs):
         assert summary['config'] == json.loads(path.read_text())
         candidates.append({'run': str(output).replace('\\', '/'), 'name': summary['config']['name'],
                            'eligible': summary['eligible'], 'score': summary['selected_score'],
-                           'selected_step': summary['selected_step'], 'input_scale': summary['config']['input_scale']})
+                           'selected_step': summary['selected_step'], 'input_scale': summary['config']['input_scale'],
+                           'layers': summary['config']['layers'], 'parameter_seed': summary['config']['parameter_seed']})
     eligible = [r for r in candidates if r['eligible']]
     best = min(eligible, key=lambda row: row['score'])
-    registry = dict(best, layers=3, parameter_seed=41, model='original',
+    registry = dict(best, model='original',
                     selection='minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4',
                     test_or_fresh_holdout_used_for_selection=False, new_holdout_read_at_registration=False)
     (ROOT / 'selection.json').write_text(json.dumps({'candidates': candidates, 'selected': registry}, indent=2) + '\n')
@@ -220,7 +226,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     spec, jobs = prepare()
     if args.prepare_only:
-        print('Prepared four fixed continuation experiments; no new holdout read.')
+        print(f'Prepared {len(jobs)} fixed experiments; no new holdout read.')
     elif args.select_only:
         select(jobs)
     else:

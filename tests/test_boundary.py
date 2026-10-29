@@ -37,6 +37,15 @@ class BoundaryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             QCLModel(input_scale=1.1)
 
+    def test_fresh_capacity_trials_do_not_load_old_weights_or_moments(self):
+        source = torch.load('results/day4/runs/depth3_seed41/best.pt', weights_only=True)
+        config = dict(source['config'], layers=5, start_mode='fresh', input_scale=.9)
+        model, optimizer = restore_start(config, source)
+        self.assertEqual(tuple(model.weights.shape), (5, 2, 3))
+        self.assertEqual(len(optimizer.state), 0)
+        expected = QCLModel(5, 41, input_scale=.9)
+        torch.testing.assert_close(model.weights, expected.weights, atol=0, rtol=0)
+
 
 if __name__ == '__main__':
     unittest.main()
