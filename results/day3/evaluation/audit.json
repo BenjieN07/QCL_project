@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "optimizer_updates": 250,
+  "history_rows": 251,
+  "prediction_values_recomputed": 1134,
+  "metric_rows_verified": 18,
+  "checkpoint_selection_verified": true,
+  "classical_fit_verified": true,
+  "split_and_targets_verified": true,
+  "test_used_for_selection": false,
+  "qpu_jobs": 0
+}

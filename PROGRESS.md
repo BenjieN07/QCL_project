@@ -4,7 +4,7 @@
 |---|---|---|
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
-| Day 3: fit and baselines | IN PROGRESS | results/day3/PROTOCOL.md; 250-step run pending |
+| Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
 | Day 4: depth and seed study | NOT STARTED | — |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
@@ -59,3 +59,11 @@ Declared the evaluation protocol before reading test scores. Fixed one-layer see
 ## 2026-10-29 — Day 3, checkpoint 2
 
 Completed all 250 updates without gradient failures. Training loss: 1.9499409826430554 initially, 0.4426379233622822 finally (77.30% reduction). Validation selected step 83 with loss 0.6320843068249645; the final step was not selected. Minimum gradient norm 2.963715646542432e-06. Saved checkpoint reload passed. Training loop wall time was 85.16 seconds, excluding process imports, plotting, and evaluation; earlier short-run timings were not a reliable predictor of this run. Seven tests passed before training, including known-error metric checks, polynomial coefficient recovery, and the direct-rotation quantum reference at domain boundaries. The existing Day 2 checkpoint/repeat audit still passed. Held-out evaluation and plot inspection pending.
+
+## 2026-10-29 — Day 3 exit gate
+
+Evaluated the validation-selected step-83 checkpoint without changing the architecture. Quantum test MSE: sine 0.22574954843030934, cosine 0.310931501370254. Quantum test MAE: sine 0.4039879100910813, cosine 0.499385033366666. Maximum absolute test error: sine 0.8442161653152518, cosine 0.7749025889244876. The degree-five classical polynomial achieved test MSE 0.00005669323704692145 (sine) and 0.0006416241116465886 (cosine). The direct-rotation analytic quantum reference agreed with target functions within floating-point precision and is explicitly not learned.
+
+Both target-versus-prediction figures and the loss plot were visually inspected. The one-layer QCL visibly underfits and training loss plateaus; a single optimization run does not prove that expressivity alone caused the error. This circuit has six nominal angles, including two final Z rotations that do not affect the measured observables; seven logical gates include one CNOT. Counts are not backend-compiled costs. The preplanned next investigation is the matched 1/2/3-layer, multi-seed comparison with the same per-layer encoding; extra layers may improve capacity but no improvement is assumed. Select later models using validation, not the now-reported test scores.
+
+Final review command `review-day3.ps1` passed all seven tests and the saved-evaluation audit. The audit reconstructed 1,134 prediction values, verified all 18 metric rows in JSON/CSV, verified original split/targets, refitted classical coefficients, and checked checkpoint selection across 251 history rows. Python syntax and whitespace checks passed. All predictions, classical coefficients, selected quantum weights, plots, settings, versions, and provenance are retained. No accuracy success claim, no quantum advantage claim, and zero QPU jobs. Stop for user inspection before Day 4.

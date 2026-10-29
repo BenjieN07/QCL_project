@@ -82,12 +82,12 @@ Deliverables: first training-loss plot, saved checkpoint, runnable training comm
 
 Exit gate: At least one seed shows meaningful loss improvement over its initial value; no unsupported accuracy claims.
 Day 3 — Obtain a tested sine/cosine fit
-- [ ] Complete a baseline training run with 200–300 steps or a documented stopping criterion.
-- [ ] Predict on the disjoint test set and an evenly spaced plotting grid.
-- [ ] Calculate test MSE, MAE, and maximum error for both functions.
-- [ ] Produce two plots: sine target vs prediction; cosine target vs prediction.
-- [ ] Create the simple classical baseline and label the analytic no-training reference.
-- [ ] Document any underfitting and a reasoned architecture adjustment if needed.
+- [x] Complete a baseline training run with 200–300 steps or a documented stopping criterion.
+- [x] Predict on the disjoint test set and an evenly spaced plotting grid.
+- [x] Calculate test MSE, MAE, and maximum error for both functions.
+- [x] Produce two plots: sine target vs prediction; cosine target vs prediction.
+- [x] Create the simple classical baseline and label the analytic no-training reference.
+- [x] Document any underfitting and a reasoned architecture adjustment if needed.
 Deliverables: initial results table, function-fit figures, classical comparison.
 
 Exit gate: Predictions, held-out metrics, and method limitations are documented. If fitting remains poor, report it rather than inventing success.
@@ -134,7 +134,7 @@ Phase	Planned day	Status now	Proof of completion	Blockers/notes
 Research specification + plan	0	COMPLETE (planning only)	This report	No experiments performed
 Dataset + PennyLane model	1	COMPLETE	Diagram, data plots, smoke tests	—
 Differentiable training loop	2	COMPLETE	Loss plot and checkpoint	—
-Held-out function fitting	3	NOT STARTED	Predictions + test metrics	—
+Held-out function fitting	3	COMPLETE	Predictions + test metrics	—
 Architecture/seed benchmarking	4	NOT STARTED	Comparison table	—
 Finite-shot study + QPU preflight	5	NOT STARTED	Shot plot, preflight record	—
 Real IBM hardware (optional)	6	NOT STARTED	Job IDs and raw results	Requires access, time, consent
@@ -210,3 +210,5 @@ Overall status on October 27, 2026: PLAN COMPLETE; EXPERIMENTS NOT STARTED.
 October 28, 2026 update: Day 1 COMPLETE, verified by results/day1/benchmark.json and data_checks.json. See PROGRESS.md for session evidence. At that checkpoint, Days 2–7 remained NOT STARTED and no training or QPU jobs had run. Original planning statements above are retained as historical context.
 
 October 28, 2026 Day 2 update: training loop COMPLETE. Two reproducible 30-step Adam smoke runs saved under results/day2/. Training loss fell from 1.94994098 to 0.58133424; validation selected step 26 (loss 0.67837717). Checkpoint reload and independent repeat audit passed. See PROGRESS.md and results/day2/smoke/REVIEW.md. Days 3–7 remain NOT STARTED. No held-out test evaluation or QPU jobs.
+
+October 29, 2026 Day 3 update: baseline evaluation COMPLETE, with substantial one-layer underfitting honestly reported. Completed 250 updates, selected step 83 by validation. Quantum test MSE: sine 0.22574955, cosine 0.31093150. Degree-five polynomial test MSE: sine 0.00005669, cosine 0.00064162. See results/day3/INTERPRETATION.md and evaluation/REVIEW.md. Seven tests and independent evaluation audit passed. Days 4–7 remain NOT STARTED. No QPU jobs.

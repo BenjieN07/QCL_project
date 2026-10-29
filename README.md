@@ -44,3 +44,23 @@ Run `.\review-day2.ps1` to run the tests, independently audit the saved smoke ch
 ## Scientific context
 
 Inspired by [Mitarai et al., Quantum Circuit Learning (2018)](https://arxiv.org/abs/1803.00745), rather than an exact reproduction. Implementation follows the [PennyLane PyTorch interface](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).
+
+## Run and review Day 3
+
+The fixed [Day 3 protocol](results/day3/PROTOCOL.md) specifies a one-layer, 250-update baseline. Checkpoints use validation loss; the test set is used only for reporting. Compare with a degree-five polynomial fitted on training data and a quantum direct-rotation analytic reference with no training.
+
+To inspect saved results without retraining:
+
+```powershell
+.\review-day3.ps1
+```
+
+To reproduce in fresh directories:
+
+```powershell
+.\.venv\Scripts\python.exe -m qcl.train --config configs/day3.json --output results/day3/my-baseline
+.\.venv\Scripts\python.exe -m qcl.evaluate --run results/day3/my-baseline --output results/day3/my-evaluation
+.\.venv\Scripts\python.exe -m qcl.verify_evaluation --run results/day3/my-baseline --evaluation results/day3/my-evaluation
+```
+
+Inspect `results/day3/evaluation/REVIEW.md`, separate sine/cosine fit plots, and `metrics.csv` for per-output MSE, MAE, and maximum error on train/validation/test. `predictions.npz` retains all targets and predictions; the auditor independently reloads the checkpoint, reconstructs predictions, verifies all reported metric rows, and checks validation-based selection. No accuracy threshold or advantage is assumed: a poorly fitting circuit is a result to report. Day 4 comparisons must continue selecting by validation even though this baseline's test scores have now been reported.

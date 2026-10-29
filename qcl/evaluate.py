@@ -59,6 +59,7 @@ def evaluate(run, output):
         assert all(np.array_equal(data[k], original[k]) for k in data)
     model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
+    tape = qml.workflow.construct_tape(model.circuit)(torch.tensor(0.25, dtype=torch.float64), model.weights)
     coefficients, _, rank, singular = np.linalg.lstsq(
         polynomial_features(data['train_t'], config['polynomial_degree']), data['train_y'], rcond=None)
     assert rank == config['polynomial_degree'] + 1
@@ -94,6 +95,9 @@ def evaluate(run, output):
         plt.close(fig)
     report = {'config': config, 'selected_step': best_step, 'selection': 'minimum validation loss; earliest tie',
               'metrics': scores, 'qcl_parameters': model.weights.numel(),
+              'qcl_logical_gates': len(tape.operations),
+              'qcl_logical_two_qubit_gates': sum(len(op.wires) == 2 for op in tape.operations),
+              'gate_count_note': 'Rot counts as one logical gate; no backend-compiled gate count claimed',
               'polynomial_coefficients': int(coefficients.size),
               'analytic_trainable_parameters': 0, 'qpu_jobs': 0,
               'checkpoint_sha256': hashlib.sha256((run / 'best.pt').read_bytes()).hexdigest(),
