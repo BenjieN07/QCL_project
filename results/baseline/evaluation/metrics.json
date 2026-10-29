@@ -1,0 +1,149 @@
+{
+  "config": {
+    "phase": "One-layer baseline",
+    "data_seed": 2026,
+    "parameter_seed": 7,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "layers": 1,
+    "steps": 250,
+    "learning_rate": 0.05,
+    "polynomial_degree": 5
+  },
+  "selected_step": 83,
+  "selection": "minimum validation loss; earliest tie",
+  "metrics": {
+    "qcl": {
+      "train": {
+        "sin": {
+          "mse": 0.19420937691584994,
+          "mae": 0.3501496589374858,
+          "max_absolute_error": 0.852283037152274
+        },
+        "cos": {
+          "mse": 0.24976919821017876,
+          "mae": 0.4382711369786936,
+          "max_absolute_error": 0.7969605072552861
+        }
+      },
+      "validation": {
+        "sin": {
+          "mse": 0.23509353011289366,
+          "mae": 0.41281065085438734,
+          "max_absolute_error": 0.8469549289265482
+        },
+        "cos": {
+          "mse": 0.39699077671207095,
+          "mae": 0.5821336458138898,
+          "max_absolute_error": 0.7993451962148798
+        }
+      },
+      "test": {
+        "sin": {
+          "mse": 0.22574954843030934,
+          "mae": 0.4039879100910813,
+          "max_absolute_error": 0.8442161653152518
+        },
+        "cos": {
+          "mse": 0.310931501370254,
+          "mae": 0.499385033366666,
+          "max_absolute_error": 0.7749025889244876
+        }
+      }
+    },
+    "polynomial": {
+      "train": {
+        "sin": {
+          "mse": 6.233412644627777e-06,
+          "mae": 0.002036280310487341,
+          "max_absolute_error": 0.007096451048678704
+        },
+        "cos": {
+          "mse": 0.00015505695332885557,
+          "mae": 0.011143104042391097,
+          "max_absolute_error": 0.029486029247919987
+        }
+      },
+      "validation": {
+        "sin": {
+          "mse": 2.7221917864173202e-05,
+          "mae": 0.0032426334288444413,
+          "max_absolute_error": 0.016260960829836413
+        },
+        "cos": {
+          "mse": 0.0003905402254302033,
+          "mae": 0.014986723581963181,
+          "max_absolute_error": 0.05604354128809852
+        }
+      },
+      "test": {
+        "sin": {
+          "mse": 5.669323704692145e-05,
+          "mae": 0.0045398716125625545,
+          "max_absolute_error": 0.02425389843792622
+        },
+        "cos": {
+          "mse": 0.0006416241116465886,
+          "mae": 0.018105749214922383,
+          "max_absolute_error": 0.07646505811094784
+        }
+      }
+    },
+    "analytic_reference": {
+      "train": {
+        "sin": {
+          "mse": 2.4821425246803206e-32,
+          "mae": 1.0625181290357943e-16,
+          "max_absolute_error": 4.579669976578771e-16
+        },
+        "cos": {
+          "mse": 1.3188858537129934e-32,
+          "mae": 8.92659788679732e-17,
+          "max_absolute_error": 3.3306690738754696e-16
+        }
+      },
+      "validation": {
+        "sin": {
+          "mse": 3.991840180527488e-32,
+          "mae": 1.2902683478935306e-16,
+          "max_absolute_error": 6.539907504432563e-16
+        },
+        "cos": {
+          "mse": 9.292611981668413e-33,
+          "mae": 7.112366251504909e-17,
+          "max_absolute_error": 2.220446049250313e-16
+        }
+      },
+      "test": {
+        "sin": {
+          "mse": 3.488340611771381e-32,
+          "mae": 1.069746143519031e-16,
+          "max_absolute_error": 5.828670879282072e-16
+        },
+        "cos": {
+          "mse": 8.482116463405451e-33,
+          "mae": 7.112366251504909e-17,
+          "max_absolute_error": 2.220446049250313e-16
+        }
+      }
+    }
+  },
+  "qcl_parameters": 6,
+  "qcl_logical_gates": 7,
+  "qcl_logical_two_qubit_gates": 1,
+  "gate_count_note": "Rot counts as one logical gate; no backend-compiled gate count claimed",
+  "polynomial_coefficients": 12,
+  "analytic_trainable_parameters": 0,
+  "qpu_jobs": 0,
+  "checkpoint_sha256": "5b4ec333015dd5e0c50057cb938dd6f62aa9d87ef900d8f78d949bebaf948634",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "source_sha256": "fb9cf738cd5d9b7d066c0f3b41d1d7e0d18375bc95a393c14443e5c19094c9b9",
+  "test_used_for_selection": false
+}

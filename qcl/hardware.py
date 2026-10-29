@@ -1,4 +1,5 @@
 """Offline export and shot sampling of the existing circuit; no remote execution."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import hashlib
 import json
@@ -41,7 +42,7 @@ def benchmark():
     import matplotlib.pyplot as plt
     registry=json.loads(Path('results/current_model.json').read_text())
     checkpoint_path=Path(registry['run'])/'best.pt'
-    checkpoint=torch.load(checkpoint_path,weights_only=True)
+    checkpoint=load_checkpoint(checkpoint_path,weights_only=True)
     model=QCLModel(5,41,.9); model.load_state_dict(checkpoint['model_state_dict'])
     weights=model.weights.detach().numpy()
     ts=np.linspace(-1,1,9)
@@ -95,7 +96,7 @@ def audit():
     assert hashlib.sha256(path.read_bytes()).hexdigest()==report['sha256']
     registry=json.loads(Path('results/current_model.json').read_text())
     assert path.resolve()==(Path(registry['run'])/'best.pt').resolve()
-    checkpoint=torch.load(path,weights_only=True)
+    checkpoint=load_checkpoint(path,weights_only=True)
     model=QCLModel(5,41,.9); model.load_state_dict(checkpoint['model_state_dict'])
     with (root/'circuits.qpy').open('rb') as stream:
         circuits=qpy.load(stream)

@@ -1,4 +1,5 @@
 """Read-only investigation of signed-error peaks in the active saved model."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -45,11 +46,11 @@ def investigate(output):
     run = Path(registry['run'])
     path = run/'best.pt'
     checkpoint_hash = hashlib.sha256(path.read_bytes()).hexdigest()
-    checkpoint = torch.load(path, weights_only=True)
+    checkpoint = load_checkpoint(path, weights_only=True)
     model = model_from(checkpoint)
     initial_weights = model.weights.detach().clone()
     parent_path = Path(checkpoint['config']['source_run'])/'best.pt'
-    parent_checkpoint = torch.load(parent_path, weights_only=True)
+    parent_checkpoint = load_checkpoint(parent_path, weights_only=True)
     parent = model_from(parent_checkpoint)
     with np.load('results/boundary/training_data.npz') as saved:
         data = {key:saved[key] for key in saved.files}

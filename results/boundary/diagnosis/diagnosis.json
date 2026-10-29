@@ -1,5 +1,5 @@
 {
-  "source_run": "results/day4/runs/depth3_seed41",
+  "source_run": "results/depth_study/runs/depth3_seed41",
   "training_min": -0.9743190352663869,
   "training_max": 0.9339244003247811,
   "training_inputs_in_boundary_collar": [

@@ -1,4 +1,5 @@
-"""Evaluate a frozen Day 3 checkpoint against fixed classical and analytic references."""
+"""Evaluate a frozen Baseline checkpoint against fixed classical and analytic references."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -47,7 +48,7 @@ def evaluate(run, output):
     output.mkdir(parents=True, exist_ok=True)
     config = json.loads((run / 'config.json').read_text())
     summary = json.loads((run / 'summary.json').read_text())
-    checkpoint = torch.load(run / 'best.pt', weights_only=True)
+    checkpoint = load_checkpoint(run / 'best.pt', weights_only=True)
     with (run / 'history.csv').open() as stream:
         history = list(csv.DictReader(stream))
     best_step = int(np.argmin([float(r['validation_loss']) for r in history]))
@@ -55,7 +56,7 @@ def evaluate(run, output):
     assert checkpoint['config'] == summary['config'] == config
     data = make_data(config)
     # Confirm the original split has not changed before consulting held-out labels.
-    with np.load('results/day1/data.npz') as original:
+    with np.load('results/validation/data.npz') as original:
         assert all(np.array_equal(data[k], original[k]) for k in data)
     model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
@@ -112,7 +113,7 @@ def evaluate(run, output):
             for split, outputs in splits.items():
                 for name, values in outputs.items():
                     writer.writerow([model_name, split, name, values['mse'], values['mae'], values['max_absolute_error']])
-    lines = ['# Day 3 review', '', f'Frozen quantum checkpoint selected at step {best_step} by validation loss.', '',
+    lines = ['# Baseline review', '', f'Frozen quantum checkpoint selected at step {best_step} by validation loss.', '',
              '| Model | Output | Test MSE | Test MAE | Maximum test error |',
              '|---|---|---:|---:|---:|']
     for model_name in scores:
@@ -123,7 +124,7 @@ def evaluate(run, output):
               'It is not a learned baseline. All three use local exact simulation or classical computation; no QPU.', '',
               'The one-layer circuit has restricted expressivity. Final Z rotations on both wires commute '
               'with the measured Z observables (including through CNOT), so two of its six angles do not '
-              'change these readouts. This baseline is preserved as declared; Day 4 will study data re-uploading '
+              'change these readouts. This baseline is preserved as declared; Depth study will study data re-uploading '
               'and deeper circuits using validation for selection. No architecture was changed based on these test scores.', '',
               'Only one initialization seed and one dataset were evaluated here. Results establish neither '
               'quantum advantage nor reliable performance across initializations. The polynomial degree was fixed '
@@ -136,7 +137,7 @@ def evaluate(run, output):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--run', type=Path, default=Path('results/day3/baseline'))
-    parser.add_argument('--output', type=Path, default=Path('results/day3/evaluation'))
+    parser.add_argument('--run', type=Path, default=Path('results/baseline/run'))
+    parser.add_argument('--output', type=Path, default=Path('results/baseline/evaluation'))
     args = parser.parse_args()
     evaluate(args.run, args.output)

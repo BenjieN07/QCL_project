@@ -1,4 +1,5 @@
 """Evaluate or audit the frozen original-circuit depth study; never train or select on tests."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -13,11 +14,11 @@ from .data import make_data, targets
 from .evaluate import metrics, polynomial_features
 from .model import QCLModel
 
-ROOT = Path('results/day4')
+ROOT = Path('results/depth_study')
 
 
 def calculate():
-    spec = json.loads(Path('configs/day4_study.json').read_text())
+    spec = json.loads(Path('configs/depth_study.json').read_text())
     selection = json.loads((ROOT / 'selection.json').read_text())
     records, archive, histories = [], {}, {}
     # Freeze all nine configurations/checkpoints and the validation-only selection before new holdout generation.
@@ -30,7 +31,7 @@ def calculate():
     assert selection['selected']['run'] == chosen['run']
     assert selection['selected']['test_or_fresh_holdout_used_for_selection'] is False
     data = make_data(spec)
-    with np.load('results/day1/data.npz') as original:
+    with np.load('results/validation/data.npz') as original:
         for key, value in data.items():
             np.testing.assert_array_equal(value, original[key])
     new_inputs = np.sort(np.random.default_rng(spec['new_holdout_seed']).uniform(-1, 1, spec['new_holdout_size']))
@@ -47,7 +48,7 @@ def calculate():
             run = ROOT / 'runs' / name
             config = json.loads((run / 'config.json').read_text())
             summary = json.loads((run / 'summary.json').read_text())
-            checkpoint = torch.load(run / 'best.pt', weights_only=True)
+            checkpoint = load_checkpoint(run / 'best.pt', weights_only=True)
             assert config == summary['config'] == checkpoint['config']
             assert config['layers'] == depth and config['parameter_seed'] == seed
             for key in ('steps', 'learning_rate', 'data_seed', 'train_size', 'validation_size', 'test_size', 'grid_size'):
@@ -88,12 +89,12 @@ def calculate():
                             'validation_target_met': all(v['mse'] <= .001 and v['mae'] <= .03 for v in scores['validation'].values()),
                             'metrics': scores, 'checkpoint_sha256': hashlib.sha256((run / 'best.pt').read_bytes()).hexdigest()})
     # Independently verify depth-1/seed-7 batching against the previously measured scalar trajectory.
-    with Path('results/day3/baseline/history.csv').open() as stream:
+    with Path('results/baseline/run/history.csv').open() as stream:
         original_rows = list(csv.DictReader(stream))
     scalar_history = np.array([[float(row[key]) for key in ('train_loss', 'validation_loss')] for row in original_rows])
     batching_error = float(np.max(np.abs(histories['depth1_seed7'] - scalar_history)))
     assert batching_error <= 1e-10
-    coefficients = np.load('results/day3/evaluation/classical_model.npz')['coefficients']
+    coefficients = np.load('results/baseline/evaluation/classical_model.npz')['coefficients']
     polynomial = {split: metrics(polynomial_features(data[split + '_t'], 5) @ coefficients, data[split + '_y'])
                   for split in ('test', 'new', 'grid')}
     aggregates = []
@@ -124,11 +125,11 @@ def write_plots(output, report, archive, histories):
     selected_name = next(row['name'] for row in report['runs'] if row['run'] == report['selection']['run'])
     colors = {1: '#888888', 2: '#bd6513', 3: '#1668bb'}
     fig, axes = plt.subplots(2, 2, figsize=(13, 8))
-    with np.load('results/day3/evaluation/predictions.npz') as old:
+    with np.load('results/baseline/evaluation/predictions.npz') as old:
         for j, name in enumerate(('sin', 'cos')):
             ax = axes[0, j]
             ax.plot(archive['grid_t'], archive['grid_y'][:, j], color='black', linestyle='--', linewidth=2, label='Exact NumPy target')
-            ax.plot(old['grid_t'], old['qcl_grid'][:, j], color='#888888', label='Day 3 one-layer baseline')
+            ax.plot(old['grid_t'], old['qcl_grid'][:, j], color='#888888', label='One-layer baseline')
             ax.plot(archive['grid_t'], archive[selected_name + '_grid'][:, j], color='#1668bb', label=f'Selected: {selected_name}')
             ax.set(title=f'{name}(πt): our original circuit family', xlabel='t', ylabel='Prediction')
             ax.legend(fontsize=8)
@@ -148,7 +149,7 @@ def write_plots(output, report, archive, histories):
                    title='Validation: seed results and mean ± sample SD')
     for ax in axes[1]:
         ax.grid(alpha=.2)
-    fig.suptitle('Day 4: matched depth and initialization study — original two-qubit QCL')
+    fig.suptitle('Depth study: matched depth and initialization study — original two-qubit QCL')
     fig.tight_layout()
     fig.savefig(output / 'comparison.png', dpi=150)
     plt.close(fig)
@@ -195,7 +196,7 @@ def main(verify=False):
                              row['validation_joint_loss'], row['metrics']['test']['sin']['mse'], row['metrics']['test']['cos']['mse'],
                              row['metrics']['new']['sin']['mse'], row['metrics']['new']['cos']['mse'], row['loop_seconds']])
     write_plots(output, report, archive, histories)
-    lines = ['# Day 4 review', '', 'Original two-qubit circuit only. Nine matched 250-update Adam runs; three seeds per depth.', '',
+    lines = ['# Depth study review', '', 'Original two-qubit circuit only. Nine matched 250-update Adam runs; three seeds per depth.', '',
              '| Depth | Parameters | CNOTs | Validation loss mean ± sample SD | New-holdout sine MSE mean ± SD | New-holdout cosine MSE mean ± SD |',
              '|---|---:|---:|---:|---:|---:|']
     for row in report['by_depth']:
@@ -224,7 +225,7 @@ def main(verify=False):
               'or advantage claim follows. Seeds share a dataset and are not independent dataset replicates. '
               'The new holdout is now exposed; do not tune against its scores. Boundary coverage and feature-map '
               'changes require separate protocols if the fit remains poor. No finite-shot or QPU jobs ran.', '',
-              f'Batching versus original scalar Day 3 trajectory maximum loss difference: {report["batching_trajectory_max_error"]:.3g}. '
+              f'Batching versus original scalar Baseline trajectory maximum loss difference: {report["batching_trajectory_max_error"]:.3g}. '
               'Timing measures CPU optimization loops under the same batched implementation; no cross-hardware speed claim.']
     (output / 'REVIEW.md').write_text('\n'.join(lines) + '\n', encoding='utf-8')
     print('\n'.join(lines))

@@ -17,18 +17,18 @@ Selected by balanced validation score with the original-validation non-degradati
 
 | Model / region | Output | MAE | MSE | Maximum error |
 |---|---|---:|---:|---:|
-| Day 4 source / new_interior | sin | 0.1326315 | 0.022687424 | 0.26381145 |
-| Day 4 source / new_interior | cos | 0.11249442 | 0.016808943 | 0.28884117 |
-| Day 4 source / new_left_boundary | sin | 0.0852973 | 0.0098362065 | 0.16496623 |
-| Day 4 source / new_left_boundary | cos | 0.35531338 | 0.12768384 | 0.40546182 |
-| Day 4 source / new_right_boundary | sin | 0.24615584 | 0.073542897 | 0.40202144 |
-| Day 4 source / new_right_boundary | cos | 0.40257405 | 0.1706153 | 0.52810711 |
-| Day 4 source / new | sin | 0.14917903 | 0.032188488 | 0.40202144 |
-| Day 4 source / new | cos | 0.24571907 | 0.082979257 | 0.52810711 |
-| Day 4 source / endpoint | sin | 0.15048193 | 0.024786422 | 0.19675947 |
-| Day 4 source / endpoint | cos | 0.3619983 | 0.13190062 | 0.39128746 |
-| Day 4 source / grid | sin | 0.13810858 | 0.024911555 | 0.40228908 |
-| Day 4 source / grid | cos | 0.13607048 | 0.030275853 | 0.52846545 |
+| Depth study source / new_interior | sin | 0.1326315 | 0.022687424 | 0.26381145 |
+| Depth study source / new_interior | cos | 0.11249442 | 0.016808943 | 0.28884117 |
+| Depth study source / new_left_boundary | sin | 0.0852973 | 0.0098362065 | 0.16496623 |
+| Depth study source / new_left_boundary | cos | 0.35531338 | 0.12768384 | 0.40546182 |
+| Depth study source / new_right_boundary | sin | 0.24615584 | 0.073542897 | 0.40202144 |
+| Depth study source / new_right_boundary | cos | 0.40257405 | 0.1706153 | 0.52810711 |
+| Depth study source / new | sin | 0.14917903 | 0.032188488 | 0.40202144 |
+| Depth study source / new | cos | 0.24571907 | 0.082979257 | 0.52810711 |
+| Depth study source / endpoint | sin | 0.15048193 | 0.024786422 | 0.19675947 |
+| Depth study source / endpoint | cos | 0.3619983 | 0.13190062 | 0.39128746 |
+| Depth study source / grid | sin | 0.13810858 | 0.024911555 | 0.40228908 |
+| Depth study source / grid | cos | 0.13607048 | 0.030275853 | 0.52846545 |
 | refine_constant / new_interior | sin | 0.023618676 | 0.00075600409 | 0.049654007 |
 | refine_constant / new_interior | cos | 0.024401868 | 0.0010685087 | 0.075344886 |
 | refine_constant / new_left_boundary | sin | 0.016235851 | 0.00031956967 | 0.023940693 |

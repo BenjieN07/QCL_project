@@ -1,4 +1,5 @@
 """Controlled continuation and boundary-data experiments on our original circuit."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 from contextlib import redirect_stdout
 import copy
@@ -54,7 +55,7 @@ def restore_start(config, source):
 def prepare():
     spec = json.loads(SPEC.read_text())
     source_path = Path(spec['source_run']) / 'best.pt'
-    source = torch.load(source_path, weights_only=True)
+    source = load_checkpoint(source_path, weights_only=True)
     data = make_datasets(spec, source['config'])
     ROOT.mkdir(parents=True, exist_ok=True)
     data_path = ROOT / 'training_data.npz'
@@ -69,7 +70,7 @@ def prepare():
     for trial in spec['trials']:
         parent_run = trial.get('resume_run', spec['source_run'])
         parent_path = Path(parent_run) / 'best.pt'
-        parent = torch.load(parent_path, weights_only=True)
+        parent = load_checkpoint(parent_path, weights_only=True)
         config = dict(parent['config'])
         start_step = 0 if trial.get('start_mode') == 'fresh' else parent['step']
         extra = trial.get('additional_updates', spec['additional_updates'])
@@ -96,7 +97,7 @@ def train(config_path, output, spec):
     torch.set_num_threads(1)
     torch.use_deterministic_algorithms(True)
     config = json.loads(config_path.read_text())
-    source = torch.load(Path(config['source_run']) / 'best.pt', weights_only=True)
+    source = load_checkpoint(Path(config['source_run']) / 'best.pt', weights_only=True)
     model, optimizer = restore_start(config, source)
     data = make_datasets(spec, config)
     splits = ('train', 'anchor', 'validation', 'collar', 'endpoint')
@@ -161,7 +162,7 @@ def train(config_path, output, spec):
     final_counter = int(optimizer.state[model.weights]['step'].item())
     assert final_counter == config['steps']
     restored = QCLModel(config['layers'], config['parameter_seed'], config['input_scale'])
-    restored.load_state_dict(torch.load(output / 'best.pt', weights_only=True)['model_state_dict'])
+    restored.load_state_dict(load_checkpoint(output / 'best.pt', weights_only=True)['model_state_dict'])
     with torch.no_grad():
         restored_values = dict(zip(splits, torch.split(restored(all_x), lengths)))
         original_validation = regression_loss(restored_values['validation'], ys['validation']).item()
@@ -215,7 +216,7 @@ def select(jobs):
     eligible = [r for r in candidates if r['eligible']]
     best = min(eligible, key=lambda row: row['score'])
     registry = dict(best, model='original',
-                    selection='minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4',
+                    selection='minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Depth study',
                     test_or_fresh_holdout_used_for_selection=False, new_holdout_read_at_registration=False)
     (ROOT / 'selection.json').write_text(json.dumps({'candidates': candidates, 'selected': registry}, indent=2) + '\n')
     Path('results/current_model.json').write_text(json.dumps(registry, indent=2) + '\n')

@@ -1,4 +1,5 @@
 """Independently audit a saved smoke run and optionally compare a repeat."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -24,7 +25,7 @@ def audit(run, compare=None):
     assert np.isfinite(gradients).all() and (gradients > 1e-12).all()
     best_step = int(np.argmin(losses[:, 1]))
     assert best_step == summary['best_step']
-    checkpoint = torch.load(run / 'best.pt', weights_only=True)
+    checkpoint = load_checkpoint(run / 'best.pt', weights_only=True)
     assert checkpoint['step'] == best_step and checkpoint['config'] == config
     model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
@@ -46,7 +47,7 @@ def audit(run, compare=None):
         with (compare / 'history.csv').open() as stream:
             other_rows = list(csv.DictReader(stream))
         assert rows == other_rows, 'Repeated losses or gradients differ'
-        other = torch.load(compare / 'best.pt', weights_only=True)
+        other = load_checkpoint(compare / 'best.pt', weights_only=True)
         assert all(torch.equal(v, other['model_state_dict'][k]) for k, v in checkpoint['model_state_dict'].items())
         repeated = True
     report = {'status': 'PASS', 'history_rows': len(rows), 'checkpoint_losses_match': True,
@@ -55,7 +56,7 @@ def audit(run, compare=None):
               'test_labels_used': False, 'qpu_jobs': 0}
     (run / 'audit.json').write_text(json.dumps(report, indent=2) + '\n')
     note = (
-        '# Day 2 review\n\nTraining smoke test and checkpoint audit: PASS.\n\n'
+        '# Training smoke test review\n\nTraining smoke test and checkpoint audit: PASS.\n\n'
         f'- Adam updates: {config["smoke_steps"]}; learning rate: {config["learning_rate"]}; '
         f'parameter seed: {config["parameter_seed"]}.\n'
         f'- Initial training loss: {losses[0, 0]:.8f}.\n'
@@ -70,14 +71,14 @@ def audit(run, compare=None):
         'summary.json records seeds, settings, versions, source revision and hashes. '
         'audit.json verifies the history, validation selection, and reloaded checkpoint.\n\n'
         'This short run establishes gradient flow and loss reduction, not an accurate sine/cosine fit. '
-        'No test labels or QPU jobs were used. Stop here for inspection before Day 3.\n')
+        'No test labels or QPU jobs were used. Stop here for inspection before Baseline.\n')
     (run / 'REVIEW.md').write_text(note)
     print(note)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--run', type=Path, default=Path('results/day2/smoke'))
+    parser.add_argument('--run', type=Path, default=Path('results/smoke/run'))
     parser.add_argument('--compare', type=Path)
     args = parser.parse_args()
     audit(args.run, args.compare)

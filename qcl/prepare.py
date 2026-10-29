@@ -9,14 +9,14 @@ from .data import make_data
 
 
 def main():
-    config = json.loads(Path('config.json').read_text())
+    config = json.loads(Path('configs/smoke.json').read_text())
     data = make_data(config)
     repeat = make_data(config)
     assert all(np.array_equal(data[k], repeat[k]) for k in data)
     all_inputs = np.concatenate([data[n + '_t'] for n in ('train', 'validation', 'test')])
     assert len(np.unique(all_inputs)) == len(all_inputs)
     assert np.allclose(np.sum(data['grid_y'] ** 2, axis=1), 1)
-    out = Path('results/day1')
+    out = Path('results/validation')
     out.mkdir(parents=True, exist_ok=True)
     np.savez(out / 'data.npz', **data)
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)

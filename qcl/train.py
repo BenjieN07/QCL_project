@@ -1,4 +1,5 @@
 """Run a configured local training experiment and save reproducible evidence."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import copy
 import csv
@@ -19,10 +20,10 @@ from .model import QCLModel
 from .training import regression_loss, checked_backward
 
 
-def run(output, config_path=Path('config.json')):
+def run(output, config_path=Path('configs/smoke.json')):
     config = json.loads(config_path.read_text())
     steps = config.get('steps', config.get('smoke_steps'))
-    phase = config.get('phase', 'Day 2 smoke test')
+    phase = config.get('phase', 'Training smoke test smoke test')
     rate = config['learning_rate']
     if not isinstance(steps, int) or steps < 1 or not 0 < rate < 1:
         raise ValueError('Use a positive steps integer and learning_rate in (0, 1)')
@@ -32,7 +33,7 @@ def run(output, config_path=Path('config.json')):
     torch.set_num_threads(1)
     torch.use_deterministic_algorithms(True)
     data = make_data(config)
-    # Only train and validation labels are used. Test metrics belong to Day 3.
+    # Only train and validation labels are used. Test metrics belong to Baseline.
     train_x = torch.tensor(data['train_t'], dtype=torch.float64)
     train_y = torch.tensor(data['train_y'], dtype=torch.float64)
     val_x = torch.tensor(data['validation_t'], dtype=torch.float64)
@@ -65,7 +66,7 @@ def run(output, config_path=Path('config.json')):
     torch.save(best, output / 'best.pt')
     # Verify serialized weights reproduce the selected checkpoint's loss.
     restored = QCLModel(config['layers'], config['parameter_seed'])
-    restored.load_state_dict(torch.load(output / 'best.pt', weights_only=True)['model_state_dict'])
+    restored.load_state_dict(load_checkpoint(output / 'best.pt', weights_only=True)['model_state_dict'])
     with torch.no_grad():
         restored_loss = regression_loss(restored(val_x), val_y).item()
     assert abs(restored_loss - best_validation) < 1e-12
@@ -106,7 +107,7 @@ def run(output, config_path=Path('config.json')):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=Path('results/day2/smoke'))
-    parser.add_argument('--config', type=Path, default=Path('config.json'))
+    parser.add_argument('--output', type=Path, default=Path('results/smoke/run'))
+    parser.add_argument('--config', type=Path, default=Path('configs/smoke.json'))
     args = parser.parse_args()
     run(args.output, args.config)

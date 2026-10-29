@@ -1,5 +1,5 @@
 {
-  "source_run": "results/day4/runs/depth3_seed41",
+  "source_run": "results/depth_study/runs/depth3_seed41",
   "additional_updates": 750,
   "training_anchor_positive": [0.9, 0.95, 0.98, 0.995, 0.999, 1.0],
   "validation_collar_positive": [0.91, 0.93, 0.97, 0.99, 0.998],

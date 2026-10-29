@@ -1,6 +1,6 @@
 # Phase 1 findings before capacity follow-up
 
-The four declared 3-layer continuation branches each completed 750 additional Adam updates from the same Day 4 checkpoint and optimizer state. No new holdout was read. All failed the endpoint-error goal of 0.05.
+The four declared 3-layer continuation branches each completed 750 additional Adam updates from the same Depth study checkpoint and optimizer state. No new holdout was read. All failed the endpoint-error goal of 0.05.
 
 | Approach | Final original-validation loss | Final collar-validation loss | Final endpoint maximum error | Final iterate passes original-validation guard? |
 |---|---:|---:|---:|---|

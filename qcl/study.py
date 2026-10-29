@@ -1,12 +1,12 @@
-"""Prepare, run, and select the predeclared original-circuit Day 4 study."""
+"""Prepare, run, and select the predeclared original-circuit Depth study study."""
 import argparse
 from contextlib import redirect_stdout
 import json
 from pathlib import Path
 from .train import run
 
-SPEC = Path('configs/day4_study.json')
-ROOT = Path('results/day4')
+SPEC = Path('configs/depth_study.json')
+ROOT = Path('results/depth_study')
 
 
 def prepare():
@@ -16,8 +16,8 @@ def prepare():
         for seed in spec['parameter_seeds']:
             name = f'depth{depth}_seed{seed}'
             config = {key: spec[key] for key in ('data_seed', 'train_size', 'validation_size', 'test_size', 'grid_size', 'steps', 'learning_rate')}
-            config.update(phase=f'Day 4 depth {depth}, seed {seed}', layers=depth, parameter_seed=seed)
-            path = Path('configs/day4') / f'{name}.json'
+            config.update(phase=f'Depth study depth {depth}, seed {seed}', layers=depth, parameter_seed=seed)
+            path = Path('configs/depth_study') / f'{name}.json'
             path.parent.mkdir(parents=True, exist_ok=True)
             if path.exists() and json.loads(path.read_text()) != config:
                 raise ValueError(f'Existing configuration differs: {path}')

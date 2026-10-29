@@ -1,0 +1,100 @@
+Step   0: train=1.661241, validation=1.130191
+Step   5: train=0.878270, validation=0.795362
+Step  10: train=0.610522, validation=0.575585
+Step  15: train=0.512829, validation=0.472567
+Step  20: train=0.439489, validation=0.445939
+Step  25: train=0.288765, validation=0.395178
+Step  30: train=0.235581, validation=0.403326
+Step  35: train=0.174590, validation=0.363722
+Step  40: train=0.163025, validation=0.350708
+Step  45: train=0.155808, validation=0.350285
+Step  50: train=0.145213, validation=0.330853
+Step  55: train=0.132950, validation=0.287819
+Step  60: train=0.122273, validation=0.236922
+Step  65: train=0.113143, validation=0.194882
+Step  70: train=0.103967, validation=0.162099
+Step  75: train=0.093676, validation=0.135606
+Step  80: train=0.084939, validation=0.116500
+Step  85: train=0.078097, validation=0.102738
+Step  90: train=0.073217, validation=0.094622
+Step  95: train=0.069212, validation=0.090283
+Step 100: train=0.065410, validation=0.087037
+Step 105: train=0.061883, validation=0.083675
+Step 110: train=0.058776, validation=0.079787
+Step 115: train=0.056141, validation=0.075621
+Step 120: train=0.053899, validation=0.071837
+Step 125: train=0.052070, validation=0.068299
+Step 130: train=0.050601, validation=0.064657
+Step 135: train=0.049436, validation=0.061582
+Step 140: train=0.048530, validation=0.059381
+Step 145: train=0.047832, validation=0.057613
+Step 150: train=0.047289, validation=0.056218
+Step 155: train=0.046855, validation=0.055313
+Step 160: train=0.046497, validation=0.054738
+Step 165: train=0.046188, validation=0.054373
+Step 170: train=0.045905, validation=0.054184
+Step 175: train=0.045637, validation=0.054069
+Step 180: train=0.045375, validation=0.053954
+Step 185: train=0.045114, validation=0.053830
+Step 190: train=0.044852, validation=0.053687
+Step 195: train=0.044588, validation=0.053512
+Step 200: train=0.044320, validation=0.053313
+Step 205: train=0.044047, validation=0.053084
+Step 210: train=0.043766, validation=0.052811
+Step 215: train=0.043474, validation=0.052495
+Step 220: train=0.043170, validation=0.052136
+Step 225: train=0.042851, validation=0.051735
+Step 230: train=0.042515, validation=0.051303
+Step 235: train=0.042161, validation=0.050846
+Step 240: train=0.041788, validation=0.050371
+Step 245: train=0.041396, validation=0.049889
+Step 250: train=0.040986, validation=0.049410
+{
+  "status": "PASS",
+  "purpose": "Depth study depth 3, seed 41",
+  "config": {
+    "data_seed": 2026,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "steps": 250,
+    "learning_rate": 0.05,
+    "phase": "Depth study depth 3, seed 41",
+    "layers": 3,
+    "parameter_seed": 41
+  },
+  "optimizer": "Adam",
+  "loss_reduction": "mean over samples, sum over outputs",
+  "initial_train_loss": 1.6612407914968834,
+  "final_train_loss": 0.040986122331495844,
+  "relative_train_improvement": 0.9753280063063196,
+  "best_step": 250,
+  "best_validation_loss": 0.04940982963545365,
+  "checkpoint_reload_passed": true,
+  "minimum_gradient_norm": 0.007243323546313222,
+  "elapsed_seconds": 19.143011399999523,
+  "python": "3.12.14",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "source_revision": "4068ac624ddacf9efdc243098286f49f1486826c",
+  "source_sha256": {
+    "qcl/__init__.py": "70284865d252af759b90ee2d88ab4286a5c3355e9c29901d0d7168a76ab7eac2",
+    "qcl/audit.py": "998185607a73e85a64f0bc69be62ce54a2b8b780b7fc93fe908af3cfdc542e2b",
+    "qcl/benchmark.py": "4b80fd21681dca7c330aefce6d554f6c3833edad651277849494401991ee3ee7",
+    "qcl/data.py": "7fa8df00d32dbcdca62a06e610e9c4cfc8e76a82bfc72931b7a3b6aeca17abdf",
+    "qcl/evaluate.py": "fb9cf738cd5d9b7d066c0f3b41d1d7e0d18375bc95a393c14443e5c19094c9b9",
+    "qcl/model.py": "8d9931e6d7d49d57d54ccb2e998044156932fc769b3a253c0f3778f4613cc923",
+    "qcl/prepare.py": "418f5abe2d72cc808fcef3383179bebea2f07a47f10c033fdabf3ebe809a15a4",
+    "qcl/study.py": "8f21a433d4986c330b07812eef23f399fd425f9e12da8555b15c9472ebb0cf10",
+    "qcl/train.py": "794cf26be78dd43cf752feaa276d541bd462b0771a089622fee5b5ca031ec0d1",
+    "qcl/training.py": "0a14ca0deb50bff0720625fe0cdee4960e8be2738bc972680d55922095e42d68",
+    "qcl/verify_evaluation.py": "2adbcd86fbec88528b0ef9489d2008dc94546b7cee2467b96afae2097f077706"
+  },
+  "test_labels_used": false,
+  "qpu_jobs": 0
+}

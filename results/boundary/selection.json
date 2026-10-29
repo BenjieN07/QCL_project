@@ -91,7 +91,7 @@
     "layers": 5,
     "parameter_seed": 41,
     "model": "original",
-    "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4",
+    "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Depth study",
     "test_or_fresh_holdout_used_for_selection": false,
     "new_holdout_read_at_registration": false
   }

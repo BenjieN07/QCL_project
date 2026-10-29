@@ -1,4 +1,5 @@
 """Run python view_model.py to view the saved QCL model against exact NumPy targets."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import hashlib
 import json
@@ -22,7 +23,7 @@ def current_run():
     registry = ROOT / 'results/current_model.json'
     if registry.is_file():
         return ROOT / json.loads(registry.read_text())['run']
-    return ROOT / 'results/day3/baseline'
+    return ROOT / 'results/baseline/run'
 
 
 def saved_hardware(checkpoint_path):
@@ -43,7 +44,7 @@ def create_view(run, output, show_window=True):
     checkpoint_path = run / 'best.pt'
     if not checkpoint_path.is_file():
         raise FileNotFoundError(f'No saved checkpoint at {checkpoint_path}. Choose a trained run with --run.')
-    checkpoint = torch.load(checkpoint_path, weights_only=True, map_location='cpu')
+    checkpoint = load_checkpoint(checkpoint_path, weights_only=True, map_location='cpu')
     config = checkpoint['config']
     if config.get('model', 'original') != 'original':
         raise ValueError('This viewer supports only the original QCL model family.')

@@ -1,4 +1,5 @@
 """Post-selection boundary evaluation and saved-artifact audit; no training."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -47,24 +48,24 @@ def calculate():
     spec = json.loads(Path('configs/boundary_study.json').read_text())
     selection = json.loads((ROOT / 'selection.json').read_text())
     source_path = Path(spec['source_run']) / 'best.pt'
-    source = torch.load(source_path, weights_only=True)
+    source = load_checkpoint(source_path, weights_only=True)
     data = make_datasets(spec, source['config'])
     with np.load(ROOT / 'training_data.npz') as saved:
         for key, value in data.items():
             np.testing.assert_array_equal(saved[key], value)
-    checkpoints = {'Day 4 source': source}
-    hashes = {'Day 4 source': hashlib.sha256(source_path.read_bytes()).hexdigest()}
+    checkpoints = {'Depth study source': source}
+    hashes = {'Depth study source': hashlib.sha256(source_path.read_bytes()).hexdigest()}
     records, histories = [], {}
     for trial in spec['trials']:
         name = trial['name']
         run = ROOT / 'runs' / name
         config = json.loads((run / 'config.json').read_text())
         summary = json.loads((run / 'summary.json').read_text())
-        start = torch.load(run / 'start.pt', weights_only=True)
-        best = torch.load(run / 'best.pt', weights_only=True)
-        final = torch.load(run / 'final.pt', weights_only=True)
+        start = load_checkpoint(run / 'start.pt', weights_only=True)
+        best = load_checkpoint(run / 'best.pt', weights_only=True)
+        final = load_checkpoint(run / 'final.pt', weights_only=True)
         parent_path = Path(config['source_run']) / 'best.pt'
-        parent = torch.load(parent_path, weights_only=True)
+        parent = load_checkpoint(parent_path, weights_only=True)
         assert all(cp['config'] == config for cp in (start, best, final)) and summary['config'] == config
         assert config['source_checkpoint_sha256'] == hashlib.sha256(parent_path.read_bytes()).hexdigest()
         assert config['baseline_validation_loss'] == parent['validation_loss']
@@ -156,7 +157,7 @@ def calculate():
     for side, inputs in (('left', dense), ('right', -dense[::-1])):
         archive['zoom_' + side + '_t'] = inputs
         archive['zoom_' + side + '_y'] = targets(inputs)
-        for name in ('Day 4 source', expected['name']):
+        for name in ('Depth study source', expected['name']):
             with torch.no_grad():
                 prediction = load_model(checkpoints[name])(torch.tensor(inputs, dtype=torch.float64)).numpy()
             archive[name + '_zoom_' + side] = prediction
@@ -180,12 +181,12 @@ def plots(output, report, archive):
     for j, name in enumerate(('sin','cos')):
         ax = axes[0,j]
         ax.plot(archive['grid_t'], archive['grid_y'][:,j], color='black', linestyle='--', label='Exact NumPy target')
-        ax.plot(archive['grid_t'], archive['Day 4 source_grid'][:,j], color='#888888', label='Before: Day 4')
+        ax.plot(archive['grid_t'], archive['Depth study source_grid'][:,j], color='#888888', label='Before: Depth study')
         ax.plot(archive['grid_t'], archive[chosen+'_grid'][:,j], color='#1668bb', label='After: '+chosen)
         ax.set(title=name+'(πt)', xlabel='t', ylabel='Prediction')
         ax.legend(fontsize=8)
         error = axes[1,j]
-        error.plot(archive['grid_t'], archive['Day 4 source_grid'][:,j]-archive['grid_y'][:,j], color='#888888', label='Before')
+        error.plot(archive['grid_t'], archive['Depth study source_grid'][:,j]-archive['grid_y'][:,j], color='#888888', label='Before')
         error.plot(archive['grid_t'], archive[chosen+'_grid'][:,j]-archive['grid_y'][:,j], color='#1668bb', label='After')
         error.axhline(0,color='black',linewidth=.7)
         error.set(xlabel='t',ylabel='Prediction − target',title='Signed error: '+name)
@@ -202,7 +203,7 @@ def plots(output, report, archive):
             ax=axes[row,j]
             inputs=archive['zoom_'+side+'_t']
             ax.plot(inputs,archive['zoom_'+side+'_y'][:,j],color='black',linestyle='--',label='Exact target')
-            ax.plot(inputs,archive['Day 4 source_zoom_'+side][:,j],color='#888888',label='Before')
+            ax.plot(inputs,archive['Depth study source_zoom_'+side][:,j],color='#888888',label='Before')
             ax.plot(inputs,archive[chosen+'_zoom_'+side][:,j],color='#1668bb',label='After')
             ax.set(xlabel='t',ylabel='Prediction',title=side+' boundary: '+name)
             ax.grid(alpha=.2)
@@ -261,7 +262,7 @@ def main(verify=False):
     chosen=report['selection']['name']
     lines+=['',f'Selected by balanced validation score with the original-validation non-degradation guard: **{chosen}**. All checkpoints and this selection were frozen before the new holdout was read.','',
             '| Model / region | Output | MAE | MSE | Maximum error |','|---|---|---:|---:|---:|']
-    for model_name in ('Day 4 source',chosen):
+    for model_name in ('Depth study source',chosen):
         for region in ('new_interior','new_left_boundary','new_right_boundary','new','endpoint','grid'):
             for name,values in report['metrics'][model_name][region].items():
                 lines.append(f'| {model_name} / {region} | {name} | {values["mae"]:.8g} | {values["mse"]:.8g} | {values["max_absolute_error"]:.8g} |')

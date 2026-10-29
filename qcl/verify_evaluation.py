@@ -1,4 +1,5 @@
-"""Audit saved Day 3 predictions, metrics, and checkpoint selection without training."""
+"""Audit saved Baseline predictions, metrics, and checkpoint selection without training."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import csv
 import hashlib
@@ -17,7 +18,7 @@ def verify(run, evaluation):
     summary = json.loads((run / 'summary.json').read_text())
     assert config == summary['config']
     assert report['checkpoint_sha256'] == hashlib.sha256((run / 'best.pt').read_bytes()).hexdigest()
-    checkpoint = torch.load(run / 'best.pt', weights_only=True)
+    checkpoint = load_checkpoint(run / 'best.pt', weights_only=True)
     assert checkpoint['config'] == config
     with (run / 'history.csv').open() as stream:
         history = list(csv.DictReader(stream))
@@ -76,7 +77,7 @@ def verify(run, evaluation):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--run', type=Path, default=Path('results/day3/baseline'))
-    parser.add_argument('--evaluation', type=Path, default=Path('results/day3/evaluation'))
+    parser.add_argument('--run', type=Path, default=Path('results/baseline/run'))
+    parser.add_argument('--evaluation', type=Path, default=Path('results/baseline/evaluation'))
     args = parser.parse_args()
     verify(args.run, args.evaluation)

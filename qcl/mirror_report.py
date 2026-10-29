@@ -1,4 +1,5 @@
 """Audit frozen mirrored-training outcomes, then evaluate a fresh stratified holdout."""
+from qcl.checkpoints import load_checkpoint
 import csv
 import hashlib
 import json
@@ -29,11 +30,11 @@ def calculate():
     with np.load(ROOT/'training_data.npz') as saved:
         for key,value in data.items():
             np.testing.assert_array_equal(saved[key],value)
-    source=torch.load(Path(spec['source_run'])/'best.pt',weights_only=True)
+    source=load_checkpoint(Path(spec['source_run'])/'best.pt',weights_only=True)
     checkpoints['before']=source
     for record in selection['candidates']:
         run=Path(record['run']); config=json.loads((run/'config.json').read_text())
-        start,best,final=[torch.load(run/(s+'.pt'),weights_only=True) for s in ('start','best','final')]
+        start,best,final=[load_checkpoint(run/(s+'.pt'),weights_only=True) for s in ('start','best','final')]
         summary=json.loads((run/'summary.json').read_text())
         assert all(cp['config']==config for cp in (start,best,final)) and summary['config']==config
         assert summary['selected_step']==best['step'] and summary['selected_score']==record['score']

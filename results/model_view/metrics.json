@@ -49,5 +49,126 @@
       "max_absolute_error": 0.0534523253110426
     }
   },
-  "training_performed": false
+  "training_performed": false,
+  "hardware": {
+    "job_id": "dbhs6vg1h92s7382cmng",
+    "backend": "ibm_fez",
+    "status": "DONE",
+    "rows": [
+      {
+        "t": -1.0,
+        "counts": {
+          "11": 502,
+          "10": 487,
+          "01": 15,
+          "00": 20
+        },
+        "hardware_prediction": [
+          -0.009765625,
+          -0.931640625
+        ],
+        "exact_qcl": [
+          -0.013565671896878894,
+          -0.9500036318453539
+        ],
+        "numpy_target": [
+          -1.2246467991473532e-16,
+          -1.0
+        ],
+        "hardware_minus_exact": [
+          0.0038000468968788937,
+          0.018363006845353858
+        ],
+        "hardware_minus_target": [
+          -0.009765624999999877,
+          0.068359375
+        ],
+        "measurement_standard_error": [
+          0.031263779094241446,
+          0.011361204839939422
+        ]
+      },
+      {
+        "t": 0.0,
+        "counts": {
+          "00": 483,
+          "01": 517,
+          "10": 10,
+          "11": 14
+        },
+        "hardware_prediction": [
+          -0.037109375,
+          0.953125
+        ],
+        "exact_qcl": [
+          -0.01669902054933556,
+          0.9454990276114422
+        ],
+        "numpy_target": [
+          0.0,
+          1.0
+        ],
+        "hardware_minus_exact": [
+          -0.02041035445066444,
+          0.007625972388557778
+        ],
+        "hardware_minus_target": [
+          -0.037109375,
+          -0.046875
+        ],
+        "measurement_standard_error": [
+          0.031243734766469376,
+          0.00946014608782193
+        ]
+      },
+      {
+        "t": 1.0,
+        "counts": {
+          "10": 527,
+          "01": 13,
+          "11": 479,
+          "00": 5
+        },
+        "hardware_prediction": [
+          0.0390625,
+          -0.96484375
+        ],
+        "exact_qcl": [
+          -0.01296654589253642,
+          -0.986209356272287
+        ],
+        "numpy_target": [
+          1.2246467991473532e-16,
+          -1.0
+        ],
+        "hardware_minus_exact": [
+          0.052029045892536416,
+          0.021365606272287008
+        ],
+        "hardware_minus_target": [
+          0.039062499999999875,
+          0.03515625
+        ],
+        "measurement_standard_error": [
+          0.031241407359720245,
+          0.00821726825899049
+        ]
+      }
+    ],
+    "usage": {
+      "quantum_seconds": 3,
+      "seconds": 3,
+      "status": "complete"
+    },
+    "usage_after": {
+      "usage_consumed_seconds": 9,
+      "usage_consumed_ru": 0.138677,
+      "usage_limit_seconds": 600,
+      "usage_limit_ru": 10.0002,
+      "usage_allocation_seconds": 600,
+      "usage_allocation_ru": 10.0002,
+      "usage_remaining_seconds": 591
+    },
+    "training_updates_on_hardware": 0
+  }
 }

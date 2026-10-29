@@ -1,4 +1,5 @@
 """Audit saved real-device pilot counts and plot them against the frozen model."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 import json
 import hashlib
@@ -25,7 +26,7 @@ def main(show_window=False):
     cp=Path(registry['run'])/'best.pt'
     assert hashlib.sha256(cp.read_bytes()).hexdigest()==plan['checkpoint_sha256']==receipt['checkpoint_sha256']
     assert hashlib.sha256((root/'submitted_circuits.qpy').read_bytes()).hexdigest()==plan['compiled_circuit_sha256']
-    model=load_model(torch.load(cp,weights_only=True))
+    model=load_model(load_checkpoint(cp,weights_only=True))
     rows=report['rows']; ts=np.array([r['t'] for r in rows])
     np.testing.assert_array_equal(ts,[-1,0,1])
     with torch.no_grad():

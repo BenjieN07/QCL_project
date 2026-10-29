@@ -1,3 +1,4 @@
+from qcl.checkpoints import load_checkpoint
 import unittest
 import numpy as np
 import torch
@@ -14,7 +15,7 @@ class MirrorTests(unittest.TestCase):
         self.assertEqual(len(data['mirrored_t']),96); self.assertEqual(len(data['symmetric_validation_t']),32)
 
     def test_initial_source_passes_per_output_and_boundary_guards(self):
-        checkpoint=torch.load('results/boundary/runs/refine_constant/best.pt',weights_only=True)
+        checkpoint=load_checkpoint('results/boundary/runs/refine_constant/best.pt',weights_only=True)
         model=QCLModel(5,41,.9); model.load_state_dict(checkpoint['model_state_dict'])
         losses,mses,collar,endpoint=evaluate_values(model,datasets(),'train')
         self.assertAlmostEqual(sum(mses),checkpoint['validation_loss'],places=12)

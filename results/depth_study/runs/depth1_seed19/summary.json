@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "purpose": "Depth study depth 1, seed 19",
+  "config": {
+    "data_seed": 2026,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "steps": 250,
+    "learning_rate": 0.05,
+    "phase": "Depth study depth 1, seed 19",
+    "layers": 1,
+    "parameter_seed": 19
+  },
+  "optimizer": "Adam",
+  "loss_reduction": "mean over samples, sum over outputs",
+  "initial_train_loss": 1.949240504673693,
+  "final_train_loss": 0.44263792332128316,
+  "relative_train_improvement": 0.7729177480870265,
+  "best_step": 24,
+  "best_validation_loss": 0.6265751622013516,
+  "checkpoint_reload_passed": true,
+  "minimum_gradient_norm": 5.0696649275017885e-06,
+  "elapsed_seconds": 2.754273900000044,
+  "python": "3.12.14",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "source_revision": "4068ac624ddacf9efdc243098286f49f1486826c",
+  "source_sha256": {
+    "qcl/__init__.py": "70284865d252af759b90ee2d88ab4286a5c3355e9c29901d0d7168a76ab7eac2",
+    "qcl/audit.py": "998185607a73e85a64f0bc69be62ce54a2b8b780b7fc93fe908af3cfdc542e2b",
+    "qcl/benchmark.py": "4b80fd21681dca7c330aefce6d554f6c3833edad651277849494401991ee3ee7",
+    "qcl/data.py": "7fa8df00d32dbcdca62a06e610e9c4cfc8e76a82bfc72931b7a3b6aeca17abdf",
+    "qcl/evaluate.py": "fb9cf738cd5d9b7d066c0f3b41d1d7e0d18375bc95a393c14443e5c19094c9b9",
+    "qcl/model.py": "8d9931e6d7d49d57d54ccb2e998044156932fc769b3a253c0f3778f4613cc923",
+    "qcl/prepare.py": "418f5abe2d72cc808fcef3383179bebea2f07a47f10c033fdabf3ebe809a15a4",
+    "qcl/study.py": "8f21a433d4986c330b07812eef23f399fd425f9e12da8555b15c9472ebb0cf10",
+    "qcl/train.py": "794cf26be78dd43cf752feaa276d541bd462b0771a089622fee5b5ca031ec0d1",
+    "qcl/training.py": "0a14ca0deb50bff0720625fe0cdee4960e8be2738bc972680d55922095e42d68",
+    "qcl/verify_evaluation.py": "2adbcd86fbec88528b0ef9489d2008dc94546b7cee2467b96afae2097f077706"
+  },
+  "test_labels_used": false,
+  "qpu_jobs": 0
+}

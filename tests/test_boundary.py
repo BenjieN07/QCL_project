@@ -1,3 +1,4 @@
+from qcl.checkpoints import load_checkpoint
 import json
 from pathlib import Path
 import unittest
@@ -10,7 +11,7 @@ from qcl.model import QCLModel
 class BoundaryTests(unittest.TestCase):
     def test_dataset_roles_are_disjoint(self):
         spec = json.loads(Path('configs/boundary_study.json').read_text())
-        source = torch.load(Path(spec['source_run']) / 'best.pt', weights_only=True)
+        source = load_checkpoint(Path(spec['source_run']) / 'best.pt', weights_only=True)
         data = make_datasets(spec, source['config'])
         self.assertEqual(len(data['anchor_t']), 12)
         self.assertEqual(len(data['collar_t']), 10)
@@ -18,7 +19,7 @@ class BoundaryTests(unittest.TestCase):
         self.assertFalse(np.isin(data['anchor_t'], data['collar_t']).any())
 
     def test_resume_restores_weights_moments_and_counter(self):
-        source = torch.load('results/day4/runs/depth3_seed41/best.pt', weights_only=True)
+        source = load_checkpoint('results/depth_study/runs/depth3_seed41/best.pt', weights_only=True)
         config = dict(source['config'], input_scale=1.)
         model, optimizer = restore_start(config, source)
         state = optimizer.state[model.weights]
@@ -38,7 +39,7 @@ class BoundaryTests(unittest.TestCase):
             QCLModel(input_scale=1.1)
 
     def test_fresh_capacity_trials_do_not_load_old_weights_or_moments(self):
-        source = torch.load('results/day4/runs/depth3_seed41/best.pt', weights_only=True)
+        source = load_checkpoint('results/depth_study/runs/depth3_seed41/best.pt', weights_only=True)
         config = dict(source['config'], layers=5, start_mode='fresh', input_scale=.9)
         model, optimizer = restore_start(config, source)
         self.assertEqual(tuple(model.weights.shape), (5, 2, 3))
@@ -47,7 +48,7 @@ class BoundaryTests(unittest.TestCase):
         torch.testing.assert_close(model.weights, expected.weights, atol=0, rtol=0)
 
     def test_refinement_resumes_five_layer_parent_exactly(self):
-        source = torch.load('results/boundary/runs/capacity_smooth/best.pt', weights_only=True)
+        source = load_checkpoint('results/boundary/runs/capacity_smooth/best.pt', weights_only=True)
         config = dict(source['config'], start_mode='resume')
         model, optimizer = restore_start(config, source)
         self.assertEqual(tuple(model.weights.shape), (5,2,3))

@@ -28,7 +28,7 @@
       0.003
     ]
   ],
-  "source_run": "results/day4/runs/depth3_seed41",
+  "source_run": "results/depth_study/runs/depth3_seed41",
   "source_step": 0,
   "baseline_validation_loss": 0.04940982963545365,
   "selection_boundary_weight": 0.5,

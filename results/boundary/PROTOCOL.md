@@ -1,6 +1,6 @@
 # Boundary investigation and continuation study
 
-Use our original two-qubit, three-layer circuit and its Day 4 seed-41 checkpoint at update 250. The removed one-time model is not used. The goal is to reduce boundary collapse while improving the overall fit, not simply accumulate updates.
+Use our original two-qubit, three-layer circuit and its Depth study seed-41 checkpoint at update 250. The removed one-time model is not used. The goal is to reduce boundary collapse while improving the overall fit, not simply accumulate updates.
 
 ## Diagnosis before training
 

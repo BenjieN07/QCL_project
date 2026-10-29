@@ -1,4 +1,4 @@
-"""Day 1 validity benchmark, not an accuracy or training benchmark."""
+"""Circuit validation validity benchmark, not an accuracy or training benchmark."""
 import importlib.metadata
 import json
 import platform
@@ -14,11 +14,11 @@ from .model import QCLModel
 
 
 def main():
-    config = json.loads(Path('config.json').read_text())
-    out = Path('results/day1')
+    config = json.loads(Path('configs/smoke.json').read_text())
+    out = Path('results/validation')
     data = np.load(out / 'data.npz')
     model = QCLModel(config['layers'], config['parameter_seed'])
-    # Test labels are never consulted in the Day 1 benchmark.
+    # Test labels are never consulted in the Circuit validation benchmark.
     inputs = torch.tensor(np.concatenate(([-1., 0., 1.], data['train_t'])), dtype=torch.float64)
     started = time.perf_counter()
     predictions = model(inputs).detach()
@@ -69,7 +69,7 @@ def main():
     np.savez(out / 'untrained_predictions.npz', inputs=inputs.numpy(), predictions=predictions.numpy(),
              weights=model.weights.detach().numpy())
     (out / 'REVIEW.md').write_text(
-        '# Day 1 review\n\nValidity benchmark: PASS. No training or held-out accuracy evaluation yet.\n\n'
+        '# Circuit validation review\n\nValidity benchmark: PASS. No training or held-out accuracy evaluation yet.\n\n'
         'Inspect targets.png, circuit.png, circuit.txt, data_checks.json, and benchmark.json.\n\n'
         f'Parameters: {report["parameters"]}; logical gates: {report["logical_gates"]}; '
         f'logical two-qubit gates: {report["logical_two_qubit_gates"]}. These are not backend-compiled counts.\n\n'

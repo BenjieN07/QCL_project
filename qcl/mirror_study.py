@@ -1,4 +1,5 @@
 """Matched continuation/data-augmentation/loss-weight study; original circuit only."""
+from qcl.checkpoints import load_checkpoint
 import argparse
 from contextlib import redirect_stdout
 import copy
@@ -51,7 +52,7 @@ def evaluate_values(model,data,main):
 def prepare():
     spec=json.loads(SPEC.read_text())
     source_path=Path(spec['source_run'])/'best.pt'
-    source=torch.load(source_path,weights_only=True)
+    source=load_checkpoint(source_path,weights_only=True)
     data=datasets()
     model=QCLModel(source['config']['layers'],source['config']['parameter_seed'],source['config']['input_scale'])
     model.load_state_dict(source['model_state_dict'])
@@ -87,7 +88,7 @@ def prepare():
 
 def train(config_path,output):
     config=json.loads(config_path.read_text())
-    source=torch.load(Path(config['source_run'])/'best.pt',weights_only=True)
+    source=load_checkpoint(Path(config['source_run'])/'best.pt',weights_only=True)
     model,optimizer=restore_start(config,source)
     for group in optimizer.param_groups:
         group['lr']=config['learning_rate']

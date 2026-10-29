@@ -1,4 +1,5 @@
 """Measure coverage, endpoint errors, and encoding sensitivity without training."""
+from qcl.checkpoints import load_checkpoint
 import json
 from pathlib import Path
 import matplotlib
@@ -13,7 +14,7 @@ from .training import regression_loss
 
 def diagnose():
     spec = json.loads(Path('configs/boundary_study.json').read_text())
-    checkpoint = torch.load(Path(spec['source_run']) / 'best.pt', weights_only=True)
+    checkpoint = load_checkpoint(Path(spec['source_run']) / 'best.pt', weights_only=True)
     config = checkpoint['config']
     model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
@@ -56,7 +57,7 @@ def diagnose():
         for column, name in enumerate(('sin', 'cos')):
             ax = axes[row, column]
             ax.plot(grid, targets(grid)[:, column], color='black', linestyle='--', label='Exact target')
-            ax.plot(grid, values[:, column], color='#1668bb', label='Day 4 model')
+            ax.plot(grid, values[:, column], color='#1668bb', label='Depth study model')
             mask = (data['train_t'] >= bounds[0]) & (data['train_t'] <= bounds[1])
             ax.scatter(data['train_t'][mask], data['train_y'][mask, column], color='#bd6513', label='Training targets', zorder=3)
             ax.set(xlim=bounds, xlabel='t', ylabel='Output', title=f'{name}: {bounds[0]} to {bounds[1]}')

@@ -9,7 +9,7 @@
     "layers": 5,
     "parameter_seed": 41,
     "model": "original",
-    "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4",
+    "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Depth study",
     "test_or_fresh_holdout_used_for_selection": false,
     "new_holdout_read_at_registration": false
   },
@@ -144,7 +144,7 @@
     }
   ],
   "metrics": {
-    "Day 4 source": {
+    "Depth study source": {
       "train": {
         "sin": {
           "mse": 0.02365759598873676,
@@ -1352,7 +1352,7 @@
     }
   },
   "dense_boundary_metrics": {
-    "Day 4 source_left": {
+    "Depth study source_left": {
       "sin": {
         "mse": 0.010432629431324645,
         "mae": 0.09140920482542259,
@@ -1376,7 +1376,7 @@
         "max_absolute_error": 0.039072552690536
       }
     },
-    "Day 4 source_right": {
+    "Depth study source_right": {
       "sin": {
         "mse": 0.07585897787483556,
         "mae": 0.25415053178195063,
@@ -1407,7 +1407,7 @@
     "each_original_validation_mse_le_0_001": false
   },
   "checkpoint_sha256": {
-    "Day 4 source": "f5dac02db793a9ae76fa85e9b7c9bd2e6b78e45efc1d3dded044ea10675e02ba",
+    "Depth study source": "f5dac02db793a9ae76fa85e9b7c9bd2e6b78e45efc1d3dded044ea10675e02ba",
     "continue_constant": "a9a97edb02dc96e1b1119d6261786e315b8c879400ec7522065d80e2d39977cc",
     "continue_decay": "9307e683d22a9991d08b3317372df7a05a22efa0cf449f3c03e41e078228818f",
     "boundary_balanced": "a008d6f98d42bfd54810b54c8254864457574d45eee0ed100dc2a5d8390f9f26",

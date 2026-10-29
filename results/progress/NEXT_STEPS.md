@@ -6,7 +6,7 @@ Training loss decreased from 1.94994 to 0.44264 by update 250, a 77.30% reductio
 
 ## Next experiment: depth and initialization
 
-Compare 1, 2, and 3 layers across three fixed initialization seeds under the same 250-update budget, split, optimizer, and per-layer encoding. This is the preplanned Day 4 study. Report validation scores, both output errors, parameter/gate counts, run time, and gradient norms. Select using validation only. More layers add capacity and make some intermediate rotations observable, but improvement is not guaranteed.
+Compare 1, 2, and 3 layers across three fixed initialization seeds under the same 250-update budget, split, optimizer, and per-layer encoding. This is the preplanned Depth study study. Report validation scores, both output errors, parameter/gate counts, run time, and gradient norms. Select using validation only. More layers add capacity and make some intermediate rotations observable, but improvement is not guaranteed.
 
 ## Then investigate optimization if needed
 
