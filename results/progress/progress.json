@@ -1,0 +1,68 @@
+{
+  "recorded_experiment_updates": 310,
+  "run_updates": [
+    30,
+    30,
+    250
+  ],
+  "training_sample_presentations": 14880,
+  "unit_test_optimizations_included": false,
+  "baseline_final_step": 250,
+  "selected_step": 83,
+  "initial_training_loss": 1.9499409826430554,
+  "final_training_loss": 0.4426379233622822,
+  "relative_training_loss_reduction": 0.7729993229014004,
+  "test_metrics": {
+    "Initial": {
+      "sin": {
+        "mse": 0.9933998059896606,
+        "mae": 0.738495772885115,
+        "max_absolute_error": 1.8841677926449587
+      },
+      "cos": {
+        "mse": 0.616463915353445,
+        "mae": 0.6476458643028383,
+        "max_absolute_error": 1.2535606912720243
+      }
+    },
+    "30-step run": {
+      "sin": {
+        "mse": 0.14965711680622548,
+        "mae": 0.29597412147562463,
+        "max_absolute_error": 0.7696743396441149
+      },
+      "cos": {
+        "mse": 0.4424709913174582,
+        "mae": 0.6210542076338256,
+        "max_absolute_error": 0.9573949115934712
+      }
+    },
+    "250-step run": {
+      "sin": {
+        "mse": 0.22574954843030934,
+        "mae": 0.4039879100910813,
+        "max_absolute_error": 0.8442161653152518
+      },
+      "cos": {
+        "mse": 0.310931501370254,
+        "mae": 0.499385033366666,
+        "max_absolute_error": 0.7749025889244876
+      }
+    },
+    "Polynomial": {
+      "sin": {
+        "mse": 5.669323704692145e-05,
+        "mae": 0.0045398716125625545,
+        "max_absolute_error": 0.02425389843792622
+      },
+      "cos": {
+        "mse": 0.0006416241116465886,
+        "mae": 0.018105749214922383,
+        "max_absolute_error": 0.07646505811094784
+      }
+    }
+  },
+  "new_training_performed": false,
+  "initial_loss_matches_saved_step_zero": true,
+  "initial_reconstruction": "same architecture, parameter seed 7, float64 initialization"
+}

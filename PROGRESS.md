@@ -71,3 +71,7 @@ Final review command `review-day3.ps1` passed all seven tests and the saved-eval
 ## 2026-10-29 — model viewer
 
 Added `view_model.py`: load the saved checkpoint without retraining, compare its predictions with exact NumPy sine/cosine curves on 401 plotting inputs, show signed-error panels and fixed-test metrics, and open an offline browser report. An explicit `--no-open` mode generates a PNG, HTML report, and metrics JSON without browser interaction. The default viewer reproduced the Day 3 test metrics exactly. No model updates or architecture selection performed.
+
+## 2026-10-29 — before/after progress visualization
+
+Added `view_progress.py` and a four-panel figure: reconstructed initial versus selected trained curves for sine/cosine, full loss history, and per-output test MSE across initialization, short-run checkpoint, baseline checkpoint, and polynomial comparison. Verified initial loss against saved step zero and current metrics against the audited evaluation. Recorded experiment training totals 310 updates across three independent runs, not one 310-step model; no new training performed. Preserved the plotted curves and numerical summary. Documented optimization priorities in `results/progress/NEXT_STEPS.md`. The visualization exposes that sine test error worsened from the short-run checkpoint while cosine improved; test scores did not guide checkpoint selection.

@@ -12,6 +12,14 @@ This opens a local browser report showing exact NumPy sine/cosine targets as bla
 
 If the environment is activated, `python view_model.py` is enough. Add `--no-open` to save without opening a browser, or `--run results/path/to/run` to inspect another checkpoint directory containing `best.pt`. The figures use a smooth 401-point grid; the metrics use the fixed disjoint test set, not that plotting grid.
 
+To compare initialization with the saved trained model and see the loss history and baseline comparisons:
+
+```powershell
+.\.venv\Scripts\python.exe view_progress.py
+```
+
+This opens `results/progress/progress.png` and saves its underlying curves and metrics. It reconstructs the seed-7 initialization and verifies its loss against recorded step zero. The plot distinguishes the 250 updates performed from the validation-selected step-83 checkpoint being displayed. Recorded experiment updates total 310 across the two 30-step runs and the 250-step baseline; small unit-test optimizations are excluded. No retraining occurs.
+
 ## Review checkpoints
 
 We stop after each day's exit gate. Day 1 establishes data and circuit validity; it does not train a model. See [the original roadmap](QCL_Implementation_Plan.md) and [current progress](PROGRESS.md).
