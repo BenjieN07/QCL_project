@@ -39,6 +39,8 @@ The smoke test runs 30 full-batch Adam updates with learning rate 0.05 and param
 
 The runner checks finite, nonzero gradient norm at every update and verifies checkpoint reload. Individual angle gradients may be zero because final Z rotations do not affect Z readouts; a nonzero total gradient does not imply all six angles are identifiable. Test labels are reserved for Day 3. Model checkpoints use PyTorch state dictionaries and can be loaded with `torch.load(path, weights_only=True)`.
 
+Run `.\review-day2.ps1` to run the tests, independently audit the saved smoke checkpoint, and compare both saved runs. Add `-Repeat` to train a fresh run and require identical loss/gradient history and checkpoint weights. The audit regenerates `audit.json` and `REVIEW.md`, reporting whether a repeat was supplied. Run directories retain the original configuration and environment versions; timing differences between repeats are expected. The saved repeat's wall-clock duration includes a long execution interruption and must not be used as a compute-speed benchmark.
+
 ## Scientific context
 
 Inspired by [Mitarai et al., Quantum Circuit Learning (2018)](https://arxiv.org/abs/1803.00745), rather than an exact reproduction. Implementation follows the [PennyLane PyTorch interface](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).

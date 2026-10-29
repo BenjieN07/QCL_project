@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "history_rows": 31,
+  "checkpoint_losses_match": true,
+  "validation_selection_matches": true,
+  "repeat_history_and_weights_identical": true,
+  "checkpoint_sha256": "26354d4c19d70190aa7380b6d3d4f0997c59d7855cadc680bdf5e239145340e9",
+  "test_labels_used": false,
+  "qpu_jobs": 0
+}

@@ -36,7 +36,9 @@ def main():
             altered.weights[0, wire, 1] += 0.2
         changes.append((altered(inputs).detach() - predictions).abs().max(dim=0).values.tolist())
     assert all(max(row[j] for row in changes) > 1e-6 for j in range(2))
-    for invalid in (torch.tensor([1.1]), torch.tensor([float('nan')]), torch.tensor([])):
+    for invalid in (torch.tensor([1.1], dtype=torch.float64),
+                    torch.tensor([float('nan')], dtype=torch.float64),
+                    torch.tensor([], dtype=torch.float64)):
         try:
             model(invalid)
         except ValueError:

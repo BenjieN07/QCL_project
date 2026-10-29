@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "purpose": "Training smoke test; not a final accuracy study",
+  "config": {
+    "data_seed": 2026,
+    "parameter_seed": 7,
+    "train_size": 48,
+    "validation_size": 16,
+    "test_size": 24,
+    "grid_size": 101,
+    "layers": 1,
+    "smoke_steps": 30,
+    "learning_rate": 0.05
+  },
+  "optimizer": "Adam",
+  "loss_reduction": "mean over samples, sum over outputs",
+  "initial_train_loss": 1.9499409826430554,
+  "final_train_loss": 0.5813342418080726,
+  "relative_train_improvement": 0.7018708530244333,
+  "best_step": 26,
+  "best_validation_loss": 0.6783771668649673,
+  "checkpoint_reload_passed": true,
+  "minimum_gradient_norm": 0.13706087841433165,
+  "elapsed_seconds": 25273.642804400064,
+  "python": "3.12.14",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4",
+    "matplotlib": "3.11.2"
+  },
+  "source_revision": "9430869b2c56c7a1f249fe8300cc9dcd98012115",
+  "source_sha256": {
+    "qcl/__init__.py": "70284865d252af759b90ee2d88ab4286a5c3355e9c29901d0d7168a76ab7eac2",
+    "qcl/audit.py": "998185607a73e85a64f0bc69be62ce54a2b8b780b7fc93fe908af3cfdc542e2b",
+    "qcl/benchmark.py": "453f787da3e2eca627c0bd1b032ee0550e534033adfcbc65e23431d69364cd69",
+    "qcl/data.py": "7fa8df00d32dbcdca62a06e610e9c4cfc8e76a82bfc72931b7a3b6aeca17abdf",
+    "qcl/model.py": "addeb0a7ca184b682be2ac0054374487ee49e01f2e4ae83dd2f77df99cbc254b",
+    "qcl/prepare.py": "418f5abe2d72cc808fcef3383179bebea2f07a47f10c033fdabf3ebe809a15a4",
+    "qcl/train.py": "496f071c4d986c6340a3f6bf8ad94ab448a5da2387d524710737d27f05f34231",
+    "qcl/training.py": "0a14ca0deb50bff0720625fe0cdee4960e8be2738bc972680d55922095e42d68"
+  },
+  "test_labels_used": false,
+  "qpu_jobs": 0
+}

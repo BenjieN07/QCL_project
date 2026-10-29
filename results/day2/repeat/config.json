@@ -1,0 +1,11 @@
+{
+  "data_seed": 2026,
+  "parameter_seed": 7,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "layers": 1,
+  "smoke_steps": 30,
+  "learning_rate": 0.05
+}
