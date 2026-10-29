@@ -6,6 +6,8 @@ Removed the generated HTML report and its embedded base64 PNG. That one 263,313-
 
 Verified native Tk window creation and a real Matplotlib canvas/toolbar opening and closing. Headless current-model metrics exactly reproduced sine MSE 0.00042842008 and cosine MSE 0.00059555938; the historical viewer's existing initial-loss and saved-metric assertions passed. No model changes, training updates or hardware submissions occurred. Credential files remain ignored.
 
+Final display verification also ran the real-hardware count audit with its native window, rendered the comparison and closed normally. Historical curve reconstruction differs from the archived arrays by at most 7.77e-16, within the checked 1e-12 tolerance; an initial bit-for-bit comparison was overly strict for floating-point reconstruction. Archived benchmark arrays were preserved. Python syntax checks passed; no tracked HTML files or Python browser-launch/base64-report code remain. This change only affects results display.
+
 ## Real hardware pilot completed — 2026-10-29
 
 IBM job dbhs6vg1h92s7382cmng completed on ibm_fez. Downloaded 3,072 two-bit measurements from physical qubits 143/144. Outputs at t=-1,0,1 are sine [-0.009765625,-0.037109375,0.0390625] and cosine [-0.931640625,0.953125,-0.96484375]. Largest absolute deviations from frozen exact QCL are 0.05202905 (sine) and 0.02136561 (cosine). These combine finite sampling and real device effects; a single pilot cannot isolate their contributions. Zero training updates were performed on hardware.
