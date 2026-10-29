@@ -33,7 +33,7 @@ def create_view(run, output, open_browser=True):
     checkpoint = torch.load(checkpoint_path, weights_only=True, map_location='cpu')
     config = checkpoint['config']
     if config.get('model', 'original') != 'original':
-        raise ValueError('This viewer follows the original model workflow. Paper-inspired runs are archived comparisons.')
+        raise ValueError('This viewer supports only the original QCL model family.')
     model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()

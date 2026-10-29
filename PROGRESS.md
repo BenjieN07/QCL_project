@@ -2,29 +2,7 @@
 
 ## Active direction — 2026-10-29
 
-User restored our original circuit approach and excluded the paper-inspired model from the active program. `results/current_model.json` again points to the Day 3 Adam checkpoint (two qubits, one layer, selected step 83). The default viewer imports only the original model. The pilot remains archived as a historical comparison with its own frozen selection record; its stronger average accuracy is not assigned to our original model. No new training performed. Days 1–3 are complete as implementation/evaluation milestones; high-accuracy fitting is not complete. Day 4's matched 1/2/3-layer and initialization-seed study is next. Further optimizer/feature-map/entangler changes should be tested separately, with validation-based selection and honest reporting.
-
-Restoration verified: all nine tests passed, the original Day 3 audit passed (1,134 reconstructed predictions and 18 metric rows), and the viewer reproduced the original checkpoint's test metrics exactly. The archived pilot's separate audit still passes without depending on the active model registry. Numerical experiment results were not altered.
-
-## 2026-10-29 — paper-inspired accuracy pilot, checkpoint 1
-
-User requested an accuracy-focused experiment following the paper's ingredients. Declared two fixed BFGS runs in `results/paper_pilot/PROTOCOL.md`: original circuit with optimizer change only, then a six-qubit/six-block fixed-Ising circuit with learned output scales. Keep original train/validation data; reserve a new 128-point holdout until both checkpoints are frozen. All nine tests passed, including Ising unitarity, batched versus scalar predictions, finite-difference gradients, and full model shape/parameter count. No new accuracy measurements yet. This pilot changes the next work item; the original matched-depth/multiple-seed study remains deferred and incomplete.
-
-## 2026-10-29 — paper-inspired pilot, checkpoint 2: frozen before fresh holdout
-
-Original circuit/BFGS: converged in 24 accepted updates and 38 objective evaluations. Final training loss 0.44263792328127377, essentially the same floor as Adam. Validation selected iteration 16 with joint loss 0.6243851717921121; the accuracy target was missed. This run supports that optimizer replacement alone did not resolve the baseline's underfit.
-
-Six-qubit model/BFGS: completed the fixed 250-update budget, 263 objective evaluations, 110 fitted parameters. Solver status 1 (iteration limit), not convergence success. Selected iteration 247 by joint validation loss 0.00000766303486671098. Validation sine MSE 0.000006789835274628413, MAE 0.0010238579570834136; cosine MSE 0.0000008731995920825663, MAE 0.0004177053119073142. Provisional validation target met on both outputs. Reloaded checkpoint reproduced losses. Training process times were 8.38 and 20.85 seconds respectively, but implementation/batching/circuit differences prevent a controlled speed comparison.
-
-Registered the validation-selected model in `results/current_model.json` before reading the new holdout. Both configurations and checkpoints are now frozen. No legacy test or fresh-holdout labels were used in training or selection. No causal entangler-only claim: the larger architecture, rotations, initialization, output scaling, and encoding schedule also changed. Fresh-holdout evaluation pending; no hardware jobs.
-
-## 2026-10-29 — paper-inspired pilot review gate
-
-Fresh 128-input holdout, disjoint from the original splits, evaluated after checkpoint/registry commit ed865bb. Paper-inspired model: sine MSE 0.0000175335480, MAE 0.00165905545, maximum error 0.0295115202; cosine MSE 0.0000223196053, MAE 0.00129491677, maximum error 0.0444751395. Original Adam fresh MAE was 0.354121843 and 0.473919221. The polynomial achieved fresh MSE 0.0000490756146 and 0.000639159020. The larger quantum model improved average errors here, with 110 parameters versus the polynomial's 12 coefficients; no advantage claim.
-
-Important unresolved limitation: on the 401-point grid including exact boundaries, maximum absolute error is 0.1294157783 for sine and 0.3088931500 for cosine. Strong random-holdout averages do not imply uniform accuracy. Future work should explicitly add endpoint and near-boundary training coverage and repeat seeds in a separately declared experiment, reserving another untouched final holdout if tuning continues. Do not mark the full accuracy/generalization problem solved.
-
-All nine tests passed again. The saved-run audit recomputed 4,936 prediction values, checked 120 scalar metrics and 40 CSV rows, verified checkpoint hashes, validation selection, classical coefficients, and fresh-holdout disjointness. Dependency consistency passed. Both comparison and current-model plots were visually inspected; the viewer's legacy-test metrics match the pilot report exactly. `view_model.py` now opens the registered six-qubit checkpoint by default; `view_progress.py` is labeled as the historical Day 3 snapshot. No new training during visualization/audit. Added `review-paper-pilot.ps1` for repeatable checks. Stop after this pilot for inspection; multiple-seed/depth/entangler studies and finite-shot work remain incomplete. No QPU jobs.
+The one-time comparison model, its training tools, tests, configurations, and results have been removed from the current project files at the user's request. Only our original two-qubit circuit family remains. Days 1–3 are complete as implementation/evaluation milestones, not accuracy certification. Day 4's matched-depth and initialization-seed study is next. Earlier comparison commits remain in Git history; no history rewrite was requested.
 
 | Phase | Status | Evidence |
 |---|---|---|
@@ -32,7 +10,6 @@ All nine tests passed again. The saved-run audit recomputed 4,936 prediction val
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
 | Day 4: depth and seed study | NOT STARTED | Next active milestone for our original circuit family |
-| Paper-inspired accuracy pilot | ARCHIVED | Historical comparison; excluded from active project model |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

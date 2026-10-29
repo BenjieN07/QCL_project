@@ -63,10 +63,6 @@ Run `.\review-day2.ps1` to run the tests, independently audit the saved smoke ch
 
 Inspired by [Mitarai et al., Quantum Circuit Learning (2018)](https://arxiv.org/abs/1803.00745), rather than an exact reproduction. Implementation follows the [PennyLane PyTorch interface](https://docs.pennylane.ai/en/stable/introduction/interfaces/torch.html).
 
-## Archived comparison
-
-The paper-inspired experiment is excluded from the active workflow at the user's request. Its results are retained only as [historical comparison evidence](results/paper_pilot/evaluation/REVIEW.md), with a separate frozen selection record in `results/paper_pilot/model_selection.json`. Its accuracy is not the accuracy of our original model. The active project remains Days 1–3 complete, with the original-circuit depth-and-seed study next.
-
 ## Run and review Day 3
 
 The fixed [Day 3 protocol](results/day3/PROTOCOL.md) specifies a one-layer, 250-update baseline. Checkpoints use validation loss; the test set is used only for reporting. Compare with a degree-five polynomial fitted on training data and a quantum direct-rotation analytic reference with no training.
