@@ -1,5 +1,13 @@
 # Progress and review gates
 
+## Day 4 exit gate — 2026-10-29
+
+After validation-only selection commit 4a23755, evaluated a new disjoint 256-input holdout (seed 20261030). Selected model MSE: sine 0.028034364, cosine 0.029809244; MAE: sine 0.14600477, cosine 0.13229243; maximum error: sine 0.40201933, cosine 0.52852616. Endpoint-inclusive grid maximum errors: 0.40214201 and 0.52855948. Mean joint validation loss across three seeds decreased from 0.6294399 (1 layer) to 0.1339762 (2) and 0.05893151 (3). All seed results and sample standard deviations are reported. This is substantial progress but not a high-accuracy fit.
+
+Eight tests passed. The study audit reconstructed 13,410 prediction values, checked all nine histories (2,259 rows), verified nine CSV rows, checkpoint hashes, validation selection, and disjoint holdout data. Batched versus original scalar Day 3 loss trajectories differed by at most 1.33226762955e-15. Syntax, whitespace, and dependency checks passed. Comparison plot visually inspected; the default viewer exactly reproduces the selected Day 4 checkpoint's legacy-test metrics. The one-time comparison model and associated tracked files are removed; only old Git commits retain them.
+
+Active model: our original circuit, two qubits, three layers, seed 41, step 250, 18 nominal parameters, 21 logical gates including three CNOTs, no output scales. All nine runs used matched encoding, optimizer, and budget. Depth also changes the number of data re-uploads; no entangler-only, barren-plateau, or quantum-advantage conclusion is warranted. Gradient norm before the final update was 0.00868854, with validation loss still decreasing through step 250. A separately declared budget/learning-rate comparison is the next accuracy investigation; success is not assumed. Stop here for inspection before further training or finite-shot work. No QPU jobs.
+
 ## Active direction — 2026-10-29
 
 Day 4 checkpoint 1: eight tests passed, including predictions and full parameter gradients from batched versus scalar circuit execution at depths 1, 2, and 3 (absolute tolerance 1e-12). This is an execution optimization only; circuit gates, feature map, initialization, loss, and optimizer are unchanged. Prepared nine fixed configurations (depths 1/2/3, seeds 7/19/41), 250 Adam updates each, before reading new results. Protocol saved in `results/day4/PROTOCOL.md`. No new holdout has been generated or read.
@@ -13,7 +21,7 @@ The one-time comparison model, its training tools, tests, configurations, and re
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
-| Day 4: depth and seed study | IN PROGRESS | results/day4/PROTOCOL.md; nine matched runs planned |
+| Day 4: depth and seed study | COMPLETE | results/day4/evaluation/REVIEW.md and audit.json; accuracy target still unmet |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

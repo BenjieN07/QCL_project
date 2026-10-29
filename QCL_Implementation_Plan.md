@@ -92,11 +92,11 @@ Deliverables: initial results table, function-fit figures, classical comparison.
 
 Exit gate: Predictions, held-out metrics, and method limitations are documented. If fitting remains poor, report it rather than inventing success.
 Day 4 — Depth and initialization comparison
-- [ ] Compare one-, two-, and three-layer quantum ansätze under matched conditions.
-- [ ] Run two or three distinct seeds per depth if computationally feasible.
-- [ ] Plot loss curves and tabulate held-out errors and parameter counts.
-- [ ] Check for stalled training/vanishing gradients, without claiming a barren plateau from a single small circuit.
-- [ ] Select one checkpoint for frozen-parameter hardware validation using predeclared selection criteria.
+- [x] Compare one-, two-, and three-layer quantum ansätze under matched conditions.
+- [x] Run two or three distinct seeds per depth if computationally feasible.
+- [x] Plot loss curves and tabulate held-out errors and parameter counts.
+- [x] Check for stalled training/vanishing gradients, without claiming a barren plateau from a single small circuit.
+- [x] Select one checkpoint for frozen-parameter hardware validation using predeclared selection criteria.
 Deliverables: depth comparison chart/table; documented checkpoint selection.
 
 Exit gate: Report gives a defensible depth/accuracy/cost trade-off and distinguishes observations from general conclusions.
@@ -135,7 +135,7 @@ Research specification + plan	0	COMPLETE (planning only)	This report	No experime
 Dataset + PennyLane model	1	COMPLETE	Diagram, data plots, smoke tests	—
 Differentiable training loop	2	COMPLETE	Loss plot and checkpoint	—
 Held-out function fitting	3	COMPLETE	Predictions + test metrics	—
-Architecture/seed benchmarking	4	NOT STARTED	Comparison table	—
+Architecture/seed benchmarking	4	COMPLETE	Comparison table	—
 Finite-shot study + QPU preflight	5	NOT STARTED	Shot plot, preflight record	—
 Real IBM hardware (optional)	6	NOT STARTED	Job IDs and raw results	Requires access, time, consent
 Final report + reproducibility	7	NOT STARTED	Complete report and reproducible workflow	—
@@ -212,3 +212,5 @@ October 28, 2026 update: Day 1 COMPLETE, verified by results/day1/benchmark.json
 October 28, 2026 Day 2 update: training loop COMPLETE. Two reproducible 30-step Adam smoke runs saved under results/day2/. Training loss fell from 1.94994098 to 0.58133424; validation selected step 26 (loss 0.67837717). Checkpoint reload and independent repeat audit passed. See PROGRESS.md and results/day2/smoke/REVIEW.md. Days 3–7 remain NOT STARTED. No held-out test evaluation or QPU jobs.
 
 October 29, 2026 Day 3 update: baseline evaluation COMPLETE, with substantial one-layer underfitting honestly reported. Completed 250 updates, selected step 83 by validation. Quantum test MSE: sine 0.22574955, cosine 0.31093150. Degree-five polynomial test MSE: sine 0.00005669, cosine 0.00064162. See results/day3/INTERPRETATION.md and evaluation/REVIEW.md. Seven tests and independent evaluation audit passed. Days 4–7 remain NOT STARTED. No QPU jobs.
+
+October 29, 2026 Day 4 complete: only our original two-qubit circuit family remains in the project files. Nine matched 250-update runs at depths 1/2/3 and seeds 7/19/41 are saved and audited. Selected depth 3, seed 41, step 250 by validation only (joint loss 0.04940983). New 256-input holdout MAE: sine 0.14600477, cosine 0.13229243. Per-output accuracy target remains unmet. See results/day4/evaluation/REVIEW.md and PROGRESS.md. Further budget/learning-rate tuning is a separate next experiment; no finite-shot or hardware work yet.

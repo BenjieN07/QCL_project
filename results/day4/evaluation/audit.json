@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "runs_verified": 9,
+  "histories_verified": 9,
+  "history_rows_verified": 2259,
+  "prediction_values_recomputed": 13410,
+  "batching_trajectory_max_error": 1.3322676295501878e-15,
+  "validation_selection_verified": true,
+  "csv_rows_verified": 9,
+  "new_holdout_disjoint": true,
+  "qpu_jobs": 0
+}

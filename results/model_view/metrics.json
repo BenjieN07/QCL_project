@@ -1,28 +1,27 @@
 {
-  "checkpoint_step": 83,
+  "checkpoint_step": 250,
   "config": {
-    "phase": "Day 3 one-layer baseline",
     "data_seed": 2026,
-    "parameter_seed": 7,
     "train_size": 48,
     "validation_size": 16,
     "test_size": 24,
     "grid_size": 101,
-    "layers": 1,
     "steps": 250,
     "learning_rate": 0.05,
-    "polynomial_degree": 5
+    "phase": "Day 4 depth 3, seed 41",
+    "layers": 3,
+    "parameter_seed": 41
   },
   "test_metrics": {
     "sin": {
-      "mse": 0.22574954843030934,
-      "mae": 0.4039879100910813,
-      "max_absolute_error": 0.8442161653152518
+      "mse": 0.02935324991456055,
+      "mae": 0.1505905824970167,
+      "max_absolute_error": 0.398057735581445
     },
     "cos": {
-      "mse": 0.310931501370254,
-      "mae": 0.499385033366666,
-      "max_absolute_error": 0.7749025889244876
+      "mse": 0.04163751131344071,
+      "mae": 0.15333365843602265,
+      "max_absolute_error": 0.524483859892096
     }
   },
   "training_performed": false

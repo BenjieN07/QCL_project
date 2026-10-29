@@ -8,7 +8,7 @@ An incremental educational experiment. No quantum advantage claim. Local simulat
 .\.venv\Scripts\python.exe view_model.py
 ```
 
-This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports the original 24-input test metrics. It loads our original circuit's checkpoint registered in `results/current_model.json` (Day 3, Adam, selected step 83) and does not retrain. Outputs are refreshed in `results/model_view/`. The active model has two qubits, one layer, one CNOT, six nominal angles, and direct Z readouts without fitted output scales.
+This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports the original 24-input test metrics. It loads our original circuit's checkpoint registered in `results/current_model.json` (Day 4: three layers, seed 41, step 250) and does not retrain. Outputs are refreshed in `results/model_view/`. The active model has two qubits, three CNOTs, 18 nominal angles, and direct Z readouts without fitted output scales.
 
 If the environment is activated, `python view_model.py` is enough. Add `--no-open` to save without opening a browser, or `--run results/path/to/run` to inspect another checkpoint directory containing `best.pt`. The figures use a smooth 401-point grid; the metrics use the fixed disjoint test set, not that plotting grid.
 
@@ -21,6 +21,30 @@ To inspect the historical Day 3 comparison of initialization with the original s
 This opens `results/progress/progress.png` and saves its underlying curves and metrics. It reconstructs the seed-7 initialization and verifies its loss against recorded step zero. The historical plot distinguishes the 250 updates performed from the validation-selected step-83 checkpoint. At that Day 3 checkpoint, recorded experiment updates totaled 310 across the two 30-step runs and the 250-step baseline; small unit-test optimizations are excluded. No retraining occurs.
 
 ## Review checkpoints
+
+### Day 4 results and verification
+
+The [Day 4 protocol](results/day4/PROTOCOL.md) compares only our original circuit at 1/2/3 layers across seeds 7/19/41, with 250 full-batch Adam updates per run. All nine configurations, checkpoints, optimizer states, logs, histories, versions, and loss plots are saved. The comparison model has been removed from the project files.
+
+```powershell
+.\review-day4.ps1
+.\.venv\Scripts\python.exe view_model.py
+```
+
+The review command tests the code and audits saved results without training. Inspect [the results](results/day4/evaluation/REVIEW.md), `comparison.png`, and `runs.csv`. JSON includes per-output metrics, three-seed means/sample standard deviations, logical gate counts, gradients, loop runtimes, and the classical polynomial comparison. `predictions.npz` retains all evaluated predictions.
+
+Three layers improved validation results across all three tested seeds, but the provisional accuracy target remains unmet. The selected model's new 256-input holdout MAE is 0.1460 for sine and 0.1323 for cosine. This holdout was generated after selection commit 4a23755 and is now reporting-only data. Further accuracy tuning needs a separate protocol. The selected run was still improving at step 250, so a controlled budget/learning-rate comparison is the next accuracy investigation before finite-shot work.
+
+To reproduce or resume the fixed training grid and freeze selection:
+
+```powershell
+.\.venv\Scripts\python.exe -m qcl.study
+.\.venv\Scripts\python.exe -m qcl.study --select-only
+```
+
+Complete matching runs are reused. `python -m qcl.depth_report --verify` audits the saved evaluation. Initial evaluation uses the separate `python -m qcl.depth_report` command; existing reports are protected from overwriting. Batching was verified against scalar circuits at all study depths, and the depth-1/seed-7 trajectory reproduces Day 3 losses within 1.33e-15. CPU timing and logical gate counts do not describe compiled QPU cost.
+
+### Original roadmap
 
 We stop after each day's exit gate. Day 1 establishes data and circuit validity; it does not train a model. See [the original roadmap](QCL_Implementation_Plan.md) and [current progress](PROGRESS.md).
 
