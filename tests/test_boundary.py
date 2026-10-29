@@ -46,6 +46,14 @@ class BoundaryTests(unittest.TestCase):
         expected = QCLModel(5, 41, input_scale=.9)
         torch.testing.assert_close(model.weights, expected.weights, atol=0, rtol=0)
 
+    def test_refinement_resumes_five_layer_parent_exactly(self):
+        source = torch.load('results/boundary/runs/capacity_smooth/best.pt', weights_only=True)
+        config = dict(source['config'], start_mode='resume')
+        model, optimizer = restore_start(config, source)
+        self.assertEqual(tuple(model.weights.shape), (5,2,3))
+        self.assertEqual(int(optimizer.state[model.weights]['step'].item()), 1500)
+        torch.testing.assert_close(model.weights, source['model_state_dict']['weights'], atol=0, rtol=0)
+
 
 if __name__ == '__main__':
     unittest.main()

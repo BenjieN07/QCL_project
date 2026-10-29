@@ -1,11 +1,14 @@
 {
-  "run": "results/day4/runs/depth3_seed41",
-  "layers": 3,
+  "run": "results/boundary/runs/capacity_smooth",
+  "name": "capacity_smooth",
+  "eligible": true,
+  "score": 0.002247701275624548,
+  "selected_step": 1500,
+  "input_scale": 0.9,
+  "layers": 5,
   "parameter_seed": 41,
-  "selected_step": 250,
-  "selected_validation_loss": 0.04940982963545365,
   "model": "original",
-  "selection": "minimum joint validation loss across all nine fixed runs; ties prefer depth then seed",
+  "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4",
   "test_or_fresh_holdout_used_for_selection": false,
   "new_holdout_read_at_registration": false
 }

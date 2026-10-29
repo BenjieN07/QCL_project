@@ -1,0 +1,16 @@
+capacity_original total step 0: validation=1.2310748, collar=0.5018371, endpoint max=1.15689
+capacity_original total step 100: validation=0.0548114, collar=0.0184539, endpoint max=0.23047
+capacity_original total step 200: validation=0.0385546, collar=0.0183905, endpoint max=0.24276
+capacity_original total step 300: validation=0.0227500, collar=0.0139300, endpoint max=0.21328
+capacity_original total step 400: validation=0.0185575, collar=0.0083003, endpoint max=0.11842
+capacity_original total step 500: validation=0.0157338, collar=0.0065517, endpoint max=0.09671
+capacity_original total step 600: validation=0.0152013, collar=0.0059973, endpoint max=0.09313
+capacity_original total step 700: validation=0.0146920, collar=0.0053746, endpoint max=0.08889
+capacity_original total step 800: validation=0.0141338, collar=0.0047116, endpoint max=0.08354
+capacity_original total step 900: validation=0.0134661, collar=0.0040505, endpoint max=0.07650
+capacity_original total step 1000: validation=0.0126449, collar=0.0034383, endpoint max=0.06708
+capacity_original total step 1100: validation=0.0123537, collar=0.0032665, endpoint max=0.06367
+capacity_original total step 1200: validation=0.0120307, collar=0.0030937, endpoint max=0.05974
+capacity_original total step 1300: validation=0.0116742, collar=0.0029225, endpoint max=0.05842
+capacity_original total step 1400: validation=0.0112839, collar=0.0027549, endpoint max=0.05756
+capacity_original total step 1500: validation=0.0108616, collar=0.0025929, endpoint max=0.05849

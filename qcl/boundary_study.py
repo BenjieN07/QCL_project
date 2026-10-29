@@ -67,15 +67,18 @@ def prepare():
         np.savez(data_path, **data)
     jobs = []
     for trial in spec['trials']:
-        config = dict(source['config'])
-        start_step = 0 if trial.get('start_mode') == 'fresh' else source['step']
+        parent_run = trial.get('resume_run', spec['source_run'])
+        parent_path = Path(parent_run) / 'best.pt'
+        parent = torch.load(parent_path, weights_only=True)
+        config = dict(parent['config'])
+        start_step = 0 if trial.get('start_mode') == 'fresh' else parent['step']
         extra = trial.get('additional_updates', spec['additional_updates'])
-        config.update(trial, source_run=spec['source_run'], source_step=start_step,
+        config.update(trial, source_run=parent_run, source_step=start_step,
                       steps=start_step + extra, additional_updates=extra,
-                      phase=f'Boundary study: {trial["name"]}', baseline_validation_loss=source['validation_loss'],
+                      phase=f'Boundary study: {trial["name"]}', baseline_validation_loss=parent['validation_loss'],
                       selection_boundary_weight=spec['selection_boundary_weight'],
                       augmented_training_boundary_weight=spec['augmented_training_boundary_weight'],
-                      source_checkpoint_sha256=hashlib.sha256(source_path.read_bytes()).hexdigest())
+                      source_checkpoint_sha256=hashlib.sha256(parent_path.read_bytes()).hexdigest())
         path = Path('configs/boundary') / f'{trial["name"]}.json'
         path.parent.mkdir(parents=True, exist_ok=True)
         if path.exists():
@@ -191,7 +194,7 @@ def train(config_path, output, spec):
                'selected_endpoint_max_error': best['endpoint_max_error'], 'eligible': has_eligible,
                'checkpoint_reload_passed': True, 'optimizer_state_restored': config.get('start_mode', 'resume') != 'fresh',
                'source_weights_restored': config.get('start_mode', 'resume') != 'fresh',
-               'input_encoding_changed': config['input_scale'] != 1.,
+               'input_encoding_changed': config['input_scale'] != source['config'].get('input_scale', 1.),
                'elapsed_seconds': time.perf_counter()-started,
                'versions': {p: importlib.metadata.version(p) for p in ('pennylane', 'torch', 'numpy', 'matplotlib')},
                'source_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),

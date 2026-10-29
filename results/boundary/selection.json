@@ -1,0 +1,78 @@
+{
+  "candidates": [
+    {
+      "run": "results/boundary/runs/continue_constant",
+      "name": "continue_constant",
+      "eligible": true,
+      "score": 0.07976424593194613,
+      "selected_step": 1000,
+      "input_scale": 1.0,
+      "layers": 3,
+      "parameter_seed": 41
+    },
+    {
+      "run": "results/boundary/runs/continue_decay",
+      "name": "continue_decay",
+      "eligible": true,
+      "score": 0.08896360145090997,
+      "selected_step": 1000,
+      "input_scale": 1.0,
+      "layers": 3,
+      "parameter_seed": 41
+    },
+    {
+      "run": "results/boundary/runs/boundary_balanced",
+      "name": "boundary_balanced",
+      "eligible": true,
+      "score": 0.08934408894583101,
+      "selected_step": 252,
+      "input_scale": 1.0,
+      "layers": 3,
+      "parameter_seed": 41
+    },
+    {
+      "run": "results/boundary/runs/boundary_smooth",
+      "name": "boundary_smooth",
+      "eligible": false,
+      "score": 0.03837821422596571,
+      "selected_step": 1000,
+      "input_scale": 0.9,
+      "layers": 3,
+      "parameter_seed": 41
+    },
+    {
+      "run": "results/boundary/runs/capacity_original",
+      "name": "capacity_original",
+      "eligible": true,
+      "score": 0.006727281447171413,
+      "selected_step": 1500,
+      "input_scale": 1.0,
+      "layers": 5,
+      "parameter_seed": 41
+    },
+    {
+      "run": "results/boundary/runs/capacity_smooth",
+      "name": "capacity_smooth",
+      "eligible": true,
+      "score": 0.002247701275624548,
+      "selected_step": 1500,
+      "input_scale": 0.9,
+      "layers": 5,
+      "parameter_seed": 41
+    }
+  ],
+  "selected": {
+    "run": "results/boundary/runs/capacity_smooth",
+    "name": "capacity_smooth",
+    "eligible": true,
+    "score": 0.002247701275624548,
+    "selected_step": 1500,
+    "input_scale": 0.9,
+    "layers": 5,
+    "parameter_seed": 41,
+    "model": "original",
+    "selection": "minimum balanced validation score among eligible trials; original-validation loss cannot worsen from Day 4",
+    "test_or_fresh_holdout_used_for_selection": false,
+    "new_holdout_read_at_registration": false
+  }
+}
