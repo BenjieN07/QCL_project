@@ -1,192 +1,22 @@
-# Progress and review gates
+# Progress summary
 
-## Native Python result windows — 2026-10-29
+| Milestone | Completed result |
+|---|---|
+| Circuit and training validation | Reproducible data, finite gradients and checkpoint restoration |
+| Baseline | One-layer fit and classical polynomial reference |
+| Depth/seed comparison | Nine matched runs; three layers improved the initial fit |
+| Boundary optimization | Eight trials covering schedules, anchors, encoding scale and five-layer capacity |
+| Mirrored-data optimization | Three matched continuations; selected update 4,288 |
+| Efficiency | Equivalent batched gradients; measured median pass 2.164 s → 0.0188 s |
+| Measurement benchmark | Three shot budgets, 50 ideal-sampling repeats each |
+| Real hardware | One three-input ibm_fez pilot, 3,072 shots, 3 seconds reported usage |
 
-Removed the generated HTML report and its embedded base64 PNG. That one 263,313-byte file exceeded the total Python source bytes and explained GitHub's misleading HTML-majority language display; the model/training implementation has always been Python. Replaced both viewer browser launches with a shared Matplotlib/Tkinter window with zoom/pan/save controls, and added --show for the offline hardware report. PNG/JSON/NPZ benchmark artifacts remain supported; no web framework or HTML generation remains in the Python source.
+**Current model:** two qubits, five layers, scale 0.9. Same 24-input test MSE: **0.000428 sine / 0.000596 cosine**, versus 0.225750 / 0.310932 for the initial trained baseline. [Full progress table and graph](results/progress/REPORT.md)
 
-Verified native Tk window creation and a real Matplotlib canvas/toolbar opening and closing. Headless current-model metrics exactly reproduced sine MSE 0.00042842008 and cosine MSE 0.00059555938; the historical viewer's existing initial-loss and saved-metric assertions passed. No model changes, training updates or hardware submissions occurred. Credential files remain ignored.
+The active lineage trained fresh to 1,500 updates, continued to 3,000, then selected update 4,288 from a 4,500-update branch. Other branches are separate experiments, not extra sequential updates on this model. All training used a simulator; real hardware evaluated frozen parameters.
 
-Final display verification also ran the real-hardware count audit with its native window, rendered the comparison and closed normally. Historical curve reconstruction differs from the archived arrays by at most 7.77e-16, within the checked 1e-12 tolerance; an initial bit-for-bit comparison was overly strict for floating-point reconstruction. Archived benchmark arrays were preserved. Python syntax checks passed; no tracked HTML files or Python browser-launch/base64-report code remain. This change only affects results display.
+**Remaining limitations:** endpoint error 0.049996 is close to its guard, some boundary errors worsened, and original-validation cosine MSE 0.001314 exceeds the 0.001 goal. Hardware coverage is only three inputs.
 
-## Real hardware pilot completed — 2026-10-29
+**Next priorities:** improve boundary protection without losing interior fit; review whether to extend hardware coverage. Further training or QPU work needs a new experiment scope.
 
-IBM job dbhs6vg1h92s7382cmng completed on ibm_fez. Downloaded 3,072 two-bit measurements from physical qubits 143/144. Outputs at t=-1,0,1 are sine [-0.009765625,-0.037109375,0.0390625] and cosine [-0.931640625,0.953125,-0.96484375]. Largest absolute deviations from frozen exact QCL are 0.05202905 (sine) and 0.02136561 (cosine). These combine finite sampling and real device effects; a single pilot cannot isolate their contributions. Zero training updates were performed on hardware.
-
-Provider metrics report 3 quantum seconds consumed by this job. Instance consumption rose from 6 to 9 seconds, leaving 591 of 600 seconds immediately afterward. Saved raw counts, job receipt, compiled circuits, checkpoint fingerprints, usage and an offline reconstruction/report tool. This meets the three-input pilot scope only. The remaining six proposed inputs have not been submitted; pause for inspection before extending hardware work.
-
-## Real hardware pilot submitted — 2026-10-29
-
-Submitted exactly one job, dbhs6vg1h92s7382cmng, to ibm_fez using the authorized three-input workload: t=-1,0,1, 1,024 shots each, fixed update-4,288 weights. Recorded submission receipt and an exclusive duplicate-prevention marker. The first retrieval reported RUNNING. The job has a 60-second execution cap; predicted baseline consumption is about 6.8 seconds and 594 seconds were available before submission. This is real-qubit inference with device noise, not further training. No remaining six-input follow-up was submitted.
-
-## IBM access and real-target pilot preparation — 2026-10-29
-
-Read-only authentication now succeeds using the ignored local files. IBM reports 600 allocated seconds, 6 consumed and 594 remaining; operational backends include ibm_fez, ibm_kingston and ibm_marrakesh. Prepared the previously described, user-authorized three-input pilot on ibm_fez, physical qubits 143/144, compiled depth 20 and three CZ gates per input. Estimated baseline use is 6.785 seconds using target gate/reset timings, default 250-microsecond repetition delay, 3,072 shots and six seconds overhead allowance. This estimate is not a billing guarantee. Execution cap is 60 seconds, below the verified allowance. No job has been submitted at this preparation checkpoint. Added duplicate-submission prevention and nonblocking retrieval; no hardware training is involved.
-
-All 19 tests passed, including synthetic known-count output mapping and nonblocking queued-job handling. The first new-test run encountered an unwritable operating-system temporary directory; fixtures now use the ignored project .tmp directory. Actual compiled physical-wire outputs were checked against the frozen model within 1e-12, and Sampler options validated with the installed SDK. Synthetic test receipts are temporary fixtures, not real hardware evidence.
-
-## IBM access recheck — 2026-10-29
-
-Updated local credential files are nonempty, the API value is no longer an ApiKey identifier, and the CRN passes the basic prefix/field checks. The read-only preflight reached an account-discovery failure: InvalidAccountError caused by an IBM ApiException with HTTP 400, including on retry with network access. This does not establish a valid account, available backends or remaining quota. Added sanitized stage/error-type/HTTP-code diagnostics without provider messages, credential contents or request details. No credentials committed, no model updates and zero QPU jobs. Further hardware work requires resolving the API secret/instance access error.
-
-## Private credential-file support — 2026-10-29
-
-User supplied local api.txt and crn.txt for the IBM preflight. Both files were zero bytes when inspected; no values were displayed or used. Added exact root filename exclusions to .gitignore and --credential-files support to the read-only preflight. Verified Git ignores both files and the empty-file check stops before connection. Hardware remains NOT RUN pending saved credentials and the backend/allowance preflight. Credential files are not staged or committed.
-
-## Hardware pilot packaging — 2026-10-29
-
-Prepared a separate three-circuit pilot at t=-1,0,1 using frozen update-4,288 weights, 1,024 proposed shots per circuit (3,072 total). Reloaded the QPY package and verified its exact outputs against the saved model; the existing circuit/shot artifact audit passed. Saved checkpoint and circuit fingerprints plus expected simulator and NumPy outputs in results/hardware/pilot_manifest.json. Added --pilot to the private read-only preflight so a chosen backend compiles only these three circuits, rejecting a stale model/package. No new model training occurred.
-
-Real hardware status: NOT RUN. No .ibm-private/preflight.json exists. Private authentication, plan/backend identification, remaining allowance and a target-specific usage estimate remain pending. No chat credential was used, no credentials were saved, and no QPU job was submitted. The next user action is to run ibm_preflight.py locally with hidden credential entry; no additional simulator experiment is being represented as hardware progress.
-
-## Mirrored training and hardware preparation — checkpoint 3
-
-Completed three branches with 1,500 additional updates each: 4,500 new experiment updates in total, not 4,500 sequential updates added to one model. All branches inherited update-3,000 weights AND Adam moments. Guarded validation selected mirrored_rebalance at update 4,288 (1,288 continued updates on the active lineage). Final update 4,500 had lower selection loss but endpoint error 0.05107 and was rejected. Selected endpoint error is 0.04999637, narrowly below the declared 0.05 guard. Checkpoints and validation-only selection were committed as b3e9636 before the new holdout was read.
-
-Fresh seed-20261101 holdout contains 256 interior and 128 inputs in each boundary collar, disjoint from training, validation and previous holdouts. Interior MAE sine/cosine improved 0.024432/0.025132 to 0.017752/0.019721. Grid maximum errors improved 0.049683/0.075378 to 0.041078/0.054862. This is not uniform improvement: right-collar MAE worsened 0.012349/0.002516 to 0.012565/0.006401; left-collar cosine maximum increased 0.039054 to 0.045784 despite lower mean error. Original validation cosine MSE 0.00131396 still misses the 0.001 goal. Preserve these limitations rather than selecting again using the exposed holdout.
-
-Frozen selected circuit exports agree with the original simulator within 1.67e-15. Ideal shot-sampling RMSE from exact QCL is 0.02344/0.02208 at 1,024 shots and 0.01165/0.01051 at 4,096 shots (50 repeats at each of nine fixed inputs). This excludes real-device noise. Proposed three-input hardware pilot remains unsubmitted; live plan, backend, remaining allowance and runtime estimate are pending private account preflight. No credentials were saved or reused from chat.
-
-Final review.ps1 passed all 17 tests, audited 4,503 training-history rows with inherited optimizer moments and guarded checkpoint selection, evaluated 512 new stratified holdout inputs, and reconstructed measured-circuit mapping and deterministic shot samples. Refreshed the default viewer to update 4,288 and visually inspected both the before/after and shot-comparison figures. This checkpoint is ready for user inspection before further optimization or hardware submission.
-
-## Mirrored training and hardware preparation — checkpoint 2
-
-Optional Qiskit 2.5.2 and IBM Runtime 0.47.0 installed; pip dependency check passed. Seventeen tests passed, including circuit equivalence at depths 1/3/5 with broad rotation angles and explicit measurement bit mapping. Added offline joint-shot sampling, measured QPY export, artifact auditing, and hidden-entry IBM access/target-compilation preflight. The preflight does not save accounts or credentials and contains no submission operation. No IBM authentication or QPU execution has occurred. Added a separate optional environment lock; core requirements remain unchanged.
-
-Continuation control completed all 1,500 additional updates, selecting update 4,500 with symmetric/collar score 0.00113076346. Mirrored training with unchanged boundary weight completed, selecting update 4,500 with score 0.00109369426. Its original validation sine/cosine MSE is 0.00058423243/0.00148641315, both improved from the update-3,000 source. The weighting branch and independent post-selection evaluation are pending at this checkpoint; these validation findings are not fresh-test results.
-
-## Mirrored training and hardware preparation — 2026-10-29, checkpoint 1
-
-User authorized the next model-improvement step and preparation toward real hardware. Declared three same-model branches from update 3,000 to 4,500: continuation control; mirrored main training inputs (96 unique points), same boundary weight 0.5; mirrored data with boundary weight 0.25. Same five-layer two-qubit circuit, scale 0.9, seed 41, Adam state, and rate 0.003. All runs share original/reflected validation plus collar validation. Per-output original-validation MSE and boundary-error guards protect prior progress. New holdout remains unread until checkpoints/selection are committed. Fifteen tests passed, including mirror symmetry/data-role separation and source eligibility. See results/mirror/PROTOCOL.md.
-
-Optional Qiskit SDK installed locally for export verification. IBM Runtime installation is preparation only; no account was contacted and no jobs submitted. The user will provide account/backend details securely; no credential or account identifiers are written into tracked files. Hardware preflight must check current allowance, actual backend target/layout, compatibility and conservative workload before requesting consent to a specific QPU run. The currently supplied chat credential will not be reused or repeated; private local hidden entry is being prepared. No hardware-in-the-loop training is planned.
-
-## Read-only error-peak investigation — 2026-10-29
-
-User requested a report before deciding the next training step. No training or checkpoint selection was performed. Measured signed residuals on a 10,001-input diagnostic grid; refined stationary locations and verified the equal-slope condition with autodifferentiation and central finite differences. Largest highlighted errors: sine +0.04968284 at t=-0.33831377 and -0.04058191 at t=0.65021585; cosine +0.07537767 at t=-0.81186833 and -0.06509371 at t=0.02755903. Full peak list and before/after values are retained.
-
-The largest cosine peak lies in an augmented-training gap between -0.9 and -0.64529362; there are zero original training inputs within ±0.05, versus three near its positive mirror. Mirrored cosine error is about +0.00901, compared with +0.07538 on the negative side. The circuit is not explicitly constrained to cosine evenness or sine oddness; sampled parity defects are about 0.06644 and 0.05037. This supports coverage/symmetry hypotheses, not a unique causal proof.
-
-Other peaks occur near training examples with comparable residuals: the main sine peak has five nearby original inputs; the central cosine dip is 0.00275 from a training input with about -0.06508 error. Current predicted cosine maximum is 0.93619 rather than 1. These are local training underfits as well as generalization issues. Gradient cosines at the frozen model are -0.99086 (original-data versus anchors) and -0.99459 (sine versus cosine components), showing local competing update preferences; this does not prove an unavoidable capacity limit or global optimum. All six highlighted peak magnitudes decreased from the parent at update 1,500 to update 3,000.
-
-Saved report, annotated plot, raw curves, and diagnostic values in `results/error_peaks/`. Model weights, serialized checkpoint, and active registry were verified unchanged. Candidate next tests, not executed: mirrored/stratified training coverage first, followed by a separate guarded loss-weighting ablation if needed. Await the user's next-step decision; do not automatically continue training based on these exposed diagnostic curves.
-
-## Boundary-study review gate — 2026-10-29
-
-All eight trials are complete and retained, including rejected trade-offs. Four three-layer branches resumed update 250 to 1,000. Two five-layer architectures started fresh and trained to 1,500. Two actual same-model refinements resumed the smooth five-layer parent to 3,000. Total new optimization work across branches was 9,000 updates; the active model itself has 3,000 updates, not 9,000. No removed model was reintroduced.
-
-After selection/checkpoint commit 1a4a102, read the new stratified 512-input holdout. Selected model: original two-qubit Rot/CNOT family, five layers, seed 41, fixed encoder scale 0.9, 30 nominal angles, selected step 3,000. Interior MAE improved from 0.13263150/0.11249442 to 0.02361868/0.02440187 (sine/cosine). New boundary-collar maximum errors improved from 0.40202144/0.52810711 to 0.02394069/0.03856940. Dense near-boundary diagnostics found a maximum error about 0.039073. Original-validation joint loss is 0.0026893738 versus Depth study's 0.0494098296. The guard preserved and improved the original validation fit.
-
-Known endpoint maximum error improved from 0.39128746 to 0.02675783, meeting the provisional endpoint goal; these endpoints are now supervised anchors, not independent test inputs. Collar-validation MAE goals also passed. Original-validation MSE is 0.00080905 (sine) and 0.00188032 (cosine); the stricter per-output 0.001 MSE goal remains unmet for cosine. The 1,001-point diagnostic grid maximum errors are 0.04968273/0.07537759, so residual interior error remains. The holdout oversamples boundaries; regional scores are reported rather than claiming uniform-domain aggregate risk.
-
-Thirteen tests passed. The saved-results audit verified 8 trials, 9,008 history rows, all start/best/final optimizer counters and starting states, validation guard/selection, 8 CSV rows, and disjoint stratified holdout data; it reconstructed 32,458 prediction values including dense boundary curves. Old Depth study audit still passes with default encoder scale 1. Dependency/syntax checks passed. Before/after plots visually inspected. Viewer regeneration completed and its legacy-test metrics then matched the saved selected-model report exactly; an earlier comparison while regeneration was still running read stale viewer data and was repeated successfully after completion. No numerical experiment artifacts were changed to address that ordering issue.
-
-Findings are in `results/boundary/FINDINGS.md`; full data and trial comparisons in `results/boundary/evaluation/`. Stop for inspection before further tuning or finite-shot work. Next confirmation: repeat the successful recipe across seeds and reserved data; investigate residual cosine interior error without selecting on the now-exposed holdout. No QPU jobs.
-
-## Boundary investigation — 2026-10-29, checkpoint 1
-
-Measured sparse training coverage: 2/48 inputs in |t|>=0.9, minimum -0.9743190353 and maximum 0.9339244003, no exact endpoints. Endpoint angle gradients are finite (norm 0.6355755874), so no observed broken parameter-gradient path. Near-endpoint prediction secants increase sharply as distance shrinks; inverse-trigonometric input-angle derivatives are singular at the exact bounds. This is an input-sensitivity/coverage hypothesis, not proof of a single cause. Diagnosis saved without changing weights.
-
-Declared four fixed 750-update branches from the Depth study step-250 model and Adam state: constant-rate continuation, rate decay, boundary-balanced training with decay, and the same boundary training with input scale 0.9. The last modifies the encoder and is explicitly labeled a warm start under a changed feature map. Same two qubits, three layers, 18 angles, CNOT layout, targets, and no output scaling. Select by balanced original/collar validation score subject to not worsening original-validation loss. New stratified holdout remains unread until checkpoints and selection are committed. All 11 tests passed, including dataset separation, exact optimizer moments/counter restoration, and finite smooth-encoder input gradients at endpoints. See results/boundary/PROTOCOL.md. No training results yet; no QPU jobs.
-
-Boundary checkpoint 2: all four continuation branches completed 750 extra updates (250 to 1,000 per branch). Constant rate: final endpoint maximum error 0.30287156 and original-validation loss 0.04673481. Decay: 0.32545583 / 0.04785396. Boundary-balanced: 0.14715017 / 0.05844260; the final iterate fails the original-validation guard, so an earlier eligible checkpoint is retained. Smooth encoding: 0.11291340 / 0.06986137, with no eligible checkpoint. None met the endpoint goal. No new holdout was generated or read. Full findings saved before follow-up in `results/boundary/PHASE1_FINDINGS.md`.
-
-Declared a separate capacity follow-up before any test evaluation: two fresh five-layer versions of our same two-qubit Rot/CNOT circuit, seed 41, input scales 1.0 and 0.9, 1,500 Adam updates with fixed decay, and the same balanced boundary data and validation guard. These load neither old weights nor moments; they are not continued 3-layer models. Twelve tests passed, including batched/scalar equivalence at five layers and fresh-start state isolation. The independent stratified holdout remains reserved until all six outcomes and validation selection are frozen. No guarantee of improvement or causal single-factor diagnosis.
-
-Boundary checkpoint 3: fresh five-layer models improved the boundary/interior trade-off. Original encoder selected score 0.0067273, endpoint maximum error 0.05849. Input scale 0.9 selected score 0.0022477013, endpoint maximum error 0.02721426, original-validation loss 0.0038949363, collar loss 0.0006004662. Both pass the Depth study original-validation guard. The smoother model met the endpoint goal and was still improving at its 1,500-update budget. No independent holdout read. Frozen phase-2 selection points to this model.
-
-Declared two same-model refinements from its exact saved angles and Adam moments at update 1,500: 1,500 extra updates at rate 0.003 versus 0.003/0.001/0.0003 decay. They preserve the five-layer circuit, scale 0.9, data and loss. Their original-validation guard is tightened to the parent score 0.0038949363. See PHASE2_FINDINGS.md and protocol addendum. This is genuine resumed training, distinct from the fresh five-layer experiments. The final independent holdout remains reserved for after all eight outcomes and final selection are frozen.
-
-Boundary checkpoint 4, frozen before holdout: both five-layer refinements completed update 1,500 to 3,000 with restored Adam state. Constant rate selected balanced score 0.0015702956 and endpoint maximum error 0.02676; decay selected score 0.0018477 and endpoint maximum error 0.02677. Selected `refine_constant`, step 3,000, by validation only. Original-validation joint loss is about 0.0026894 and collar-validation loss about 0.0004512; both improve from the update-1,500 parent. The original-validation per-output MSE goal may still be unmet and will be reported separately. All eight trial outcomes, including ineligible approaches, are retained. No new holdout access yet. The active model is our original two-qubit circuit with five layers, 30 nominal angles, and fixed encoder input scale 0.9, without learned output scaling or analytic boundary replacement. Thirteen tests passed, including exact five-layer parent-state restoration. Independent stratified evaluation follows only after this checkpoint/selection commit.
-
-## Depth study exit gate — 2026-10-29
-
-After validation-only selection commit 4a23755, evaluated a new disjoint 256-input holdout (seed 20261030). Selected model MSE: sine 0.028034364, cosine 0.029809244; MAE: sine 0.14600477, cosine 0.13229243; maximum error: sine 0.40201933, cosine 0.52852616. Endpoint-inclusive grid maximum errors: 0.40214201 and 0.52855948. Mean joint validation loss across three seeds decreased from 0.6294399 (1 layer) to 0.1339762 (2) and 0.05893151 (3). All seed results and sample standard deviations are reported. This is substantial progress but not a high-accuracy fit.
-
-Eight tests passed. The study audit reconstructed 13,410 prediction values, checked all nine histories (2,259 rows), verified nine CSV rows, checkpoint hashes, validation selection, and disjoint holdout data. Batched versus original scalar Baseline loss trajectories differed by at most 1.33226762955e-15. Syntax, whitespace, and dependency checks passed. Comparison plot visually inspected; the default viewer exactly reproduces the selected Depth study checkpoint's legacy-test metrics. The one-time comparison model and associated tracked files are removed; only old Git commits retain them.
-
-Active model: our original circuit, two qubits, three layers, seed 41, step 250, 18 nominal parameters, 21 logical gates including three CNOTs, no output scales. All nine runs used matched encoding, optimizer, and budget. Depth also changes the number of data re-uploads; no entangler-only, barren-plateau, or quantum-advantage conclusion is warranted. Gradient norm before the final update was 0.00868854, with validation loss still decreasing through step 250. A separately declared budget/learning-rate comparison is the next accuracy investigation; success is not assumed. Stop here for inspection before further training or finite-shot work. No QPU jobs.
-
-## Active direction — 2026-10-29
-
-Depth study checkpoint 1: eight tests passed, including predictions and full parameter gradients from batched versus scalar circuit execution at depths 1, 2, and 3 (absolute tolerance 1e-12). This is an execution optimization only; circuit gates, feature map, initialization, loss, and optimizer are unchanged. Prepared nine fixed configurations (depths 1/2/3, seeds 7/19/41), 250 Adam updates each, before reading new results. Protocol saved in `results/depth_study/PROTOCOL.md`. No new holdout has been generated or read.
-
-Depth study checkpoint 2: all nine matched runs completed, totaling 2,250 optimizer updates. Best joint validation losses by run: depth 1 seeds 7/19/41 = 0.63208431 / 0.62657516 / 0.62966015; depth 2 = 0.11214614 / 0.11156673 / 0.17821568; depth 3 = 0.06857967 / 0.05880504 / 0.04940983. Selected depth 3, seed 41, step 250 using validation only. Its training loss decreased from 1.6612407915 to 0.0409861223. All checkpoint reload checks passed. `results/depth_study/selection.json` and the active registry are frozen before any new holdout evaluation; new holdout remains unread at this checkpoint. More layers improved validation results in this study, but the provisional target has not been achieved. No alternate model families or hardware jobs were used.
-
-The one-time comparison model, its training tools, tests, configurations, and results have been removed from the current project files at the user's request. Only our original two-qubit circuit family remains. Days 1–3 are complete as implementation/evaluation milestones, not accuracy certification. Depth study's matched-depth and initialization-seed study is next. Earlier comparison commits remain in Git history; no history rewrite was requested.
-
-| Phase | Status | Evidence |
-|---|---|---|
-| Circuit validation: setup, data, circuit | COMPLETE | results/validation/REVIEW.md and benchmark.json |
-| Training smoke test: training loop | COMPLETE | results/smoke/run/REVIEW.md, audit.json, two saved runs |
-| Baseline: fit and baselines | COMPLETE | results/baseline/evaluation/REVIEW.md, metrics.csv, audit.json |
-| Depth study: depth and seed study | COMPLETE | results/depth_study/evaluation/REVIEW.md and audit.json; accuracy target still unmet |
-| Boundary training follow-up | COMPLETE | results/boundary/evaluation/REVIEW.md; endpoint goals met, cosine validation-MSE target still unmet |
-| Day 5: shot study | NOT STARTED | — |
-| Day 6: optional hardware | NOT STARTED | Requires explicit consent |
-| Day 7: report | NOT STARTED | — |
-
-## 2026-10-28 — checkpoint 1
-
-Created the project specification, pinned PennyLane version, configuration, and review workflow. The repository began empty. System `python` is an unusable Windows alias; a project virtual environment is being created using the bundled Python runtime. No numerical results yet. QPU usage: zero.
-
-Next: deterministic disjoint datasets and target figure; then circuit validity benchmark. Stop after Circuit validation.
-
-## 2026-10-28 — checkpoint 2
-
-Dataset checks passed: seed 2026 reproduces 48 training, 16 validation, and 24 test inputs, all distinct across splits. Target identity sin² + cos² passed. Saved `results/validation/data.npz`, `data_checks.json`, and `targets.png`. Installed dependencies in the project environment and saved exact versions to `requirements-lock.txt`; `pip check` found no broken requirements. Early attempts to run preparation before installation finished failed due to missing Matplotlib; the completed run passed.
-
-GitHub push failed with invalid username/token. Commits remain local until authentication is repaired. No hardware access or training performed.
-
-## 2026-10-28 — checkpoint 3 / Circuit validation exit gate
-
-The later GitHub push succeeded and published checkpoints 1 and 2. The earlier authentication failure is resolved for this session.
-
-Circuit benchmark passed all seven checks on 51 inputs (48 training plus endpoints and zero). Outputs have shape (51, 2), are finite, reproducible, and within [-1, 1]; observed range was -0.0785247186 to 0.9969115004. Perturbing each wire's trainable Y rotation changed its measured output; maximum changes were about 0.19647 on Z0 and 0.08075 on Z1. Six trainable parameters, seven logical gates (Rot counted as one), one logical CNOT. No backend compilation claimed. Circuit diagram and encoding note saved; target and circuit figures visually inspected.
-
-Evidence: `results/validation/benchmark.json`, `circuit.png`, `circuit.txt`, `untrained_predictions.npz`, and `REVIEW.md`. Dependency consistency and Python syntax checks passed. Benchmark timing is a single batch with first-call overhead, not a comparative speed claim. No optimizer steps, held-out accuracy claims, or QPU jobs.
-
-Review gate: stop here for user inspection. Next authorized phase, once requested: Training smoke test differentiable training smoke test, gradients, saved checkpoint, and loss history. Keep future phases in separate commits and stop at major review gates.
-
-## 2026-10-28 — documentation cleanup
-
-Renamed the roadmap to `METHODS.md`, updated the README link, and removed assistant branding from the project documentation. Source, measured results, and scientific requirements are unchanged. Verified the documentation references and whitespace; numerical checks were not rerun for this documentation-only change.
-
-## 2026-10-28 — Training smoke test, checkpoint 1
-
-Implemented joint regression loss (sample mean of summed output errors), checked gradients, strict CPU float64 inputs, and a bounded 30-update Adam runner. Four tests passed: loss convention, all six analytic parameter gradients against central finite differences (1e-6 perturbation, seven decimal places), five-update loss improvement on a representative batch, and actionable input/NaN/detached-gradient errors. The full 48-point smoke run is pending. Configuration: seed 7, one layer, learning rate 0.05. No test-set evaluation or hardware jobs.
-
-## 2026-10-28 — Training smoke test, checkpoint 2
-
-Completed two independent 30-update runs. Initial training loss 1.9499409826430554, final 0.5813342418080726 (70.1871% reduction). Selected step 26 by validation loss 0.6783771668649673. Minimum gradient norm 0.13706087841433165. Checkpoint reload reproduced its training and validation losses. The audit confirmed identical full loss/gradient histories and checkpoint weights across both runs. Preserved both runs under `results/smoke/run` and `results/smoke/repeat`, including checkpoints, histories, settings, versions, source hashes, and loss plots. Plot visually inspected. The repeat's elapsed wall time includes a long execution interruption; no speed comparison is supported.
-
-Four training tests passed again; dependency consistency and syntax checks passed. Circuit validation regression initially failed because its invalid-input test tensors defaulted to float32 after the model began requiring float64. Corrected the benchmark fixtures to float64; the full Circuit validation review then passed all seven circuit checks plus data checks. Training results were unaffected. Added an independent saved-run auditor and `review.ps1` for easy inspection. Final roadmap/report update pending. QPU jobs: zero; test labels unused in training and audit.
-
-## 2026-10-28 — Training smoke test exit gate
-
-Training smoke test deliverables are complete: differentiable joint loss, finite nonzero gradient verification, small optimization run, validation-selected checkpoint, optimizer state, saved configuration, full loss history, loss plot, reproducibility audit, and runnable README commands. Results establish working local training only; Baseline fitting quality and per-output held-out metrics remain unmeasured. No hardware jobs submitted. Stop for inspection; next phase is the 200–300-update baseline fit and classical/analytic comparisons, after user continuation.
-
-Final user-facing check: `review.ps1` completed successfully, running all four tests and the saved-run audit with repeat comparison. Documentation and tracked filenames contain no assistant branding. All source and experiment artifacts are committed; local environments and temporary caches remain ignored.
-
-## 2026-10-29 — Baseline, checkpoint 1
-
-Declared the evaluation protocol before reading test scores. Fixed one-layer seed-7 training to 250 updates; select by minimum validation loss. Fixed the classical baseline to degree-five polynomial least squares and specified an analytic quantum rotation reference. Generalized the training command to accept a separate configuration file while retaining Training smoke test defaults. Baseline measurements pending.
-
-## 2026-10-29 — Baseline, checkpoint 2
-
-Completed all 250 updates without gradient failures. Training loss: 1.9499409826430554 initially, 0.4426379233622822 finally (77.30% reduction). Validation selected step 83 with loss 0.6320843068249645; the final step was not selected. Minimum gradient norm 2.963715646542432e-06. Saved checkpoint reload passed. Training loop wall time was 85.16 seconds, excluding process imports, plotting, and evaluation; earlier short-run timings were not a reliable predictor of this run. Seven tests passed before training, including known-error metric checks, polynomial coefficient recovery, and the direct-rotation quantum reference at domain boundaries. The existing Training smoke test checkpoint/repeat audit still passed. Held-out evaluation and plot inspection pending.
-
-## 2026-10-29 — Baseline exit gate
-
-Evaluated the validation-selected step-83 checkpoint without changing the architecture. Quantum test MSE: sine 0.22574954843030934, cosine 0.310931501370254. Quantum test MAE: sine 0.4039879100910813, cosine 0.499385033366666. Maximum absolute test error: sine 0.8442161653152518, cosine 0.7749025889244876. The degree-five classical polynomial achieved test MSE 0.00005669323704692145 (sine) and 0.0006416241116465886 (cosine). The direct-rotation analytic quantum reference agreed with target functions within floating-point precision and is explicitly not learned.
-
-Both target-versus-prediction figures and the loss plot were visually inspected. The one-layer QCL visibly underfits and training loss plateaus; a single optimization run does not prove that expressivity alone caused the error. This circuit has six nominal angles, including two final Z rotations that do not affect the measured observables; seven logical gates include one CNOT. Counts are not backend-compiled costs. The preplanned next investigation is the matched 1/2/3-layer, multi-seed comparison with the same per-layer encoding; extra layers may improve capacity but no improvement is assumed. Select later models using validation, not the now-reported test scores.
-
-Final review command `review.ps1` passed all seven tests and the saved-evaluation audit. The audit reconstructed 1,134 prediction values, verified all 18 metric rows in JSON/CSV, verified original split/targets, refitted classical coefficients, and checked checkpoint selection across 251 history rows. Python syntax and whitespace checks passed. All predictions, classical coefficients, selected quantum weights, plots, settings, versions, and provenance are retained. No accuracy success claim, no quantum advantage claim, and zero QPU jobs. Stop for user inspection before Depth study.
-
-## 2026-10-29 — model viewer
-
-Added `view_model.py`: load the saved checkpoint without retraining, compare its predictions with exact NumPy sine/cosine curves on 401 plotting inputs, show signed-error panels and fixed-test metrics, and open an offline browser report. An explicit `--no-open` mode generates a PNG, HTML report, and metrics JSON without browser interaction. The default viewer reproduced the Baseline test metrics exactly. No model updates or architecture selection performed.
-
-## 2026-10-29 — before/after progress visualization
-
-Added `view_progress.py` and a four-panel figure: reconstructed initial versus selected trained curves for sine/cosine, full loss history, and per-output test MSE across initialization, short-run checkpoint, baseline checkpoint, and polynomial comparison. Verified initial loss against saved step zero and current metrics against the audited evaluation. Recorded experiment training totals 310 updates across three independent runs, not one 310-step model; no new training performed. Preserved the plotted curves and numerical summary. Documented optimization priorities in `results/progress/NEXT_STEPS.md`. The visualization exposes that sine test error worsened from the short-run checkpoint while cosine improved; test scores did not guide checkpoint selection.
+**Repository cleanup:** experiment-based names, one review command, short documentation and complete milestone visualization. The renamed saved-result audits and 19 tests pass; checkpoint bytes are preserved. No training or hardware submissions were performed during cleanup.

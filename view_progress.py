@@ -54,7 +54,7 @@ def build_progress(output,show_window=True):
             with torch.no_grad(): prediction=model(torch.tensor(data['test_t'],dtype=torch.float64)).numpy()
             score=metrics(prediction,data['test_y'])
             trials.append({'group':group,'trial':run.name,'layers':cfg['layers'],'seed':cfg['parameter_seed'],
-                           'input_scale':cfg.get('input_scale',1.),'start':cfg.get('start_mode','fresh'),
+                           'input_scale':cfg.get('input_scale',1.),'start':cfg.get('start_mode','resume' if cfg.get('source_run') else 'fresh'),
                            'updates_in_run':cfg.get('additional_updates',cfg.get('steps')),'selected_update':checkpoint['step'],
                            'boundary_weight':cfg.get('train_boundary_weight',.5 if cfg.get('augment') else 0.),
                            'schedule':json.dumps(cfg.get('schedule',[[0,cfg['learning_rate']]])),
@@ -82,9 +82,16 @@ def build_progress(output,show_window=True):
                   xticklabels=[r['milestone'] for r in records],title='Improvement across experiment milestones')
     axes[1,0].tick_params(axis='x',labelrotation=20,labelsize=8)
     axes[1,0].legend(fontsize=8); axes[1,0].grid(alpha=.2)
+    guard_label=False
     for name,label in (('continuation_control','Extra training'),('mirrored_training','Mirrored data'),('mirrored_rebalance','Mirrored + reweighted')):
         with (ROOT/'results/mirror/runs'/name/'history.csv').open() as stream: rows=list(csv.DictReader(stream))
-        axes[1,1].plot([int(r['total_step']) for r in rows],[float(r['score']) for r in rows],label=label)
+        steps=np.array([int(r['total_step']) for r in rows]); values=np.array([float(r['score']) for r in rows])
+        eligible=np.array([r['eligible']=='True' for r in rows])
+        line,=axes[1,1].plot(steps,np.where(eligible,values,np.nan),label=label)
+        if (~eligible).any():
+            axes[1,1].plot(steps,np.where(~eligible,values,np.nan),'--',color=line.get_color(),alpha=.65,
+                           label='Guard rejected' if not guard_label else None)
+            guard_label=True
     axes[1,1].axvline(records[-1]['selected_update'],color='gray',linestyle=':',label='Selected checkpoint')
     axes[1,1].set(xlabel='Total updates on each continuation branch',ylabel='Validation score',title='Matched optimization comparison')
     axes[1,1].legend(fontsize=8); axes[1,1].grid(alpha=.2)

@@ -71,7 +71,7 @@ def audit(run, compare=None):
         'summary.json records seeds, settings, versions, source revision and hashes. '
         'audit.json verifies the history, validation selection, and reloaded checkpoint.\n\n'
         'This short run establishes gradient flow and loss reduction, not an accurate sine/cosine fit. '
-        'No test labels or QPU jobs were used. Stop here for inspection before Baseline.\n')
+        'No test labels or QPU jobs were used.\n')
     (run / 'REVIEW.md').write_text(note)
     print(note)
 

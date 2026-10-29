@@ -4,8 +4,8 @@ $env:MPLCONFIGDIR = Join-Path $PSScriptRoot '.mplconfig'
 $pythonExe = Join-Path $PSScriptRoot '.venv\Scripts\python.exe'
 & $pythonExe -m unittest discover -s tests -q
 if ($LASTEXITCODE -ne 0) { throw 'Tests failed' }
-foreach ($module in @('qcl.verify_evaluation', 'qcl.depth_report', 'qcl.boundary_report')) {
-    if ($module -eq 'qcl.verify_evaluation') {
+foreach ($module in @('qcl.audit', 'qcl.verify_evaluation', 'qcl.depth_report', 'qcl.boundary_report')) {
+    if ($module -in @('qcl.audit', 'qcl.verify_evaluation')) {
         & $pythonExe -m $module
     } else {
         & $pythonExe -m $module --verify
