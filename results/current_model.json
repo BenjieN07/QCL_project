@@ -1,9 +1,9 @@
 {
-  "run": "results/boundary/runs/capacity_smooth",
-  "name": "capacity_smooth",
+  "run": "results/boundary/runs/refine_constant",
+  "name": "refine_constant",
   "eligible": true,
-  "score": 0.002247701275624548,
-  "selected_step": 1500,
+  "score": 0.0015702956312554615,
+  "selected_step": 3000,
   "input_scale": 0.9,
   "layers": 5,
   "parameter_seed": 41,

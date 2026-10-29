@@ -1,0 +1,38 @@
+{
+  "data_seed": 2026,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "steps": 3000,
+  "learning_rate": 0.05,
+  "phase": "Boundary study: refine_decay",
+  "layers": 5,
+  "parameter_seed": 41,
+  "name": "refine_decay",
+  "start_mode": "resume",
+  "additional_updates": 1500,
+  "augment": true,
+  "input_scale": 0.9,
+  "schedule": [
+    [
+      0,
+      0.003
+    ],
+    [
+      500,
+      0.001
+    ],
+    [
+      1000,
+      0.0003
+    ]
+  ],
+  "source_run": "results/boundary/runs/capacity_smooth",
+  "source_step": 1500,
+  "baseline_validation_loss": 0.0038949363167042803,
+  "selection_boundary_weight": 0.5,
+  "augmented_training_boundary_weight": 0.5,
+  "source_checkpoint_sha256": "38352d3704ca55278081eecb6b4a6e10d99c2d5f682826b74709828b9e5e5ef4",
+  "resume_run": "results/boundary/runs/capacity_smooth"
+}

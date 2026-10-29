@@ -1,0 +1,16 @@
+refine_decay total step 1500: validation=0.0038949, collar=0.0006005, endpoint max=0.02721
+refine_decay total step 1600: validation=0.0037752, collar=0.0005937, endpoint max=0.02717
+refine_decay total step 1700: validation=0.0036626, collar=0.0005865, endpoint max=0.02712
+refine_decay total step 1800: validation=0.0035567, collar=0.0005788, endpoint max=0.02705
+refine_decay total step 1900: validation=0.0034574, collar=0.0005706, endpoint max=0.02699
+refine_decay total step 2000: validation=0.0033643, collar=0.0005620, endpoint max=0.02692
+refine_decay total step 2100: validation=0.0033341, collar=0.0005590, endpoint max=0.02690
+refine_decay total step 2200: validation=0.0033035, collar=0.0005557, endpoint max=0.02688
+refine_decay total step 2300: validation=0.0032725, collar=0.0005523, endpoint max=0.02685
+refine_decay total step 2400: validation=0.0032411, collar=0.0005487, endpoint max=0.02683
+refine_decay total step 2500: validation=0.0032095, collar=0.0005449, endpoint max=0.02681
+refine_decay total step 2600: validation=0.0031998, collar=0.0005437, endpoint max=0.02680
+refine_decay total step 2700: validation=0.0031897, collar=0.0005425, endpoint max=0.02679
+refine_decay total step 2800: validation=0.0031793, collar=0.0005411, endpoint max=0.02678
+refine_decay total step 2900: validation=0.0031684, collar=0.0005397, endpoint max=0.02678
+refine_decay total step 3000: validation=0.0031572, collar=0.0005383, endpoint max=0.02677

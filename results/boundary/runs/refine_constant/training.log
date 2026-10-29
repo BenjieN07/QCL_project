@@ -1,0 +1,16 @@
+refine_constant total step 1500: validation=0.0038949, collar=0.0006005, endpoint max=0.02721
+refine_constant total step 1600: validation=0.0037752, collar=0.0005937, endpoint max=0.02717
+refine_constant total step 1700: validation=0.0036626, collar=0.0005865, endpoint max=0.02712
+refine_constant total step 1800: validation=0.0035567, collar=0.0005788, endpoint max=0.02705
+refine_constant total step 1900: validation=0.0034574, collar=0.0005706, endpoint max=0.02699
+refine_constant total step 2000: validation=0.0033643, collar=0.0005620, endpoint max=0.02692
+refine_constant total step 2100: validation=0.0032770, collar=0.0005529, endpoint max=0.02686
+refine_constant total step 2200: validation=0.0031951, collar=0.0005433, endpoint max=0.02680
+refine_constant total step 2300: validation=0.0031183, collar=0.0005332, endpoint max=0.02674
+refine_constant total step 2400: validation=0.0030461, collar=0.0005226, endpoint max=0.02670
+refine_constant total step 2500: validation=0.0029781, collar=0.0005116, endpoint max=0.02667
+refine_constant total step 2600: validation=0.0029139, collar=0.0005002, endpoint max=0.02665
+refine_constant total step 2700: validation=0.0028532, collar=0.0004884, endpoint max=0.02665
+refine_constant total step 2800: validation=0.0027957, collar=0.0004762, endpoint max=0.02667
+refine_constant total step 2900: validation=0.0027412, collar=0.0004638, endpoint max=0.02670
+refine_constant total step 3000: validation=0.0026894, collar=0.0004512, endpoint max=0.02676
