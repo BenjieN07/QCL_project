@@ -1,5 +1,9 @@
 # Progress and review gates
 
+## Private credential-file support — 2026-10-29
+
+User supplied local api.txt and crn.txt for the IBM preflight. Both files were zero bytes when inspected; no values were displayed or used. Added exact root filename exclusions to .gitignore and --credential-files support to the read-only preflight. Verified Git ignores both files and the empty-file check stops before connection. Hardware remains NOT RUN pending saved credentials and the backend/allowance preflight. Credential files are not staged or committed.
+
 ## Hardware pilot packaging — 2026-10-29
 
 Prepared a separate three-circuit pilot at t=-1,0,1 using frozen update-4,288 weights, 1,024 proposed shots per circuit (3,072 total). Reloaded the QPY package and verified its exact outputs against the saved model; the existing circuit/shot artifact audit passed. Saved checkpoint and circuit fingerprints plus expected simulator and NumPy outputs in results/hardware/pilot_manifest.json. Added --pilot to the private read-only preflight so a chosen backend compiles only these three circuits, rejecting a stale model/package. No new model training occurred.

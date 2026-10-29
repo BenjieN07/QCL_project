@@ -30,15 +30,26 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--backend',help='An explicitly chosen backend; omission lists accessible backends only')
     parser.add_argument('--pilot',action='store_true',help='Compile only the prepared three-input pilot; requires --backend')
+    parser.add_argument('--credential-files',action='store_true',help='Read ignored api.txt and crn.txt from the project folder without displaying them')
     args=parser.parse_args()
     if args.pilot and not args.backend:
         parser.error('--pilot requires an explicitly selected --backend')
-    if not sys.stdin.isatty():
-        raise SystemExit('Run this script in your own interactive terminal for hidden credential entry.')
+    if args.credential_files:
+        root=Path(__file__).resolve().parent
+        values=[]
+        for name in ('api.txt','crn.txt'):
+            path=root/name
+            if not path.is_file() or not path.read_text(encoding='utf-8-sig').strip():
+                raise SystemExit(f'{name} is missing or empty. Save its value locally, then retry. No connection made.')
+            values.append(path.read_text(encoding='utf-8-sig').strip())
+        token,instance=values
+        del values
+    else:
+        if not sys.stdin.isatty():
+            raise SystemExit('Run this script in your own interactive terminal for hidden credential entry.')
+        token=getpass.getpass('New IBM API secret (hidden; not an API key identifier): ')
+        instance=getpass.getpass('Instance CRN (hidden): ')
     from qiskit_ibm_runtime import QiskitRuntimeService
-    # Explicit hidden entry avoids copying credentials into command history or files.
-    token=getpass.getpass('New IBM API secret (hidden; not an API key identifier): ')
-    instance=getpass.getpass('Instance CRN (hidden): ')
     if token.startswith('ApiKey-') or not token.strip() or not instance.startswith('crn:'):
         raise SystemExit('Enter the API secret value and instance CRN from your IBM account. Nothing saved.')
     logging.getLogger('qiskit_ibm_runtime').setLevel(logging.CRITICAL)
