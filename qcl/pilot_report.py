@@ -19,7 +19,8 @@ RUNS = {'Original Adam': Path('results/day3/baseline'),
 
 
 def calculate():
-    registry = json.loads(Path('results/current_model.json').read_text())
+    # Preserve the pilot's frozen selection independently from the active project model.
+    registry = json.loads((BASE / 'model_selection.json').read_text())
     summaries = {label: json.loads((run / 'summary.json').read_text()) for label, run in RUNS.items()}
     selected_label = min(summaries, key=lambda name: summaries[name].get('selected_validation_loss', summaries[name].get('best_validation_loss')))
     assert registry['run'] == str(RUNS[selected_label]).replace('\\', '/')

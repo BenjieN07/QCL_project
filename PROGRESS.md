@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Active direction — 2026-10-29
+
+User restored our original circuit approach and excluded the paper-inspired model from the active program. `results/current_model.json` again points to the Day 3 Adam checkpoint (two qubits, one layer, selected step 83). The default viewer imports only the original model. The pilot remains archived as a historical comparison with its own frozen selection record; its stronger average accuracy is not assigned to our original model. No new training performed. Days 1–3 are complete as implementation/evaluation milestones; high-accuracy fitting is not complete. Day 4's matched 1/2/3-layer and initialization-seed study is next. Further optimizer/feature-map/entangler changes should be tested separately, with validation-based selection and honest reporting.
+
+Restoration verified: all nine tests passed, the original Day 3 audit passed (1,134 reconstructed predictions and 18 metric rows), and the viewer reproduced the original checkpoint's test metrics exactly. The archived pilot's separate audit still passes without depending on the active model registry. Numerical experiment results were not altered.
+
 ## 2026-10-29 — paper-inspired accuracy pilot, checkpoint 1
 
 User requested an accuracy-focused experiment following the paper's ingredients. Declared two fixed BFGS runs in `results/paper_pilot/PROTOCOL.md`: original circuit with optimizer change only, then a six-qubit/six-block fixed-Ising circuit with learned output scales. Keep original train/validation data; reserve a new 128-point holdout until both checkpoints are frozen. All nine tests passed, including Ising unitarity, batched versus scalar predictions, finite-difference gradients, and full model shape/parameter count. No new accuracy measurements yet. This pilot changes the next work item; the original matched-depth/multiple-seed study remains deferred and incomplete.
@@ -25,8 +31,8 @@ All nine tests passed again. The saved-run audit recomputed 4,936 prediction val
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
-| Day 4: depth and seed study | NOT STARTED | Deferred during user-requested paper-inspired pilot |
-| Paper-inspired accuracy pilot | COMPLETE (pilot only) | results/paper_pilot/evaluation/REVIEW.md; boundary limitation unresolved |
+| Day 4: depth and seed study | NOT STARTED | Next active milestone for our original circuit family |
+| Paper-inspired accuracy pilot | ARCHIVED | Historical comparison; excluded from active project model |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

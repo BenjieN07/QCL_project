@@ -1,8 +1,9 @@
 {
-  "run": "results/paper_pilot/ising_bfgs",
-  "selected_iteration": 247,
-  "selection": "lowest joint validation loss among the original Adam baseline and both predeclared BFGS pilot models",
-  "selected_validation_loss": 0.00000766303486671098,
+  "run": "results/day3/baseline",
+  "model": "original",
+  "selected_step": 83,
+  "selection": "user restored original circuit family; checkpoint selected by minimum validation loss within the Day 3 Adam run",
+  "selected_validation_loss": 0.6320843068249645,
   "test_or_fresh_holdout_used_for_selection": false,
-  "fresh_holdout_read_at_registration": false
+  "project_phase": "Day 3 complete; Day 4 depth-and-seed study next"
 }

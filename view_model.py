@@ -14,7 +14,7 @@ import torch
 
 from qcl.data import make_data
 from qcl.evaluate import metrics
-from qcl.paper_model import build_model
+from qcl.model import QCLModel
 
 ROOT = Path(__file__).resolve().parent
 
@@ -32,7 +32,9 @@ def create_view(run, output, open_browser=True):
         raise FileNotFoundError(f'No saved checkpoint at {checkpoint_path}. Choose a trained run with --run.')
     checkpoint = torch.load(checkpoint_path, weights_only=True, map_location='cpu')
     config = checkpoint['config']
-    model = build_model(config)
+    if config.get('model', 'original') != 'original':
+        raise ValueError('This viewer follows the original model workflow. Paper-inspired runs are archived comparisons.')
+    model = QCLModel(config['layers'], config['parameter_seed'])
     model.load_state_dict(checkpoint['model_state_dict'])
     model.eval()
     data = make_data(config)
