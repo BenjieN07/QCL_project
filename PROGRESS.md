@@ -2,6 +2,8 @@
 
 ## Active direction — 2026-10-29
 
+Day 4 checkpoint 1: eight tests passed, including predictions and full parameter gradients from batched versus scalar circuit execution at depths 1, 2, and 3 (absolute tolerance 1e-12). This is an execution optimization only; circuit gates, feature map, initialization, loss, and optimizer are unchanged. Prepared nine fixed configurations (depths 1/2/3, seeds 7/19/41), 250 Adam updates each, before reading new results. Protocol saved in `results/day4/PROTOCOL.md`. No new holdout has been generated or read.
+
 The one-time comparison model, its training tools, tests, configurations, and results have been removed from the current project files at the user's request. Only our original two-qubit circuit family remains. Days 1–3 are complete as implementation/evaluation milestones, not accuracy certification. Day 4's matched-depth and initialization-seed study is next. Earlier comparison commits remain in Git history; no history rewrite was requested.
 
 | Phase | Status | Evidence |
@@ -9,7 +11,7 @@ The one-time comparison model, its training tools, tests, configurations, and re
 | Day 1: setup, data, circuit | COMPLETE | results/day1/REVIEW.md and benchmark.json |
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
-| Day 4: depth and seed study | NOT STARTED | Next active milestone for our original circuit family |
+| Day 4: depth and seed study | IN PROGRESS | results/day4/PROTOCOL.md; nine matched runs planned |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

@@ -34,4 +34,5 @@ class QCLModel(torch.nn.Module):
             raise ValueError('inputs must be a nonempty vector')
         if not torch.isfinite(inputs).all() or (inputs.abs() > 1).any():
             raise ValueError('inputs must be finite and in [-1, 1]')
-        return torch.stack([torch.stack(self.circuit(t, self.weights)) for t in inputs])
+        # Broadcast inputs through the same gates; no change to the circuit or loss.
+        return torch.stack(self.circuit(inputs, self.weights), dim=1)

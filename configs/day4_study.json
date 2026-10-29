@@ -1,0 +1,13 @@
+{
+  "depths": [1, 2, 3],
+  "parameter_seeds": [7, 19, 41],
+  "data_seed": 2026,
+  "train_size": 48,
+  "validation_size": 16,
+  "test_size": 24,
+  "grid_size": 101,
+  "steps": 250,
+  "learning_rate": 0.05,
+  "new_holdout_seed": 20261030,
+  "new_holdout_size": 256
+}
