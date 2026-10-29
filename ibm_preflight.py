@@ -54,11 +54,14 @@ def main():
         raise SystemExit('Enter the API secret value and instance CRN from your IBM account. Nothing saved.')
     logging.getLogger('qiskit_ibm_runtime').setLevel(logging.CRITICAL)
     logging.getLogger('ibm_cloud_sdk_core').setLevel(logging.CRITICAL)
+    stage='authentication'
     try:
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             service=QiskitRuntimeService(channel='ibm_quantum_platform',token=token,instance=instance)
+            stage='usage lookup'
             usage=numeric_usage(service.usage())
+            stage='backend lookup'
             backends=service.backends(name=args.backend) if args.backend else service.backends()
             available=[{'name':b.name,'qubits':b.num_qubits,'operational':b.status().operational} for b in backends]
             report={'qpu_jobs_submitted':0,'usage_numeric_fields':usage,'backends':available,
@@ -90,9 +93,22 @@ def main():
             (private/'preflight.json').write_text(json.dumps(report,indent=2)+'\n')
             print(json.dumps(report,indent=2))
             print('Saved local read-only report in .ibm-private/preflight.json. No credentials saved and no jobs submitted.')
-    except Exception:
+    except Exception as exc:
         # Provider exceptions may contain request/account details. Do not echo them.
-        raise SystemExit('Read-only preflight failed. Check the new secret, CRN, access and backend locally. No jobs submitted.') from None
+        error_type=type(exc).__name__
+        status=getattr(exc,'status_code',None)
+        status_text=f', HTTP {status}' if isinstance(status,int) and 100<=status<=599 else ''
+        causes=[]
+        cause=exc.__cause__ or exc.__context__
+        visited={id(exc)}
+        while cause is not None and id(cause) not in visited and len(causes)<5:
+            visited.add(id(cause))
+            code=getattr(cause,'code',None) or getattr(cause,'status_code',None)
+            code_text=f' HTTP {code}' if isinstance(code,int) and 100<=code<=599 else ''
+            causes.append(type(cause).__name__+code_text)
+            cause=cause.__cause__ or cause.__context__
+        cause_text='; causes: '+', '.join(causes) if causes else ''
+        raise SystemExit(f'Read-only preflight failed during {stage} ({error_type}{status_text}{cause_text}). No credential details displayed and no jobs submitted.') from None
     finally:
         token=None
         instance=None

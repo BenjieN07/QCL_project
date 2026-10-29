@@ -1,5 +1,9 @@
 # Progress and review gates
 
+## IBM access recheck — 2026-10-29
+
+Updated local credential files are nonempty, the API value is no longer an ApiKey identifier, and the CRN passes the basic prefix/field checks. The read-only preflight reached an account-discovery failure: InvalidAccountError caused by an IBM ApiException with HTTP 400, including on retry with network access. This does not establish a valid account, available backends or remaining quota. Added sanitized stage/error-type/HTTP-code diagnostics without provider messages, credential contents or request details. No credentials committed, no model updates and zero QPU jobs. Further hardware work requires resolving the API secret/instance access error.
+
 ## Private credential-file support — 2026-10-29
 
 User supplied local api.txt and crn.txt for the IBM preflight. Both files were zero bytes when inspected; no values were displayed or used. Added exact root filename exclusions to .gitignore and --credential-files support to the read-only preflight. Verified Git ignores both files and the empty-file check stops before connection. Hardware remains NOT RUN pending saved credentials and the backend/allowance preflight. Credential files are not staged or committed.
