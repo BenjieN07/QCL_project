@@ -63,7 +63,7 @@ def create_view(run, output, open_browser=True):
         error_ax.axhline(0, color='gray', linewidth=1)
         error_ax.set(xlabel='t', ylabel='QCL − exact', xlim=(-1, 1))
         error_ax.grid(alpha=0.2)
-    fig.suptitle(f'Saved quantum model: {config.get("qubits", 2)} qubits, {config["layers"]} layer(s), seed {config["parameter_seed"]}, selected update {selected_step}')
+    fig.suptitle(f'Saved quantum model: {config.get("qubits", 2)} qubits, {config["layers"]} layers, input scale {config.get("input_scale", 1.0)}, selected update {selected_step}')
     fig.tight_layout()
     figure_path = output / 'model_comparison.png'
     fig.savefig(figure_path, dpi=150)
@@ -79,7 +79,7 @@ def create_view(run, output, open_browser=True):
 <p>Black dashed curves: exact NumPy sin(πt) and cos(πt). Blue curves: frozen quantum model predictions.
 Bottom panels: signed prediction error. No training is performed by this viewer.</p>
 <p>Checkpoint: {html.escape(str(checkpoint_path))}<br>
-Qubits: {config.get('qubits', 2)} · Layers: {config['layers']} · Seed: {config['parameter_seed']} · Selected update: {selected_step} (validation loss).</p>
+Qubits: {config.get('qubits', 2)} · Layers: {config['layers']} · Seed: {config['parameter_seed']} · Fixed encoder input scale: {config.get('input_scale', 1.0)} · Selected update: {selected_step} (validation criterion).</p>
 <img src="data:image/png;base64,{encoded}" alt="Sine and cosine target curves compared with quantum predictions and signed errors">
 <h2>Disjoint test set: {len(data['test_t'])} inputs</h2>
 <table><tr><th>Output</th><th>MSE</th><th>MAE</th><th>Maximum error</th></tr>{rows}</table>

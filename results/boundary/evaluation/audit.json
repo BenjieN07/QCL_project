@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "trials_verified": 8,
+  "history_rows_verified": 9008,
+  "optimizer_start_best_final_counters_verified": true,
+  "fresh_and_resumed_starts_verified": true,
+  "validation_guard_and_selection_verified": true,
+  "csv_rows_verified": 8,
+  "stratified_holdout_disjoint": true,
+  "prediction_values_recomputed": 32458,
+  "qpu_jobs": 0
+}

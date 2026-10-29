@@ -1,5 +1,17 @@
 # Progress and review gates
 
+## Boundary-study review gate — 2026-10-29
+
+All eight trials are complete and retained, including rejected trade-offs. Four three-layer branches resumed update 250 to 1,000. Two five-layer architectures started fresh and trained to 1,500. Two actual same-model refinements resumed the smooth five-layer parent to 3,000. Total new optimization work across branches was 9,000 updates; the active model itself has 3,000 updates, not 9,000. No removed model was reintroduced.
+
+After selection/checkpoint commit 1a4a102, read the new stratified 512-input holdout. Selected model: original two-qubit Rot/CNOT family, five layers, seed 41, fixed encoder scale 0.9, 30 nominal angles, selected step 3,000. Interior MAE improved from 0.13263150/0.11249442 to 0.02361868/0.02440187 (sine/cosine). New boundary-collar maximum errors improved from 0.40202144/0.52810711 to 0.02394069/0.03856940. Dense near-boundary diagnostics found a maximum error about 0.039073. Original-validation joint loss is 0.0026893738 versus Day 4's 0.0494098296. The guard preserved and improved the original validation fit.
+
+Known endpoint maximum error improved from 0.39128746 to 0.02675783, meeting the provisional endpoint goal; these endpoints are now supervised anchors, not independent test inputs. Collar-validation MAE goals also passed. Original-validation MSE is 0.00080905 (sine) and 0.00188032 (cosine); the stricter per-output 0.001 MSE goal remains unmet for cosine. The 1,001-point diagnostic grid maximum errors are 0.04968273/0.07537759, so residual interior error remains. The holdout oversamples boundaries; regional scores are reported rather than claiming uniform-domain aggregate risk.
+
+Thirteen tests passed. The saved-results audit verified 8 trials, 9,008 history rows, all start/best/final optimizer counters and starting states, validation guard/selection, 8 CSV rows, and disjoint stratified holdout data; it reconstructed 32,458 prediction values including dense boundary curves. Old Day 4 audit still passes with default encoder scale 1. Dependency/syntax checks passed. Before/after plots visually inspected. Viewer regeneration completed and its legacy-test metrics then matched the saved selected-model report exactly; an earlier comparison while regeneration was still running read stale viewer data and was repeated successfully after completion. No numerical experiment artifacts were changed to address that ordering issue.
+
+Findings are in `results/boundary/FINDINGS.md`; full data and trial comparisons in `results/boundary/evaluation/`. Stop for inspection before further tuning or finite-shot work. Next confirmation: repeat the successful recipe across seeds and reserved data; investigate residual cosine interior error without selecting on the now-exposed holdout. No QPU jobs.
+
 ## Boundary investigation — 2026-10-29, checkpoint 1
 
 Measured sparse training coverage: 2/48 inputs in |t|>=0.9, minimum -0.9743190353 and maximum 0.9339244003, no exact endpoints. Endpoint angle gradients are finite (norm 0.6355755874), so no observed broken parameter-gradient path. Near-endpoint prediction secants increase sharply as distance shrinks; inverse-trigonometric input-angle derivatives are singular at the exact bounds. This is an input-sensitivity/coverage hypothesis, not proof of a single cause. Diagnosis saved without changing weights.
@@ -38,6 +50,7 @@ The one-time comparison model, its training tools, tests, configurations, and re
 | Day 2: training loop | COMPLETE | results/day2/smoke/REVIEW.md, audit.json, two saved runs |
 | Day 3: fit and baselines | COMPLETE | results/day3/evaluation/REVIEW.md, metrics.csv, audit.json |
 | Day 4: depth and seed study | COMPLETE | results/day4/evaluation/REVIEW.md and audit.json; accuracy target still unmet |
+| Boundary training follow-up | COMPLETE | results/boundary/evaluation/REVIEW.md; endpoint goals met, cosine validation-MSE target still unmet |
 | Day 5: shot study | NOT STARTED | — |
 | Day 6: optional hardware | NOT STARTED | Requires explicit consent |
 | Day 7: report | NOT STARTED | — |

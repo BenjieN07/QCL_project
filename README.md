@@ -8,7 +8,7 @@ An incremental educational experiment. No quantum advantage claim. Local simulat
 .\.venv\Scripts\python.exe view_model.py
 ```
 
-This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports the original 24-input test metrics. It loads our original circuit's checkpoint registered in `results/current_model.json` (Day 4: three layers, seed 41, step 250) and does not retrain. Outputs are refreshed in `results/model_view/`. The active model has two qubits, three CNOTs, 18 nominal angles, and direct Z readouts without fitted output scales.
+This opens a local browser report showing exact NumPy sine/cosine targets as black dashed curves and the saved QCL approximation in blue. The lower panels show signed errors; the table reports the original 24-input test metrics. It loads our circuit's checkpoint registered in `results/current_model.json` (boundary study: five layers, seed 41, step 3,000) and does not retrain. Outputs are refreshed in `results/model_view/`. The active model has two qubits, five CNOTs, 30 nominal angles, and direct Z readouts without fitted output scales. Its fixed input preprocessing is x=0.9*t before our existing inverse-trigonometric encoder; this is recorded in each checkpoint's configuration.
 
 If the environment is activated, `python view_model.py` is enough. Add `--no-open` to save without opening a browser, or `--run results/path/to/run` to inspect another checkpoint directory containing `best.pt`. The figures use a smooth 401-point grid; the metrics use the fixed disjoint test set, not that plotting grid.
 
@@ -21,6 +21,28 @@ To inspect the historical Day 3 comparison of initialization with the original s
 This opens `results/progress/progress.png` and saves its underlying curves and metrics. It reconstructs the seed-7 initialization and verifies its loss against recorded step zero. The historical plot distinguishes the 250 updates performed from the validation-selected step-83 checkpoint. At that Day 3 checkpoint, recorded experiment updates totaled 310 across the two 30-step runs and the 250-step baseline; small unit-test optimizations are excluded. No retraining occurs.
 
 ## Review checkpoints
+
+### Boundary investigation and improved fit
+
+The [boundary-study results](results/boundary/evaluation/REVIEW.md) compare eight approaches under a predeclared validation guard, retaining failures as well as improvements. Only two original training inputs were in |t|>=0.9. Parameter gradients were finite, while the inverse-trigonometric encoder was highly input-sensitive near endpoints. More updates alone helped only modestly. Boundary examples initially traded boundary error against the interior fit; a five-layer version of our own circuit with smoother encoding improved both.
+
+```powershell
+.\review-boundary.ps1
+.\.venv\Scripts\python.exe view_model.py
+```
+
+The selected model was trained fresh for 1,500 updates, then genuinely resumed with its saved Adam state to update 3,000 at learning rate 0.003. The final independent holdout contains 256 interior and 128 inputs per boundary collar, generated after selection commit 1a4a102. Interior mean absolute errors are 0.02362 (sine) and 0.02440 (cosine). The worst new near-boundary errors are 0.02394 and 0.03857, compared with 0.40202 and 0.52811 before. Exact endpoints are now supervised anchors, so their errors are not independent test evidence. The aggregate holdout intentionally oversamples boundaries; regional scores are reported separately.
+
+Endpoint and collar-validation goals passed; the stricter original-validation per-output MSE goal remains unmet for cosine. These are single-seed follow-up results, not a guarantee for every input. Inspect `results/boundary/evaluation/comparison.png`, `boundary_zoom.png`, and `trials.csv`, plus each trial's `history.png`. Raw data, start/best/final weights, Adam states, schedules, histories, and source hashes are preserved. The runner's explicit `schedule` and per-row learning rates are authoritative; inherited legacy learning-rate metadata is unused.
+
+```powershell
+.\.venv\Scripts\python.exe -m qcl.boundary_diagnosis
+.\.venv\Scripts\python.exe -m qcl.boundary_study
+.\.venv\Scripts\python.exe -m qcl.boundary_study --select-only
+.\.venv\Scripts\python.exe -m qcl.boundary_report --verify
+```
+
+Completed matching training runs are reused rather than retrained; those commands do not add further updates to the active model. Any new continuation needs a newly declared trial and budget. Initial post-selection evaluation uses `python -m qcl.boundary_report` and protects existing reports from overwriting. No new holdout should be opened before checkpoints/selection are frozen. No removed comparison model, output clipping, or analytic boundary patch is used.
 
 ### Day 4 results and verification
 

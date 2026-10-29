@@ -1,27 +1,45 @@
 {
-  "checkpoint_step": 250,
+  "checkpoint_step": 3000,
   "config": {
     "data_seed": 2026,
     "train_size": 48,
     "validation_size": 16,
     "test_size": 24,
     "grid_size": 101,
-    "steps": 250,
+    "steps": 3000,
     "learning_rate": 0.05,
-    "phase": "Day 4 depth 3, seed 41",
-    "layers": 3,
-    "parameter_seed": 41
+    "phase": "Boundary study: refine_constant",
+    "layers": 5,
+    "parameter_seed": 41,
+    "name": "refine_constant",
+    "start_mode": "resume",
+    "additional_updates": 1500,
+    "augment": true,
+    "input_scale": 0.9,
+    "schedule": [
+      [
+        0,
+        0.003
+      ]
+    ],
+    "source_run": "results/boundary/runs/capacity_smooth",
+    "source_step": 1500,
+    "baseline_validation_loss": 0.0038949363167042803,
+    "selection_boundary_weight": 0.5,
+    "augmented_training_boundary_weight": 0.5,
+    "source_checkpoint_sha256": "38352d3704ca55278081eecb6b4a6e10d99c2d5f682826b74709828b9e5e5ef4",
+    "resume_run": "results/boundary/runs/capacity_smooth"
   },
   "test_metrics": {
     "sin": {
-      "mse": 0.02935324991456055,
-      "mae": 0.1505905824970167,
-      "max_absolute_error": 0.398057735581445
+      "mse": 0.0007508879226545976,
+      "mae": 0.024308462487147516,
+      "max_absolute_error": 0.048493476808405656
     },
     "cos": {
-      "mse": 0.04163751131344071,
-      "mae": 0.15333365843602265,
-      "max_absolute_error": 0.524483859892096
+      "mse": 0.001022856786464569,
+      "mae": 0.02436539967291905,
+      "max_absolute_error": 0.07535084354460297
     }
   },
   "training_performed": false
