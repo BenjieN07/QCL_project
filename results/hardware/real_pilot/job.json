@@ -1,0 +1,9 @@
+{
+  "job_id": "dbhs6vg1h92s7382cmng",
+  "backend": "ibm_fez",
+  "circuits": 3,
+  "shots_per_circuit": 1024,
+  "submitted_at_utc": "2026-10-29T22:06:56.028893+00:00",
+  "status_at_submission": "QUEUED",
+  "checkpoint_sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79"
+}

@@ -7,6 +7,12 @@
     1
   ],
   "circuits": 3,
+  "prepared_at_utc": "2026-10-29T22:06:54.924087+00:00",
+  "versions": {
+    "qiskit": "2.5.2",
+    "qiskit-ibm-runtime": "0.47.0",
+    "numpy": "2.5.4"
+  },
   "shots_per_circuit": 1024,
   "total_shots": 3072,
   "model_update": 4288,
@@ -25,7 +31,7 @@
       144
     ]
   ],
-  "compiled_circuit_sha256": "954bbec3d4550ce723cbbbb9e38132e2218abb335b0156d7242ee06b23ee658a",
+  "compiled_circuit_sha256": "3685d4ed924f358981f0de4fa196856a2f3e9ea5850004a0191cef3e2cceae12",
   "compiled_output_equivalence_checked": true,
   "gate_time_sum_plus_reset_seconds": [
     5.544000000000001e-06,

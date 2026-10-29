@@ -1,5 +1,9 @@
 # Progress and review gates
 
+## Real hardware pilot submitted — 2026-10-29
+
+Submitted exactly one job, dbhs6vg1h92s7382cmng, to ibm_fez using the authorized three-input workload: t=-1,0,1, 1,024 shots each, fixed update-4,288 weights. Recorded submission receipt and an exclusive duplicate-prevention marker. The first retrieval reported RUNNING. The job has a 60-second execution cap; predicted baseline consumption is about 6.8 seconds and 594 seconds were available before submission. This is real-qubit inference with device noise, not further training. No remaining six-input follow-up was submitted.
+
 ## IBM access and real-target pilot preparation — 2026-10-29
 
 Read-only authentication now succeeds using the ignored local files. IBM reports 600 allocated seconds, 6 consumed and 594 remaining; operational backends include ibm_fez, ibm_kingston and ibm_marrakesh. Prepared the previously described, user-authorized three-input pilot on ibm_fez, physical qubits 143/144, compiled depth 20 and three CZ gates per input. Estimated baseline use is 6.785 seconds using target gate/reset timings, default 250-microsecond repetition delay, 3,072 shots and six seconds overhead allowance. This estimate is not a billing guarantee. Execution cap is 60 seconds, below the verified allowance. No job has been submitted at this preparation checkpoint. Added duplicate-submission prevention and nonblocking retrieval; no hardware training is involved.
