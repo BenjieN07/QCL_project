@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Mirrored training and hardware preparation — 2026-10-29, checkpoint 1
+
+User authorized the next model-improvement step and preparation toward real hardware. Declared three same-model branches from update 3,000 to 4,500: continuation control; mirrored main training inputs (96 unique points), same boundary weight 0.5; mirrored data with boundary weight 0.25. Same five-layer two-qubit circuit, scale 0.9, seed 41, Adam state, and rate 0.003. All runs share original/reflected validation plus collar validation. Per-output original-validation MSE and boundary-error guards protect prior progress. New holdout remains unread until checkpoints/selection are committed. Fifteen tests passed, including mirror symmetry/data-role separation and source eligibility. See results/mirror/PROTOCOL.md.
+
+Optional Qiskit SDK installed locally for export verification. IBM Runtime installation is preparation only; no account was contacted and no jobs submitted. The user will provide account/backend details securely; no credential or account identifiers are written into tracked files. Hardware preflight must check current allowance, actual backend target/layout, compatibility and conservative workload before requesting consent to a specific QPU run. The currently supplied chat credential will not be reused or repeated; private local hidden entry is being prepared. No hardware-in-the-loop training is planned.
+
 ## Read-only error-peak investigation — 2026-10-29
 
 User requested a report before deciding the next training step. No training or checkpoint selection was performed. Measured signed residuals on a 10,001-input diagnostic grid; refined stationary locations and verified the equal-slope condition with autodifferentiation and central finite differences. Largest highlighted errors: sine +0.04968284 at t=-0.33831377 and -0.04058191 at t=0.65021585; cosine +0.07537767 at t=-0.81186833 and -0.06509371 at t=0.02755903. Full peak list and before/after values are retained.

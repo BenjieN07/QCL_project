@@ -1,0 +1,14 @@
+{
+  "source_run": "results/boundary/runs/refine_constant",
+  "additional_updates": 1500,
+  "learning_rate": 0.003,
+  "boundary_max_error_guard": 0.05,
+  "new_holdout_seed": 20261101,
+  "interior_holdout_size": 256,
+  "each_boundary_holdout_size": 128,
+  "trials": [
+    {"name": "continuation_control", "mirror_training": false, "train_boundary_weight": 0.5},
+    {"name": "mirrored_training", "mirror_training": true, "train_boundary_weight": 0.5},
+    {"name": "mirrored_rebalance", "mirror_training": true, "train_boundary_weight": 0.25}
+  ]
+}
