@@ -1,120 +1,112 @@
-"""Compare initialization, saved training checkpoints, and exact targets without retraining."""
-from qcl.checkpoints import load_checkpoint
+"""Show model improvement across experiment milestones; never train or contact IBM."""
 import argparse
 import csv
+import hashlib
 import json
 from pathlib import Path
-
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
-
-from qcl.data import make_data
+from qcl.checkpoints import load_checkpoint
+from qcl.boundary_report import load_model
+from qcl.data import make_data,targets
+from qcl.display import show_figure
 from qcl.evaluate import metrics
 from qcl.model import QCLModel
-from qcl.display import show_figure
 
-ROOT = Path(__file__).resolve().parent
+ROOT=Path(__file__).resolve().parent
 
 
-def build_progress(output, show_window=True):
-    baseline = ROOT / 'results/baseline/run'
-    config = json.loads((baseline / 'config.json').read_text())
-    summary = json.loads((baseline / 'summary.json').read_text())
-    data = make_data(config)
-    grid = np.linspace(-1, 1, 401)
-    exact = np.column_stack((np.sin(np.pi * grid), np.cos(np.pi * grid)))
-    models = {'Initial': QCLModel(config['layers'], config['parameter_seed'])}
-    for label, path in (('30-step run', ROOT / 'results/smoke/run/best.pt'),
-                        ('250-step run', baseline / 'best.pt')):
-        checkpoint = load_checkpoint(path, weights_only=True, map_location='cpu')
-        model = QCLModel(checkpoint['config']['layers'], checkpoint['config']['parameter_seed'])
-        model.load_state_dict(checkpoint['model_state_dict'])
-        models[label] = model
-    grid_predictions, test_scores = {}, {}
-    with torch.no_grad():
-        for label, model in models.items():
-            grid_predictions[label] = model(torch.tensor(grid, dtype=torch.float64)).numpy()
-            predictions = model(torch.tensor(data['test_t'], dtype=torch.float64)).numpy()
-            test_scores[label] = metrics(predictions, data['test_y'])
-        initial_train = models['Initial'](torch.tensor(data['train_t'], dtype=torch.float64)).numpy()
-    initial_loss = np.mean(np.sum((initial_train - data['train_y']) ** 2, axis=1))
-    assert abs(initial_loss - summary['initial_train_loss']) < 1e-12
-    saved = json.loads((ROOT / 'results/baseline/evaluation/metrics.json').read_text())
-    assert test_scores['250-step run'] == saved['metrics']['qcl']['test']
-    test_scores['Polynomial'] = saved['metrics']['polynomial']['test']
-    with (baseline / 'history.csv').open() as stream:
-        history = list(csv.DictReader(stream))
-    runs = [ROOT / 'results/smoke/run', ROOT / 'results/smoke/repeat', baseline]
-    run_updates = []
-    for run in runs:
-        run_config = json.loads((run / 'config.json').read_text())
-        run_updates.append(run_config.get('steps', run_config.get('smoke_steps')))
-    total_updates = sum(run_updates)
-    assert total_updates == 310
-    output.mkdir(parents=True, exist_ok=True)
-    fig, axes = plt.subplots(2, 2, figsize=(13, 8.5))
-    for index, name in enumerate(('sin', 'cos')):
-        ax = axes[0, index]
-        ax.plot(grid, exact[:, index], color='black', linewidth=2, label='Exact NumPy target')
-        ax.plot(grid, grid_predictions['Initial'][:, index], color='#888888', linestyle='--', label='Beginning: untrained')
-        ax.plot(grid, grid_predictions['250-step run'][:, index], color='#1668bb', linewidth=2, label='Baseline: selected step 83')
-        ax.set(title=f'{name}(πt): beginning versus Baseline baseline', xlabel='t', ylabel='Function value', ylim=(-1.1, 1.1))
-        ax.grid(alpha=0.2)
-        ax.legend(fontsize=9, loc='lower center')
-    loss_ax = axes[1, 0]
-    steps = [int(row['step']) for row in history]
-    loss_ax.plot(steps, [float(row['train_loss']) for row in history], label='Training', color='#1668bb')
-    loss_ax.plot(steps, [float(row['validation_loss']) for row in history], label='Validation', color='#bd6513')
-    loss_ax.axvline(summary['best_step'], color='gray', linestyle=':', label='Selected step 83')
-    loss_ax.set(title='Training: rapid improvement, then plateau', xlabel='Optimizer updates completed',
-                ylabel='Mean sum of squared errors', ylim=(0, 2.05))
-    loss_ax.grid(alpha=0.2)
-    loss_ax.legend(fontsize=9)
-    error_ax = axes[1, 1]
-    positions = np.arange(len(test_scores))
-    for index, (name, color) in enumerate((('sin', '#1668bb'), ('cos', '#bd6513'))):
-        values = [scores[name]['mse'] for scores in test_scores.values()]
-        bars = error_ax.bar(positions + (index - 0.5) * 0.34, values, width=0.34, label=name, color=color)
-        for bar, value in zip(bars, values):
-            error_ax.text(bar.get_x() + bar.get_width()/2, value * 1.18, f'{value:.2g}',
-                          ha='center', va='bottom', fontsize=9)
-    error_ax.set_yscale('log')
-    error_ax.set(xticks=positions, xticklabels=list(test_scores), ylabel='Test MSE (log scale; lower is better)',
-                 title='Saved-checkpoint test error', ylim=(1e-5, 3))
-    error_ax.legend(fontsize=9)
-    error_ax.grid(axis='y', alpha=0.2)
-    fig.suptitle('Historical Baseline progress: 250-update baseline; selected step 83', fontsize=15)
-    fig.text(0.5, 0.015, f'{total_updates} recorded experiment updates = 30 + 30 repeat + 250 | '
-             '48 training inputs | 1 layer, 2 qubits, 6 nominal angles | No hardware runs', ha='center', fontsize=10)
-    fig.tight_layout(rect=(0, 0.04, 1, 0.96))
-    image_path = output / 'progress.png'
-    fig.savefig(image_path, dpi=150)
-    report = {'recorded_experiment_updates': total_updates, 'run_updates': run_updates,
-              'training_sample_presentations': total_updates * config['train_size'],
-              'unit_test_optimizations_included': False,
-              'baseline_final_step': config['steps'], 'selected_step': summary['best_step'],
-              'initial_training_loss': summary['initial_train_loss'],
-              'final_training_loss': summary['final_train_loss'],
-              'relative_training_loss_reduction': summary['relative_train_improvement'],
-              'test_metrics': test_scores, 'new_training_performed': False,
-              'initial_loss_matches_saved_step_zero': True,
-              'initial_reconstruction': 'same architecture, parameter seed 7, float64 initialization'}
-    (output / 'progress.json').write_text(json.dumps(report, indent=2) + '\n')
-    np.savez(output / 'curves.npz', inputs=grid, exact=exact,
-             initial=grid_predictions['Initial'], selected=grid_predictions['250-step run'])
-    print(f'Progress figure: {image_path}\nRecorded experiment updates: {total_updates}')
-    print('Saved current-model test metrics exactly match the verified Baseline report.')
-    if show_window:
-        show_figure(fig, 'QCL historical training progress')
+def build_progress(output,show_window=True):
+    torch.set_num_threads(1)
+    registry=json.loads((ROOT/'results/current_model.json').read_text())
+    stages=[('Untrained',None),('One layer','results/baseline/run'),
+            ('Depth study','results/depth_study/runs/depth3_seed41'),
+            ('Five layers','results/boundary/runs/capacity_smooth'),
+            ('Continued fit','results/boundary/runs/refine_constant'),('Mirrored tuning',registry['run'])]
+    config=json.loads((ROOT/'configs/baseline.json').read_text())
+    data=make_data(config); grid=np.linspace(-1,1,1001)
+    records=[]; archive={'grid_t':grid,'target':targets(grid),'test_t':data['test_t'],'test_y':data['test_y']}
+    for index,(label,run) in enumerate(stages):
+        checkpoint=load_checkpoint(ROOT/run/'best.pt',weights_only=True) if run else None
+        model=load_model(checkpoint) if checkpoint else QCLModel(1,7)
+        with torch.no_grad():
+            curve=model(torch.tensor(grid,dtype=torch.float64)).numpy()
+            prediction=model(torch.tensor(data['test_t'],dtype=torch.float64)).numpy()
+        score=metrics(prediction,data['test_y'])
+        archive[f'stage_{index}_curve']=curve
+        archive[f'stage_{index}_test']=prediction
+        summary=json.loads((ROOT/run/'summary.json').read_text()) if run else {}
+        records.append({'milestone':label,'run':run,'layers':len(model.weights),'selected_update':checkpoint['step'] if checkpoint else 0,
+                        'sin_test_mse':score['sin']['mse'],'cos_test_mse':score['cos']['mse'],
+                        'sin_test_mae':score['sin']['mae'],'cos_test_mae':score['cos']['mae'],
+                        'recorded_run_seconds':summary.get('elapsed_seconds'),
+                        'checkpoint_sha256':hashlib.sha256((ROOT/run/'best.pt').read_bytes()).hexdigest() if run else None})
+    trials=[]
+    groups=[('Depth','results/depth_study/runs'),('Boundary','results/boundary/runs'),('Mirrored','results/mirror/runs')]
+    for group,folder in groups:
+        for run in sorted((ROOT/folder).iterdir()):
+            if not (run/'summary.json').exists(): continue
+            checkpoint=load_checkpoint(run/'best.pt',weights_only=True); model=load_model(checkpoint)
+            cfg=checkpoint['config']; summary=json.loads((run/'summary.json').read_text())
+            with torch.no_grad(): prediction=model(torch.tensor(data['test_t'],dtype=torch.float64)).numpy()
+            score=metrics(prediction,data['test_y'])
+            trials.append({'group':group,'trial':run.name,'layers':cfg['layers'],'seed':cfg['parameter_seed'],
+                           'input_scale':cfg.get('input_scale',1.),'start':cfg.get('start_mode','fresh'),
+                           'updates_in_run':cfg.get('additional_updates',cfg.get('steps')),'selected_update':checkpoint['step'],
+                           'boundary_weight':cfg.get('train_boundary_weight',.5 if cfg.get('augment') else 0.),
+                           'schedule':json.dumps(cfg.get('schedule',[[0,cfg['learning_rate']]])),
+                           'validation_eligible':summary.get('eligible',True),
+                           'sin_test_mse':score['sin']['mse'],'cos_test_mse':score['cos']['mse'],
+                           'loop_seconds':summary['elapsed_seconds']})
+    output.mkdir(parents=True,exist_ok=True)
+    for name,rows in (('milestones.csv',records),('experiments.csv',trials)):
+        with (output/name).open('w',newline='') as stream:
+            writer=csv.DictWriter(stream,fieldnames=list(rows[0])); writer.writeheader(); writer.writerows(rows)
+    np.savez(output/'curves.npz',**archive)
+    report={'milestones':records,'experiments':trials,'test_inputs':24,'test_used_for_selection':False,
+            'milestones_are_not_elapsed_days':True,'training_updates':0,'qpu_jobs':0}
+    (output/'progress.json').write_text(json.dumps(report,indent=2)+'\n')
+    fig,axes=plt.subplots(2,2,figsize=(13,8.5))
+    for j,name in enumerate(('Sine','Cosine')):
+        axes[0,j].plot(grid,targets(grid)[:,j],'k--',label='NumPy reference')
+        axes[0,j].plot(grid,archive['stage_0_curve'][:,j],color='gray',alpha=.7,label='Untrained one-layer circuit')
+        axes[0,j].plot(grid,archive['stage_5_curve'][:,j],color='#1668bb',label='Current five-layer circuit')
+        axes[0,j].set(title=name,xlabel='t',ylabel='Output'); axes[0,j].legend(fontsize=8); axes[0,j].grid(alpha=.2)
+    positions=np.arange(len(records))
+    for key,label in (('sin_test_mse','Sine'),('cos_test_mse','Cosine')):
+        axes[1,0].plot(positions,[r[key] for r in records],marker='o',label=label)
+    axes[1,0].set(yscale='log',ylabel='Same 24-input test MSE',xticks=positions,
+                  xticklabels=[r['milestone'] for r in records],title='Improvement across experiment milestones')
+    axes[1,0].tick_params(axis='x',labelrotation=20,labelsize=8)
+    axes[1,0].legend(fontsize=8); axes[1,0].grid(alpha=.2)
+    for name,label in (('continuation_control','Extra training'),('mirrored_training','Mirrored data'),('mirrored_rebalance','Mirrored + reweighted')):
+        with (ROOT/'results/mirror/runs'/name/'history.csv').open() as stream: rows=list(csv.DictReader(stream))
+        axes[1,1].plot([int(r['total_step']) for r in rows],[float(r['score']) for r in rows],label=label)
+    axes[1,1].axvline(records[-1]['selected_update'],color='gray',linestyle=':',label='Selected checkpoint')
+    axes[1,1].set(xlabel='Total updates on each continuation branch',ylabel='Validation score',title='Matched optimization comparison')
+    axes[1,1].legend(fontsize=8); axes[1,1].grid(alpha=.2)
+    fig.suptitle('Quantum circuit learning: measured development progress')
+    fig.text(.5,.012,'Milestones compare different experiments, not elapsed days. Fresh architectures restart; continuation restores weights and Adam state.',ha='center',fontsize=9)
+    fig.tight_layout(rect=(0,.035,1,1)); fig.savefig(output/'progress.png',dpi=150)
+    lines=['# Model improvement','', 'All rows use the same 24 reporting inputs. Models were selected using validation, never this comparison.','',
+           '| Milestone | Layers | Selected update | Sine MSE | Cosine MSE |','|---|---:|---:|---:|---:|']
+    for row in records:
+        lines.append(f'| {row["milestone"]} | {row["layers"]} | {row["selected_update"]} | {row["sin_test_mse"]:.6g} | {row["cos_test_mse"]:.6g} |')
+    lines+=['','The five-layer model started fresh. Its later continuations restored both weights and Adam moments. Independent branches are not additional sequential updates on one model.',
+            '', 'experiments.csv compares all 20 depth, boundary and mirrored-training runs, including rejected checkpoints. Loop times are archived measurements and are not a controlled cross-run speed test.',
+            '', 'Hardware evidence is separate: three frozen-model inputs on physical qubits, not hardware training or full-domain validation. See ../hardware/real_pilot/REPORT.md.','']
+    (output/'REPORT.md').write_text('\n'.join(lines))
+    print('\n'.join(lines)); print(f'Progress graph: {output / "progress.png"}')
+    if show_window: show_figure(fig,'QCL model development progress')
     plt.close(fig)
+    return report
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--no-open', action='store_true', help='Save results without opening a window')
-    parser.add_argument('--output', type=Path, default=ROOT / 'results/progress')
-    args = parser.parse_args()
-    build_progress(args.output.resolve(), not args.no_open)
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--no-open',action='store_true',help='Save results without opening a window')
+    parser.add_argument('--output',type=Path,default=ROOT/'results/progress')
+    args=parser.parse_args(); build_progress(args.output.resolve(),not args.no_open)

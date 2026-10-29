@@ -1,0 +1,41 @@
+{
+  "scope": "CPU forward + backward on identical circuit/data; no optimizer steps or QPU execution",
+  "inputs": 108,
+  "layers": 5,
+  "qubits": 2,
+  "threads": 1,
+  "repeats": 5,
+  "dtype": "float64",
+  "seconds": {
+    "scalar": [
+      1.950920599992969,
+      1.757783399996697,
+      2.3540643000014825,
+      2.1709871999919415,
+      2.1637764000042807
+    ],
+    "batched": [
+      0.018822999991243705,
+      0.015645000006770715,
+      0.018862800003262237,
+      0.016816599993035197,
+      0.04436159999750089
+    ]
+  },
+  "median_seconds": {
+    "scalar": 2.1637764000042807,
+    "batched": 0.018822999991243705
+  },
+  "observed_scalar_to_batch_ratio": 114.9538543808559,
+  "maximum_prediction_difference": 2.220446049250313e-15,
+  "maximum_gradient_difference": 1.1352951998638838e-16,
+  "checkpoint_sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79",
+  "versions": {
+    "pennylane": "0.45.1",
+    "torch": "2.15.0",
+    "numpy": "2.5.4"
+  },
+  "model_weights_unchanged": true,
+  "training_updates": 0,
+  "qpu_jobs": 0
+}
