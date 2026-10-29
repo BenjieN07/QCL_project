@@ -17,3 +17,11 @@ The proposed pilot is three inputs, -1, 0 and 1, at 1024 shots each: 3072 shots 
 The three pilot circuits are separately packaged in `results/hardware/pilot.qpy`, with their expected outputs and checkpoint fingerprint in `pilot_manifest.json`. Rebuild and verify them with `.\.venv\Scripts\python.exe -m qcl.hardware --prepare-pilot`. For the smaller target-compilation preflight, use `.\.venv\Scripts\python.exe ibm_preflight.py --backend YOUR_BACKEND_NAME --pilot`. This verifies the pilot still matches the active checkpoint before compiling it; it does not submit or estimate an unverified quota.
 
 Review the results in `results/mirror/evaluation/REPORT.md`, run `view_model.py` for the current exact prediction graph, and inspect `results/hardware/shot_benchmark.png` for the separate ideal-shot comparison. Nothing in these commands runs hardware training.
+
+## Authorized three-input pilot
+
+`python -m qcl.ibm_pilot --prepare` checks the frozen checkpoint, actual ibm_fez target, output mapping, current allowance and timing estimate. It writes a reviewable plan under `results/hardware/real_pilot/`. The compiled circuit is reduced to its two active physical wires for exact equivalence checking. Target timings and the backend repetition delay provide a baseline estimate with an allowance of two seconds overhead per circuit; actual usage can differ. See [IBM workload usage](https://quantum.cloud.ibm.com/docs/en/guides/estimate-job-run-time).
+
+`--submit` submits exactly one job containing three circuits and 1,024 shots per circuit, with a 60-second maximum execution time, no session, no twirling and no dynamical decoupling. This is for the pilot the user explicitly authorized; it is not an instruction to run additional experiments. A submission marker and saved job receipt prevent accidental duplicate submissions. If submission is interrupted, investigate the existing workload before retrying. No automatic resubmission occurs.
+
+`--retrieve` checks the existing job and, once done, saves its two-bit counts, measured outputs, deviation from exact QCL/NumPy and actual usage. It does not block waiting for the queue and does not submit anything. Credentials stay in the ignored local files. This experiment evaluates fixed trained angles on real hardware; it performs zero hardware training updates.

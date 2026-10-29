@@ -1,0 +1,62 @@
+{
+  "backend": "ibm_fez",
+  "real_hardware": true,
+  "inputs": [
+    -1,
+    0,
+    1
+  ],
+  "circuits": 3,
+  "shots_per_circuit": 1024,
+  "total_shots": 3072,
+  "model_update": 4288,
+  "checkpoint_sha256": "b04b871dd98874d4901f5c6d184d214fba10b363e48357884a49c5c36d683c79",
+  "physical_qubits_by_output": [
+    [
+      143,
+      144
+    ],
+    [
+      143,
+      144
+    ],
+    [
+      143,
+      144
+    ]
+  ],
+  "compiled_circuit_sha256": "954bbec3d4550ce723cbbbb9e38132e2218abb335b0156d7242ee06b23ee658a",
+  "compiled_output_equivalence_checked": true,
+  "gate_time_sum_plus_reset_seconds": [
+    5.544000000000001e-06,
+    5.544000000000001e-06,
+    5.544000000000001e-06
+  ],
+  "default_rep_delay_seconds": 0.00025,
+  "conservative_baseline_estimate_seconds": 6.785031168,
+  "estimate_is_not_a_billing_guarantee": true,
+  "max_execution_time_seconds": 60,
+  "usage_before": {
+    "usage_consumed_seconds": 6,
+    "usage_consumed_ru": 0.09699,
+    "usage_limit_seconds": 600,
+    "usage_limit_ru": 10.0002,
+    "usage_allocation_seconds": 600,
+    "usage_allocation_ru": 10.0002,
+    "usage_remaining_seconds": 594
+  },
+  "options": {
+    "max_execution_time": 60,
+    "dynamical_decoupling": {
+      "enable": false
+    },
+    "twirling": {
+      "enable_gates": false,
+      "enable_measure": false
+    },
+    "execution": {
+      "init_qubits": true
+    }
+  },
+  "authorization": "User instructed proceeding on real hardware after the described three-input pilot."
+}

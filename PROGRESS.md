@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## IBM access and real-target pilot preparation — 2026-10-29
+
+Read-only authentication now succeeds using the ignored local files. IBM reports 600 allocated seconds, 6 consumed and 594 remaining; operational backends include ibm_fez, ibm_kingston and ibm_marrakesh. Prepared the previously described, user-authorized three-input pilot on ibm_fez, physical qubits 143/144, compiled depth 20 and three CZ gates per input. Estimated baseline use is 6.785 seconds using target gate/reset timings, default 250-microsecond repetition delay, 3,072 shots and six seconds overhead allowance. This estimate is not a billing guarantee. Execution cap is 60 seconds, below the verified allowance. No job has been submitted at this preparation checkpoint. Added duplicate-submission prevention and nonblocking retrieval; no hardware training is involved.
+
+All 19 tests passed, including synthetic known-count output mapping and nonblocking queued-job handling. The first new-test run encountered an unwritable operating-system temporary directory; fixtures now use the ignored project .tmp directory. Actual compiled physical-wire outputs were checked against the frozen model within 1e-12, and Sampler options validated with the installed SDK. Synthetic test receipts are temporary fixtures, not real hardware evidence.
+
 ## IBM access recheck — 2026-10-29
 
 Updated local credential files are nonempty, the API value is no longer an ApiKey identifier, and the CRN passes the basic prefix/field checks. The read-only preflight reached an account-discovery failure: InvalidAccountError caused by an IBM ApiException with HTTP 400, including on retry with network access. This does not establish a valid account, available backends or remaining quota. Added sanitized stage/error-type/HTTP-code diagnostics without provider messages, credential contents or request details. No credentials committed, no model updates and zero QPU jobs. Further hardware work requires resolving the API secret/instance access error.
