@@ -1,5 +1,11 @@
 # Progress and review gates
 
+## Mirrored training and hardware preparation — checkpoint 2
+
+Optional Qiskit 2.5.2 and IBM Runtime 0.47.0 installed; pip dependency check passed. Seventeen tests passed, including circuit equivalence at depths 1/3/5 with broad rotation angles and explicit measurement bit mapping. Added offline joint-shot sampling, measured QPY export, artifact auditing, and hidden-entry IBM access/target-compilation preflight. The preflight does not save accounts or credentials and contains no submission operation. No IBM authentication or QPU execution has occurred. Added a separate optional environment lock; core requirements remain unchanged.
+
+Continuation control completed all 1,500 additional updates, selecting update 4,500 with symmetric/collar score 0.00113076346. Mirrored training with unchanged boundary weight completed, selecting update 4,500 with score 0.00109369426. Its original validation sine/cosine MSE is 0.00058423243/0.00148641315, both improved from the update-3,000 source. The weighting branch and independent post-selection evaluation are pending at this checkpoint; these validation findings are not fresh-test results.
+
 ## Mirrored training and hardware preparation — 2026-10-29, checkpoint 1
 
 User authorized the next model-improvement step and preparation toward real hardware. Declared three same-model branches from update 3,000 to 4,500: continuation control; mirrored main training inputs (96 unique points), same boundary weight 0.5; mirrored data with boundary weight 0.25. Same five-layer two-qubit circuit, scale 0.9, seed 41, Adam state, and rate 0.003. All runs share original/reflected validation plus collar validation. Per-output original-validation MSE and boundary-error guards protect prior progress. New holdout remains unread until checkpoints/selection are committed. Fifteen tests passed, including mirror symmetry/data-role separation and source eligibility. See results/mirror/PROTOCOL.md.

@@ -87,7 +87,46 @@ def benchmark():
     print(json.dumps(report,indent=2))
 
 
+def audit():
+    root=Path('results/hardware')
+    report=json.loads((root/'offline_report.json').read_text())
+    assert report['qpu_jobs']==0 and report['real_backend_verified'] is False
+    path=Path(report['checkpoint'])
+    assert hashlib.sha256(path.read_bytes()).hexdigest()==report['sha256']
+    registry=json.loads(Path('results/current_model.json').read_text())
+    assert path.resolve()==(Path(registry['run'])/'best.pt').resolve()
+    checkpoint=torch.load(path,weights_only=True)
+    model=QCLModel(5,41,.9); model.load_state_dict(checkpoint['model_state_dict'])
+    with (root/'circuits.qpy').open('rb') as stream:
+        circuits=qpy.load(stream)
+    with np.load(root/'shot_samples.npz') as saved:
+        ts=saved['t']; assert len(circuits)==len(ts)==9
+        np.testing.assert_allclose(saved['target'],targets(ts),atol=0,rtol=0)
+        with torch.no_grad():
+            exact=model(torch.tensor(ts,dtype=torch.float64)).numpy()
+        np.testing.assert_allclose(saved['exact'],exact,atol=1e-12,rtol=0)
+        rng=np.random.default_rng(20261102)
+        probabilities=[]
+        for circuit,expected in zip(circuits,exact):
+            measures=[item for item in circuit.data if item.operation.name=='measure']
+            assert [(circuit.find_bit(item.qubits[0]).index,circuit.find_bit(item.clbits[0]).index) for item in measures]==[(0,0),(1,1)]
+            p=Statevector.from_instruction(circuit.remove_final_measurements(inplace=False)).probabilities()
+            probabilities.append(p)
+            np.testing.assert_allclose(z_outputs(p),expected,atol=1e-12,rtol=0)
+        np.testing.assert_allclose(saved['probabilities'],probabilities,atol=1e-12,rtol=0)
+        for row in report['shot_benchmarks']:
+            shots=row['shots']
+            sampled=np.stack([z_outputs(rng.multinomial(shots,p,size=50)/shots) for p in saved['probabilities']],axis=1)
+            np.testing.assert_array_equal(sampled,saved[f'samples_{shots}'])
+            np.testing.assert_allclose(np.sqrt(np.mean((sampled-exact)**2,axis=(0,1))),row['rmse_from_exact'],atol=1e-12,rtol=0)
+            np.testing.assert_allclose(np.sqrt(np.mean((sampled-targets(ts))**2,axis=(0,1))),row['rmse_from_target'],atol=1e-12,rtol=0)
+    (root/'audit.json').write_text(json.dumps({'passed':True,'circuits':9,'sampling_repeats_per_budget':50,'budgets':[256,1024,4096],'qpu_jobs':0},indent=2)+'\n')
+    print('Hardware artifact audit passed: circuit mapping, exact outputs, deterministic sampling and metrics.')
+
+
 if __name__=='__main__':
-    argparse.ArgumentParser(description=__doc__).parse_args()
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--audit-only',action='store_true')
+    args=parser.parse_args()
     torch.set_num_threads(1)
-    benchmark()
+    audit() if args.audit_only else benchmark()

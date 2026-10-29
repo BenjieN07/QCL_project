@@ -22,6 +22,12 @@ This opens `results/progress/progress.png` and saves its underlying curves and m
 
 ## Review checkpoints
 
+### Mirrored training and hardware preparation
+
+The controlled continuation study is specified in `results/mirror/PROTOCOL.md`. After its checkpoint selection is frozen, `results/mirror/evaluation/REPORT.md` compares all branches on a new stratified holdout. `results/mirror/evaluation/comparison.png` shows before/after curves and signed errors; `training_comparison.png` shows the three training histories.
+
+Run `.\review-mirror.ps1` to audit the saved continuation states, checkpoint selection, evaluation and offline shot results without retraining. Optional hardware dependencies are required for the export audit. See [HARDWARE.md](HARDWARE.md) for the hidden-entry read-only IBM preflight and the proposed three-input pilot. No QPU job is submitted by these tools.
+
 ### Investigate current error peaks without training
 
 ```powershell

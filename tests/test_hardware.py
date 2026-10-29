@@ -1,8 +1,13 @@
 import unittest
 import numpy as np
 import torch
-from qiskit.quantum_info import Statevector
-from qcl.hardware import export_circuit,z_outputs
+try:
+    from qiskit.quantum_info import Statevector
+    from qcl.hardware import export_circuit,z_outputs
+except ModuleNotFoundError as exc:
+    if exc.name != 'qiskit':
+        raise
+    raise unittest.SkipTest('Install requirements-hardware.txt for optional export checks')
 from qcl.model import QCLModel
 
 
